@@ -40,7 +40,7 @@ export class UserMap extends Mapper<User> {
     }, new UniqueEntityID(raw.domainId))
 
     userOrError.isFailure ? console.log(userOrError.error) : '';
-    
+
     return userOrError.isSuccess ? userOrError.getValue() : null;
   }
 
