@@ -76,7 +76,7 @@ constructor(
 
   async findById(buildingId: BuildingId | string): Promise<Building> {
 
-    const idX = buildingId instanceof UserId ? (<UserId>buildingId).id.toValue() : buildingId;
+    const idX = buildingId instanceof BuildingId ? (<BuildingId>buildingId).id.toValue() : buildingId;
 
     const query = {domainId: idX};
     const buildingRecord = await this.buildingSchema.findOne(query);

@@ -16,7 +16,11 @@ export default (app:Router) => {
   route.post('',
     celebrate({
       body: Joi.object({
-        name: Joi.string().required()
+        name: Joi.string().required(),
+        description: Joi.string().required(),
+        dimension: Joi.string().required(),
+        code: Joi.string().required()
+
       })
     }),
     (req, res, next) => ctrl.createBuilding(req, res, next) );
@@ -25,7 +29,10 @@ export default (app:Router) => {
     celebrate({
       body: Joi.object({
         id: Joi.string().required(),
-        name: Joi.string().required()
+        name: Joi.string().required(),
+        description: Joi.string().required(),
+        dimension: Joi.string().required(),
+        code: Joi.string().required()
       }),
     }),
     (req, res, next) => ctrl.updateBuilding(req, res, next) );

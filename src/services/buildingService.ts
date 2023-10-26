@@ -62,6 +62,9 @@ export default class BuildingService implements IBuildingService{
       }
       else {
         building.props.name = buildingDTO.name;
+        building.props.description = buildingDTO.description;
+        building.props.dimension = buildingDTO.dimension;
+        building.props.code = buildingDTO.code;
         await this.buildingRepo.save(building);
 
         const buildingDTOResult = BuildingMap.toDTO( building ) as IBuildingDTO;
