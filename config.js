@@ -59,6 +59,11 @@ export default {
     floor: {
       name: "FlorController",
       path: "../repos/floorController"
+    },
+
+    elevator: {
+      name: "ElevatorController",
+      path: "../repos/elevatorController"
     }
 
   },
@@ -86,6 +91,11 @@ export default {
     floor: {
       name: "FloorRepo",
       path: "../repos/floorRepo"
+    },
+
+    elevator: {
+      name: "ElevatorRepo",
+      path: "../repos/elevatorRepo"
     }
   },
 
@@ -102,13 +112,18 @@ export default {
 
     robot: {
       name: "RobotService",
-      path: "../repos/robotService"
+      path: "../services/robotService"
     },
 
     floor: {
       name: "FloorService",
-      path: "../repos/floorService"
-    }
+      path: "../services/floorService"
+    },
 
+
+    elevator: {
+      name: "ElevatorService",
+      path: "../services/elevatorService"
+    }
   },
 };

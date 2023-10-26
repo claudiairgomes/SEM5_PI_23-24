@@ -1,20 +1,26 @@
 import { Service, Inject } from 'typedi';
 
-import { Document, Model } from 'mongoose';
+import {Document, FilterQuery, Model} from 'mongoose';
 import { IBuildingPersistence } from '../dataschema/IBuildingPersistence';
 
 import IBuildingRepo from "../services/IRepos/IBuildingRepo";
 import {Building} from "../domain/building";
 import {BuildingId} from "../domain/buildingId";
 import {BuildingMap} from "../mappers/BuildingMap";
-import {UserId} from "../domain/userId";
-import {UserMap} from "../mappers/UserMap";
 
 @Service()
 export default class BuildingRepo implements IBuildingRepo{
-  findByDomainId(buildingId: BuildingId | string): Promise<Building> {
-    return Promise.resolve(undefined);
-  }
+
+  /*  public async findByDomainId (roleId: RoleId | string): Promise<Role> {
+    const query = { domainId: roleId};
+    const roleRecord = await this.roleSchema.findOne( query as FilterQuery<IRolePersistence & Document> );
+
+    if( roleRecord != null) {
+      return RoleMap.toDomain(roleRecord);
+    }
+    else
+      return null;
+  }*/
 
 private models: any;
 
@@ -74,7 +80,7 @@ constructor(
     } else return null;
   }
 
-  async findById(buildingId: BuildingId | string): Promise<Building> {
+  /*async findById(buildingId: BuildingId | string): Promise<Building> {
 
     const idX = buildingId instanceof BuildingId ? (<BuildingId>buildingId).id.toValue() : buildingId;
 
@@ -87,6 +93,21 @@ constructor(
       return null;
 
   }
+
+   */
+
+  findByDomainId(buildingId: BuildingId | string): Promise<Building> {
+    const query = { domainId: buildingId};
+    const businessRecord = this.buildingSchema.findOne( query as FilterQuery<IBuildingPersistence & Document> );
+
+    if( businessRecord != null) {
+      return BuildingMap.toDomain(businessRecord);
+    }
+    else
+      return null;
+    console.log("Building doesn't exist");
+  }
+
 
   async findAll(){
   try{

@@ -9,6 +9,7 @@ import IBuildingRepo from "./IRepos/IBuildingRepo";
 import {Building} from "../domain/building";
 import {BuildingMap} from "../mappers/BuildingMap";
 import BuildingRepo from "../repos/buildingRepo";
+import {sortedUniq} from "lodash";
 
 @Service()
 export default class BuildingService implements IBuildingService{
@@ -55,6 +56,7 @@ export default class BuildingService implements IBuildingService{
   }
 
   public async updateBuilding(buildingDTO: IBuildingDTO): Promise<Result<IBuildingDTO>> {
+
     try {
       const building = await this.buildingRepo.findByDomainId(buildingDTO.id);
 
