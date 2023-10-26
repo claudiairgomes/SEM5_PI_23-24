@@ -5,27 +5,27 @@ const BuildingSchema = new mongoose.Schema(
   {
     domainId: { type: String, unique: true },
     name: {
-      type: String,
-      required: [true, 'Please enter building name'],
-      index: true,
+      type: String
+      //, required: [true, 'Please enter building name'],
+      //index: true,
     },
 
     description: {
-      type: String,
-      required: [false, 'Enter description (optional)'],
-      index: true,
+      type: String
+     // ,required: [false, 'Enter description (optional)'],
+      //index: true,
     },
 
     dimensions: {
-      type: String,
-      required: [true, 'Please enter building dimensions'],
-      index: true,
+      type: String
+      //,required: [true, 'Please enter building dimensions'],
+      //index: true,
     },
 
     code: {
-      type: String,
-      required: [true, 'Please enter building code'],
-      index: true,
+      type: String
+      //,required: [true, 'Please enter building code'],
+      //index: true,
     },
   },
   {
