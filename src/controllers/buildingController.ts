@@ -10,6 +10,7 @@ import {Result} from "../core/logic/Result";
 import IRoleService from "../services/IServices/IRoleService";
 import IBuildingController from "./IControllers/IBuildingController";
 import IBuildingService from "../services/IServices/IBuildingService";
+import BuildingService from "../services/buildingService";
 @Service()
 export default class BuildingController implements IBuildingController /* TODO: extends ../core/infra/BaseController */ {
   constructor(
@@ -47,4 +48,32 @@ export default class BuildingController implements IBuildingController /* TODO: 
       return next(e);
     }
   };
+
+/*  public async getBuildings(req: Request, res: Response, next: NextFunction){
+
+
+    const buildings = await BuildingService.getAllBuildings();
+
+    // Send the buildings as a response
+    res.json(buildings);
+
+  }
+
+ */
+  public async getBuildings(req: Request, res: Response, next: NextFunction) {
+    try {
+      const buildings = await this.buildingServiceInstance.getAllBuildings();
+
+      if (!buildings || buildings.length === 0) {
+        // Return an appropriate response if there are no buildings
+        return res.status(404).json({ message: 'No buildings found' });
+      }
+
+      return res.status(200).json(buildings);
+    } catch (error) {
+      // Handle any errors that may occur during the process
+      console.error('Error while fetching buildings:', error);
+      return res.status(500).json({ message: 'Internal server error' });
+    }
+  }
 }

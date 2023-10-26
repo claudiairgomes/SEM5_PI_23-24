@@ -88,6 +88,17 @@ constructor(
 
   }
 
+  async findAll(){
+  try{
+    //const buildingRecords = await this.buildingSchema.find();
+    return await this.buildingSchema.find();
+  }catch (e){
+    throw e;
+  }
+
+    //return buildingRecords.map((record) => BuildingMap.toDomain(record));
+  }
+
 }
 
 

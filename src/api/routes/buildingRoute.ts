@@ -13,7 +13,7 @@ export default (app:Router) => {
 
   const ctrl = Container.get(config.controllers.building.name) as IBuildingController;
 
-  route.post('',
+  route.post('create',
     celebrate({
       body: Joi.object({
         name: Joi.string().required(),
@@ -25,7 +25,7 @@ export default (app:Router) => {
     }),
     (req, res, next) => ctrl.createBuilding(req, res, next) );
 
-  route.put('',
+  route.put('update',
     celebrate({
       body: Joi.object({
         id: Joi.string().required(),
@@ -36,5 +36,13 @@ export default (app:Router) => {
       }),
     }),
     (req, res, next) => ctrl.updateBuilding(req, res, next) );
+
+
+  route.get(
+    '/findAll',
+    (req, res, next) => ctrl.getBuildings(req, res, next)
+  );
+
+  //  route.get('/me', middlewares.isAuth, middlewares.attachCurrentUser, user_controller.getMe);
 
 }

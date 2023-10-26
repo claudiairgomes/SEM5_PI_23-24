@@ -8,6 +8,7 @@ import config from "../../config";
 import IBuildingRepo from "./IRepos/IBuildingRepo";
 import {Building} from "../domain/building";
 import {BuildingMap} from "../mappers/BuildingMap";
+import BuildingRepo from "../repos/buildingRepo";
 
 @Service()
 export default class BuildingService implements IBuildingService{
@@ -72,6 +73,23 @@ export default class BuildingService implements IBuildingService{
       }
     } catch (e) {
       throw e;
+    }
+  }
+
+
+  public async getAllBuildings() {
+    try {
+      // Implement the logic to retrieve a list of all buildings from your data source
+      // For example, if you have a BuildingRepository, you can call a method like getAllBuildings from there
+
+      const buildings = await this.buildingRepo.findAll();
+
+      // Return the list of building DTOs
+      return Result.ok<IBuildingDTO[]>(buildings);
+    } catch (error) {
+      // Handle any errors, log them, and return a Result indicating failure
+      console.error('Error while fetching buildings:', error);
+      return Result.fail('Failed to fetch buildings');
     }
   }
 }
