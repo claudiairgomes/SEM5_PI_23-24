@@ -1,7 +1,7 @@
 import { AggregateRoot } from "../core/domain/AggregateRoot";
 import { UniqueEntityID } from "../core/domain/UniqueEntityID";
-import { Result } from "../core/logic/Result";
 import { RobotId } from "./robotId";
+import { Result } from "../core/logic/Result";
 import { Guard } from "../core/logic/Guard";
 
 
@@ -68,6 +68,7 @@ export class Robot extends AggregateRoot<RobotProps> {
         ...props
       }, id);
 
+      return Result.ok<Robot>(robot);
     }
   }
 }

@@ -8,17 +8,15 @@ const ElevatorSchema = new mongoose.Schema(
 
   {
 
-
-
     domainId: { type: String, unique: true },
     building: {
-      type: Building
+      type: String//Building
       //, required: [true, 'Please enter building name'],
       //index: true,
     },
 
     floorList: {
-      type: [Floor]
+      type: String//[Floor]
     },
 
     brand: {

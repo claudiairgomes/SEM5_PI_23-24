@@ -1,4 +1,4 @@
-import { Container } from 'typedi';
+
 
 import { Mapper } from "../core/infra/Mapper";
 
@@ -11,6 +11,8 @@ import RoleRepo from "../repos/roleRepo";
 export class RobotMap extends Mapper<Robot> {
 
   public static toDTO( robot: Robot): IRobotDTO {
+
+
     return {
       //id: robot.id.toString(),
       codRobot: robot.codRobot,
@@ -22,8 +24,8 @@ export class RobotMap extends Mapper<Robot> {
   }
 
   public static async toDomain (raw: any): Promise<Robot> {
-    const repo = Container.get(RoleRepo);
-    const role = await repo.findByDomainId(raw.role);
+    //const repo = Container.get(RoleRepo);
+    //const role = await repo.findByDomainId(raw.role);
 
     const robotOrError = Robot.create({
       codRobot: raw.codRobot,

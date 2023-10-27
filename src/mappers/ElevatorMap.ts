@@ -2,6 +2,7 @@ import {Mapper} from "../core/infra/Mapper";
 import {Elevator} from "../domain/elevator";
 import {IElevatorDTO} from "../dto/IElevatorDTO";
 import {UniqueEntityID} from "../core/domain/UniqueEntityID";
+import {IElevatorDTObeta} from "../dto/IElevatorDTObeta";
 
 export class ElevatorMap extends Mapper<Elevator>{
 
@@ -17,6 +18,21 @@ export class ElevatorMap extends Mapper<Elevator>{
     }as IElevatorDTO
 
   }
+
+/*  public static toDTObeta(elevator: Elevator): IElevatorDTObeta {
+    return {
+      id: elevator.id.toString(),
+      building: elevator.building,
+      floorList: elevator.floorList,
+      brand: elevator.brand,
+      model: elevator.model,
+      serialNumber: elevator.serialNumber,
+      description: elevator.description,
+    }as IElevatorDTObeta
+
+  }
+
+ */
 
   public static async toDomain (raw: any): Promise<Elevator> {
 

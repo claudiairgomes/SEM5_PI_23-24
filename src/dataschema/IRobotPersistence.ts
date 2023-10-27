@@ -1,6 +1,5 @@
 export interface IRobotPersistence {
-
-  _id: string;
+  domainId: string;
   codRobot: string;
   nickname: string;
   type: string;

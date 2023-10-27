@@ -38,6 +38,10 @@ export class Elevator extends AggregateRoot<ElevatorProps> {
     return this.props.floorList;
   }
 
+  setFloorList(floorList: Floor[]): void {
+    this.props.floorList = floorList;
+  }
+
   get brand(): string {
     return this.props.brand;
   }

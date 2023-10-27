@@ -13,7 +13,7 @@ export default (app:Router) => {
 
   const ctrl = Container.get(config.controllers.building.name) as IBuildingController;
 
-  route.post('/create',
+  route.post('',
     celebrate({
       body: Joi.object({
         name: Joi.string().required(),
@@ -25,7 +25,7 @@ export default (app:Router) => {
     }),
     (req, res, next) => ctrl.createBuilding(req, res, next) );
 
-  route.put('/update',
+  route.put('',
     celebrate({
       body: Joi.object({
         id: Joi.string().required(),

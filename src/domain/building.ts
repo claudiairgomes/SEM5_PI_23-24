@@ -3,7 +3,7 @@ import {UniqueEntityID} from "../core/domain/UniqueEntityID";
 import {BuildingId} from "./buildingId";
 import {Result} from "../core/logic/Result";
 import {Guard} from "../core/logic/Guard";
-import {Floor} from "./floor";
+
 
 
 interface BuildingProps{

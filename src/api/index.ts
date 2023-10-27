@@ -3,6 +3,12 @@ import auth from './routes/userRoute';
 import user from './routes/userRoute';
 import role from './routes/roleRoute';
 import building from './routes/buildingRoute';
+import elevator from './routes/elevatorRoute';
+import floor from './routes/floorRoute';
+import robot from './routes/robotRoute';
+
+
+
 
 export default () => {
 	const app = Router();
@@ -11,5 +17,8 @@ export default () => {
 	user(app);
 	role(app);
 	building(app);
+  elevator(app);
+  floor(app);
+  robot(app);
 	return app
 }

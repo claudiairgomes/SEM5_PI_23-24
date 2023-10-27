@@ -112,8 +112,8 @@ export default async ({ expressApp }) => {
   }
 
   const elevatorService = {
-    name: config.services.building.name,
-    path: config.services.building.path
+    name: config.services.elevator.name,
+    path: config.services.elevator.path
   }
 
   const floorService = {
@@ -125,6 +125,7 @@ export default async ({ expressApp }) => {
     name: config.services.robot.name,
     path: config.services.robot.path
   }
+
 
   await dependencyInjectorLoader({
     mongoConnection,

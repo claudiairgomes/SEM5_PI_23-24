@@ -1,8 +1,7 @@
 import {Response, Request, NextFunction} from 'express';
-
 import {Container, Inject, Service} from 'typedi';
-
 import config from '../../config';
+
 import IBuildingRepo from "../services/IRepos/IBuildingRepo";
 import {BuildingMap} from "../mappers/BuildingMap";
 import {IBuildingDTO} from "../dto/IBuildingDTO";

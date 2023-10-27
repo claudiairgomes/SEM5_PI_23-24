@@ -1,17 +1,25 @@
+
+import {Inject, Service} from "typedi";
 import IElevatorService from "./IServices/IElevatorService";
 import {IElevatorDTO} from "../dto/IElevatorDTO";
 import {Result} from "../core/logic/Result";
-import {Inject, Service} from "typedi";
-
 import config from "../../config";
+
 import {Building} from "../domain/building";
 import IElevatorRepo from "./IRepos/IElevatorRepo";
 import {ElevatorMap} from "../mappers/ElevatorMap";
 import {Elevator} from "../domain/elevator";
+import {IElevatorDTObeta} from "../dto/IElevatorDTObeta";
+import {Floor} from "../domain/floor";
+import {forEach} from "lodash";
+import IFloorRepo from "./IRepos/IFloorRepo";
+import IBuildingRepo from "./IRepos/IBuildingRepo";
 @Service()
 export default class ElevatorService implements IElevatorService{
   constructor(
-    @Inject(config.repos.elevator.name) private elevatorRepo : IElevatorRepo
+    @Inject(config.repos.elevator.name) private elevatorRepo : IElevatorRepo,
+    @Inject(config.repos.floor.name) private floorRepo : IFloorRepo,
+    @Inject(config.repos.building.name) private buildingRepo : IBuildingRepo
   ) {}
 
   public async getBuilding( elevatorId: string): Promise<Result<IElevatorDTO>> {
@@ -31,8 +39,10 @@ export default class ElevatorService implements IElevatorService{
   }
 
 
-  public async createElevator(elevatorDTO: IElevatorDTO): Promise<Result<IElevatorDTO>> {
+  public async createElevator(elevatorDTObeta: IElevatorDTObeta): Promise<Result<IElevatorDTO>> {
     try {
+
+      const elevatorDTO: IElevatorDTO = await this.turnDTObetaToDTO(elevatorDTObeta);
 
       const elevatorOrError = await Elevator.create( elevatorDTO );
 
@@ -94,4 +104,61 @@ export default class ElevatorService implements IElevatorService{
       return Result.fail('Failed to fetch elevators');
     }
   }
+
+
+  async getFloorsByIds(floorIds: string[]): Promise<Floor[]> {
+    // Implements the logic to query the database and retrieve floors based on the provided IDs
+    const newFloorList: Floor[]=[];
+
+    try{
+      for (let floorId of floorIds) {
+       newFloorList.push( await this.floorRepo.findByDomainId(floorId));
+    }
+
+    }catch (e){
+      throw e;
+    }
+
+    // Returns an array of Floor objects
+    return newFloorList;
+  }
+
+
+  async associateFloorsWithElevator(elevator: Elevator, floorIds: string[]): Promise<Elevator> {
+
+    // Use the getFloorsByIds method to fetch the Floor objects based on the provided IDs
+    const floors = await this.getFloorsByIds(floorIds);
+
+    // Assuming that 'elevator' has a property 'floors' to store the list of floors
+    // Set the 'floors' property of the 'elevator' to the fetched 'floors'
+    elevator.setFloorList(floors);
+
+    // Save the updated 'elevator' to your data source (e.g., a database) if necessary
+    return elevator;
+  }
+
+  async turnDTObetaToDTO(elevatorDTObeta: IElevatorDTObeta): Promise<IElevatorDTO> {
+
+    // Use the getFloorsByIds method to fetch the Floor objects based on the provided IDs
+    //await this.floorRepo.findByDomainId(floorId)
+    const elevatorDTO: IElevatorDTO= null;
+
+    const building = await this.buildingRepo.findByDomainId(elevatorDTObeta.building);
+    const floors = await this.getFloorsByIds(elevatorDTObeta.floorList);
+
+    elevatorDTO.building= building;
+    elevatorDTO.floorList= floors;
+    elevatorDTO.brand= elevatorDTObeta.brand;
+    elevatorDTO.model= elevatorDTObeta.model;
+    elevatorDTO.serialNumber= elevatorDTObeta.serialNumber;
+    elevatorDTO.description= elevatorDTObeta.description;
+
+
+
+    // Save the updated 'elevator' to your data source (e.g., a database) if necessary
+    return elevatorDTO;
+  }
+
+
+
 }

@@ -1,6 +1,6 @@
 import { Service, Inject } from 'typedi';
 
-import { Document, Model } from 'mongoose';
+import {Document, FilterQuery, Model} from 'mongoose';
 import { IRobotPersistence } from '../dataschema/IRobotPersistence';
 
 import IRobotRepo from "../services/IRepos/IRobotRepo";
@@ -16,8 +16,8 @@ export default class RobotRepo implements IRobotRepo {
   private models: any;
 
   constructor(
-    @Inject('RobotSchema') private RobotSchema : Model<IRobotPersistence & Document>,
-    @Inject('logger') private logger
+    @Inject('robotSchema') private RobotSchema : Model<IRobotPersistence & Document>,
+  //  @Inject('logger') private logger
   ) { }
 
   private createBaseQuery (): any {

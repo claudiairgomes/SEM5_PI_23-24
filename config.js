@@ -53,17 +53,17 @@ export default {
 
     robot: {
       name: "RobotController",
-      path: "../repos/robotController"
+      path: "../controllers/robotController"
     },
 
     floor: {
       name: "FlorController",
-      path: "../repos/floorController"
+      path: "../controllers/floorController"
     },
 
     elevator: {
       name: "ElevatorController",
-      path: "../repos/elevatorController"
+      path: "../controllers/elevatorController"
     }
 
   },
