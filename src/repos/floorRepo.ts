@@ -51,6 +51,7 @@ export default class FloorRepo implements IFloorRepo{
       } else {
 
         floorDocument.buildingId= floor.buildingId;
+        floorDocument.floorNumber=floor.floorNumber;
         floorDocument.description = floor.description;
         await floorDocument.save();
 

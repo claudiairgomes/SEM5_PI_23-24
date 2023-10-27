@@ -8,6 +8,8 @@ import {BuildingId} from "./buildingId";
 
 interface FloorProps {
   buildingId: string;
+
+  floorNumber: number;
   description: string;
 }
 
@@ -23,7 +25,9 @@ export class Floor extends AggregateRoot<FloorProps> {
   get buildingId (): string {
     return this.props.buildingId
   }
-
+  get floorNumber (): number {
+    return this.props.floorNumber
+  }
   get description (): string {
     return this.props.description;
   }
@@ -36,6 +40,7 @@ export class Floor extends AggregateRoot<FloorProps> {
 
     const guardedProps = [
       { argument: props.buildingId, argumentName: 'buildingId' },
+      { argument: props.floorNumber, argumentName: 'floorNumber' },
       { argument: props.description, argumentName: 'description' }
     ];
 

@@ -10,6 +10,10 @@ const floorSchema = new mongoose.Schema(
       index: true,
     },
 
+    floorNumber: {
+      type: Number,
+      required: [true, 'Please enter floor number'],
+    },
     description: {
       type: String,
       required: [false, 'Enter description (optional)'],

@@ -17,6 +17,7 @@ export default (app:Router) => {
     celebrate({
       body: Joi.object({
         buildingId: Joi.string().required(),
+        floorNumber: Joi.number().required(),
         description: Joi.string().required(),
       })
     }),
@@ -27,6 +28,7 @@ export default (app:Router) => {
       body: Joi.object({
         id: Joi.string().required(),
         buildingId: Joi.string().required(),
+        floorNumber: Joi.number().required(),
         description: Joi.string().required(),
       }),
     }),
