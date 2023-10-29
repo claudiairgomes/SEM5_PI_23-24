@@ -1,0 +1,24 @@
+@startuml
+
+autonumber
+
+Actor User
+activate User
+User -> SPA : Get a list of all the buildings
+
+activate SPA
+
+SPA -> Building : GET/buildings/findAll
+activate Building
+
+Building --> SPA : status code
+deactivate Building
+
+alt successfull case
+    SPA --> User : Returns requested list
+else failure
+    SPA --> User : Does not return requested list
+end
+
+
+@enduml

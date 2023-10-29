@@ -1,0 +1,22 @@
+@startuml
+skinparam Monochrome true
+skinparam PackageStyle rectangle
+skinparam Shadowing false
+
+title Sequence Diagram: US150
+
+actor "User" as User
+participant "UI" as UI
+
+activate User
+User -> UI : 1 : Initiates floor creation process
+activate UI
+UI --> User : 1.1 : Requests data (floorNumber, buildingId, description)
+deactivate UI
+User -> UI : 2 : Inserts the requested data
+activate UI
+UI --> User : 2.1 : Displays success confirmation and the information of the created floor
+
+deactivate UI
+
+@enduml

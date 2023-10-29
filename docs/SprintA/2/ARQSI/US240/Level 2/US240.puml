@@ -1,0 +1,34 @@
+@startuml
+
+skinparam Monochrome true
+skinparam PackageStyle rectangle
+skinparam Shadowing false
+
+title Sequence Diagram: US150
+
+actor "User" as User
+participant "SPA" as SPA
+participant "Passage" as Passage
+
+activate User
+
+User -> SPA : Asks to create a passafe
+activate SPA
+SPA -> User: Requests passage data (fromFloorId, toFloorId, description)
+User -> SPA: Inserts requested data
+
+SPA -> Passage: POST/ passage{fromFloorId, toFloorId, description}
+activate Passage
+Passage -> SPA: Status code
+deactivate
+
+alt successfull case
+SPA -> User: Passage is created successfully
+else failure case
+SPA -> User: Passage is not created
+end
+
+@enduml
+
+
+@enduml

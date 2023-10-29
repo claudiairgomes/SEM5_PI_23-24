@@ -1,0 +1,13 @@
+@startuml
+
+activate User
+User -> UI : Requests floor map
+activate UI
+UI --> User : Requests data (buildingId, floorNumber)
+deactivate UI
+User -> UI : Inserts requested data
+activate UI
+UI --> User : Informs operation's success
+deactivate UI
+
+@enduml

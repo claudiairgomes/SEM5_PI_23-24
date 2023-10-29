@@ -2,47 +2,41 @@
 
 ## 1. Requirements Engineering
 
-*Criar um edifício*
+*In this section, it is suggested to capture the requirement description and specifications as provided by the client as well as any further clarification on it. It is also suggested to capture the requirements acceptance criteria and existing dependencies to other requirements. At last, identify the involved input and output data and depicted an Actor-System interaction in order to fulfill the requirement.*
+
 
 ### 1.1. User Story Description
 
-*Criar um edifício*
+*Insert here the User Story as described by the client.*
 
 ### 1.2. Customer Specifications and Clarifications
 
-*No customer specifications nor clarifications*
+*Insert here any related specification and/or clarification provided by the client together with **your interpretation**. When possible, provide a link to such specifications/clarifications.*
 
 ### 1.3. Acceptance Criteria
 
-*No acceptance criteria*
+*Insert here the client acceptance criteria.*
 
 ### 1.4. Found out Dependencies
 
-*No dependencies*
+*Identify here any found out dependency to other US and/or requirements.*
 
 ### 1.5 Input and Output Data
 
-**Typed data**
-* Buiding name
-* Building code
-* Building dimension
-* Building description (optional)
+*Identity here the data to be inputted by the system actor as well as the output data that the system have/needs to present in order to properly support the actor actions. Regarding the inputted data, it is suggested to distinguish between typed data and selected data (e.g. from a list)*
+
 
 ### 1.6. System Sequence Diagram (SSD)
 
-*Level 1*
+*Insert here a SSD depicting the envisioned Actor-System interactions and throughout which data is inputted and outputted to fulfill the requirement. All interactions must be numbered.*
 
-![US150-SSD](Level 1/US150.svg)
+![USXXX-SSD](USXXX-SSD.svg)
 
-*Level 2*
-
-![US150-SSD](Level 2/US150.svg)
-
-*Level 3*
-
-![US150-SSD](Level 3/US150.svg)
 
 ### 1.7 Other Relevant Remarks
+
+*Use this section to capture other relevant information that is related with this US such as (i) special requirements ; (ii) data and/or technology variations; (iii) how often this US is held.*
+
 
 ## 2. OO Analysis
 

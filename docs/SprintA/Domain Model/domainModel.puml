@@ -1,13 +1,16 @@
 @startuml
 package "<Aggregate> System User" #aabbcc{
     entity SystemUser <<root>> {}
-    class Name <<(V,#B8255F)value object>>
+    class firstName <<(V,#B8255F)value object>>
+    class lastName <<(V,#B8255F)value object>>
     class Password <<(V,#B8255F)value object>>
     class Email <<(V,#B8255F)value object>>
 
-    SystemUser "1" --> "1" Name : has
+    SystemUser "1" --> "1" firstName : has
+    SystemUser "1" --> "1" lastName : has
     SystemUser "1" --> "1" Password : has
     SystemUser "1" --> "1" Email : has
+
 }
 
 package "<Aggregate> User" #bbddcc{
@@ -60,41 +63,17 @@ package "<Aggregate> Passage" #ddbbcc {
 
 package "<Aggregate> Robot" #eeeaaa {
     entity Robot <<root>> {}
-    class State <<(V,#B8255F)value object>> {
-        Available
-        Busy
-        Inhibited
-    }
     class SerialNumber <<(V,#B8255F)value object>>
     class Nickname <<(V,#B8255F)value object>>
-    class RobotCode <<(V,#B8255F)value object>>
-    Robot "1" --> "1" State : has
-    Robot "1" --> "1" SerialNumber : has
+    class Type <<(V,#B8255F)value object>>
+    class CodRobot <<(V,#B8255F)value object>>
+    Robot "1" --> "1" CodRobot : has
     Robot "1" --> "1" Nickname : has
-    Robot "1" --> "1" RobotCode : has
+    Robot "1" --> "1" SerialNumber : has
+    Robot "1" --> "1" Type : has
 }
 
-package "<Aggregate> Task" #cccccc {
-    entity Task <<root>> {}
-    entity Surveillance
-    entity ObjectDelivery
-    class State <<(V,#B8255F)value object>> {
-        Waiting
-        InProgress
-        Completed
-    }
-    class Path <<(V,#B8255F)value object>>
-    class Contact <<(V,#B8255F)value object>>
-    class DeliveryName <<(V,#B8255F)value object>>
 
-    Task --|> Surveillance
-    Task --|> ObjectDelivery
-    Task "1" --> "1" State : has
-    Surveillance "1" --> "1" Path : has
-    Surveillance "1" --> "1" Contact : has
-    ObjectDelivery "1" --> "1" DeliveryName : has
-    ObjectDelivery "1" --> "1" Contact : has
-}
 
 package "<Aggregate> Elevator" #eeeeee {
   entity Elevator <<root>> {}
@@ -109,16 +88,6 @@ package "<Aggregate> RobotType" #ffddeb {
   RobotType "1" --> "1" Brand : is of
   RobotType "1" --> "1" Model : has
 }
-
-class Location <<(V,#B8255F)value object>> {
-  X
-  Y
-  Direction
-}
-
-Passage "1" --> "1" Location : has
-Elevator "1" --> "1" Location : has
-Room "1" --> "1" Location : has
 
 SystemUser --|> User
 SystemUser --|> Admin

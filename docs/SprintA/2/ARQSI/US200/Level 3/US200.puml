@@ -1,0 +1,44 @@
+@startuml
+
+activate SPA
+SPA -> API : put/patch(/api/floors)
+activate API
+
+API -> FloorController : put/patch
+activate FloorController
+
+FloorController -> FloorService : editFloor(floorDTO)
+activate FloorService
+
+FloorService -> FloorRepo : findByDomainId(floor.id)
+activate FloorRepo
+FloorRepo --> FloorService : floor
+deactivate FloorRepo
+
+FloorService -> Floor : edit
+activate Floor
+Floor -> FloorService: floor
+deactivate
+
+FloorService -> FloorRepo : save(floor)
+activate FloorRepo
+FloorRepo --> FloorService : floor
+deactivate FloorRepo
+
+FloorService -> FloorMapper : toDTO(floor)
+activate FloorMapper
+FloorMapper --> FloorService : floorDTO
+deactivate FloorMapper
+
+FloorService --> FloorController : floorDTO
+deactivate FloorService
+
+FloorController --> API : status code 201
+deactivate FloorController
+
+API --> SPA : success
+deactivate API
+
+deactivate SPA
+
+@enduml

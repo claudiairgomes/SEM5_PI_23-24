@@ -1,0 +1,28 @@
+@startuml
+
+activate SPA
+SPA -> API : get(/api/buildings)
+activate API
+
+API -> BuildingController : get
+activate BuildingController
+
+BuildingController -> BuildingService : getBuildings(buildingDTO)
+activate BuildingService
+
+BuildingService -> BuildingRepo : findAll()
+activate BuildingRepo
+BuildingRepo --> BuildingService : building
+deactivate BuildingRepo
+
+BuildingService -> BuildingController: buildings
+BuildingController --> API : status code 201
+deactivate BuildingService
+deactivate BuildingController
+
+API --> SPA : success
+deactivate API
+
+deactivate SPA
+
+@enduml

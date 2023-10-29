@@ -1,0 +1,46 @@
+@startuml
+
+skinparam Monochrome true
+skinparam PackageStyle rectangle
+skinparam Shadowing false
+
+title Sequence Diagram: US150
+
+participant "SPA" as SPA
+participant "API" as API
+participant "FloorController" as Controller
+participant "FloorService" as Service
+participant "FloorRepo" as Repo
+participant "FloorMap" as Map
+participant "Floor" as  Floor
+
+
+
+
+activate SPA
+SPA -> API: post(api/floor)
+activate API
+API -> Controller: post
+activate Controller
+Controller -> Service: create Floor()
+activate Service
+Service ->  Floor: create
+
+Service -> Repo: save(floor)
+activate Repo
+Repo -> Service: floor
+deactivate Repo
+
+
+Service -> Map: toDTO(floor)
+activate Map
+Map -> Service: floorDTO
+deactivate
+
+
+Service -> Controller: floorDTO()
+Controller -> API: status code 201
+API -> SPA: Success
+
+
+@enduml

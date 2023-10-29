@@ -1,0 +1,39 @@
+@startuml
+
+activate SPA
+SPA -> API : get(/api/buildings)
+activate API
+
+API -> BuildingController : get
+activate BuildingController
+
+BuildingController -> BuildingService : getAllBuildingsWithMinAndMaxFloors()
+activate BuildingService
+
+BuildingService -> BuildingRepo : findByNumberOfFloors(numberOfFloors)
+activate BuildingRepo
+
+BuildingRepo --> BuildingService : building[ ]
+deactivate BuildingRepo
+
+loop
+    BuildingService -> BuildingMapper : toDTO(building)
+    activate BuildingMapper
+    BuildingMapper --> BuildingService : buildingDTO
+    deactivate BuildingMapper
+    BuildingService -> BuildingService : list.push(buildingDTO)
+end
+
+BuildingService --> BuildingController : buildingDTO[ ]
+deactivate BuildingService
+
+BuildingController --> API : status code 201
+deactivate BuildingController
+
+API --> SPA : success
+deactivate API
+
+deactivate SPA
+
+
+@enduml

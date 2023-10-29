@@ -1,0 +1,29 @@
+@startuml
+
+autonumber
+
+Actor User
+activate User
+User -> SPA : Edit a floor information
+activate SPA
+
+SPA --> User : Requests floor data (id)
+deactivate SPA
+
+User -> SPA : Inserts data
+activate SPA
+
+SPA -> Floor : PUT/PATCH/floors/{floorNumber, buildingId, description}
+activate Floor
+
+Floor --> SPA : status code
+deactivate Floor
+
+alt successfull case
+    SPA --> User : Floor updated successfully
+else failure
+    SPA --> User : Floor not updated
+end
+
+
+@enduml

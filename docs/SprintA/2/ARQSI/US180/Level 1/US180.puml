@@ -1,0 +1,10 @@
+@startuml
+Actor User
+activate User
+
+User -> UI : Requests a list of the buildings with a minimum and maximum floors
+activate UI
+UI --> User : Returns a list of the buildings with a minimum and maximum floors
+deactivate UI
+
+@enduml

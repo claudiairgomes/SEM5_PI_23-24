@@ -1,0 +1,46 @@
+@startuml
+
+skinparam Monochrome true
+skinparam PackageStyle rectangle
+skinparam Shadowing false
+
+title Sequence Diagram: US150
+
+participant "SPA" as SPA
+participant "GestaoInfoAPI" as API
+participant "PassageController" as Controller
+participant "PassageService" as Service
+participant "PassageRepo" as Repo
+participant "PassageMap" as Map
+participant "Passage" as Passage
+
+
+
+
+activate SPA
+SPA -> API: post(api/passage)
+activate API
+API -> Controller: post
+activate Controller
+Controller -> Service: createPassage()
+activate Service
+Service -> Passage: create
+
+Service -> Repo: save(passage)
+activate Repo
+Repo -> Service: passage
+deactivate Repo
+
+
+Service -> Map: toDTO(passage)
+activate Map
+Map -> Service: passageDTO
+deactivate
+
+
+Service -> Controller: passageDTO()
+Controller -> API: status code 201
+API -> SPA: Success
+
+
+@enduml
