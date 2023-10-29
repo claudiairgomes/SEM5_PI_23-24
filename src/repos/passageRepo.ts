@@ -1,24 +1,27 @@
 import { Service, Inject } from 'typedi';
 
-import { Document, Model } from 'mongoose';
+import {Document, FilterQuery, Model} from 'mongoose';
 import { IFloorPersistence } from '../dataschema/IFloorPersistence';
 
 import IFloorRepo from "../services/IRepos/IFloorRepo";
 import {Floor} from "../domain/floor";
 import {FloorId} from "../domain/floorId";
 import {FloorMap} from "../mappers/FloorMap";
+import IPassageRepo from "../services/IRepos/IPassageRepo";
+import {PassageId} from "../domain/passageId";
+import {IPassagePersistence} from "../dataschema/IPassagePersistence";
+import {Passage} from "../domain/passage";
+import {PassageMap} from "../mappers/PassageMap";
 
 
 @Service()
-export default class FloorRepo implements IFloorRepo{
-  findByDomainId(FloorId: FloorId | string): Promise<Floor> {
-    return Promise.resolve(undefined);
-  }
+export default class PassageRepo implements IPassageRepo{
+
 
   private models: any;
 
   constructor(
-    @Inject('floorSchema') private floorSchema: Model<IFloorPersistence & Document>,
+    @Inject('passageSchema') private passageSchema: Model<IPassagePersistence & Document>,
 
   ){}
   private createBaseQuery(): any{
@@ -27,35 +30,50 @@ export default class FloorRepo implements IFloorRepo{
     }
   }
 
-  public async exists (floorId: FloorId | string): Promise<boolean>{
-    const idx = floorId instanceof FloorId ? (<FloorId>floorId).id.toValue(): floorId;
+  public async findByDomainId(passageId: PassageId | string): Promise<Passage> {
+    const query = { domainId: passageId};
+    const passageRecord = await this.passageSchema.findOne( query as FilterQuery<IPassagePersistence & Document> );
 
-    const query = {domainId: idx};
-    const floorDocument = await this.floorSchema.findOne(query);
 
-    return  !!floorDocument === true;
+    if( passageRecord != null) {
+
+      return PassageMap.toDomain(passageRecord);
+    }
+    else
+      return null;-
+    console.log("Passage doesn't exist");
   }
 
-  public async save (floor: Floor): Promise<Floor>{
-    const query = { domainId: floor.id.toString() };
+  public async exists (passageId: PassageId | string): Promise<boolean>{
+    const idx = passageId instanceof FloorId ? (<PassageId>passageId).id.toValue(): passageId;
 
-    const floorDocument = await this.floorSchema.findOne( query );
+    const query = {domainId: idx};
+    const passageDocument = await this.passageSchema.findOne(query);
+
+    return  !!passageDocument === true;
+  }
+
+  public async save (passage: Passage): Promise<Passage>{
+    const query = { domainId: passage.id.toString() };
+
+    const passageDocument = await this.passageSchema.findOne( query );
 
     try {
-      if (floorDocument === null ) {
-        const rawFloor: any = FloorMap.toPersistence(floor);
+      if (passageDocument === null ) {
+        const rawPassage: any = PassageMap.toPersistence(passage);
 
-        const floorCreated = await this.floorSchema.create(rawFloor);
+        const passageCreated = await this.passageSchema.create(rawPassage);
 
-        return FloorMap.toDomain(floorCreated);
+        return PassageMap.toDomain(passageCreated);
       } else {
 
-        floorDocument.buildingId= floor.buildingId;
-        floorDocument.floorNumber=floor.floorNumber;
-        floorDocument.description = floor.description;
-        await floorDocument.save();
+        passageDocument.fromFloorId = passage.fromFloorId;
+        passageDocument.toFloorId = passage.toFloorId;
+        passageDocument.description = passage.description;
 
-        return floor;
+        await passageDocument.save();
+
+        return passage;
       }
     } catch (err) {
       throw err;
@@ -63,16 +81,8 @@ export default class FloorRepo implements IFloorRepo{
   }
 
 
-  async findByCode(code: string): Promise<Floor> {
-    const query = {code: code.toString()};
-    const floorRecord = await this.floorSchema.findOne(query);
 
-    if (floorRecord != null) {
-      return FloorMap.toDomain(floorRecord);
-    } else return null;
-  }
-
-  async findById(floorId: FloorId | string): Promise<Floor> {
+ /* async findById(floorId: FloorId | string): Promise<Floor> {
 
     const idX = floorId instanceof FloorId ? (<FloorId>floorId).id.toValue() : floorId;
 
@@ -85,6 +95,8 @@ export default class FloorRepo implements IFloorRepo{
       return null;
 
   }
+
+  */
 
 }
 

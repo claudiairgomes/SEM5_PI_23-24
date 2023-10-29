@@ -1,18 +1,18 @@
+import {IPassagePersistence} from "../../dataschema/IPassagePersistence";
 import mongoose from "mongoose";
-import {IFloorPersistence} from "../../dataschema/IFloorPersistence";
 
-const floorSchema = new mongoose.Schema(
+const passageSchema = new mongoose.Schema(
   {
     domainId: { type: String, unique: true },
-    buildingId: {
+    fromFloorId: {
       type: String,
-      required: [true, 'Please enter building id'],
+      required: [true, 'Please enter fromFloorId'],
       index: true,
     },
 
-    floorNumber: {
-      type: Number,
-      required: [true, 'Please enter floor number'],
+    toFloorId: {
+      type: String,
+      required: [true, 'Please enter fromFloorId'],
     },
     description: {
       type: String,
@@ -25,4 +25,4 @@ const floorSchema = new mongoose.Schema(
   }
 );
 
-export default mongoose.model<IFloorPersistence & mongoose.Document>('floor',floorSchema)
+export default mongoose.model<IPassagePersistence & mongoose.Document>('passage',passageSchema)

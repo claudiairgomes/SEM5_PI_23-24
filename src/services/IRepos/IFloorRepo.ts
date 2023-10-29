@@ -8,5 +8,5 @@ export default interface IFloorRepo extends Repo<Floor>{
 
   findByCode(code:string): Promise<Floor>
 
-  findByDomainId (bloorId: FloorId | string): Promise<Floor>;
+  findByDomainId (floorId: FloorId | string): Promise<Floor>;
 }

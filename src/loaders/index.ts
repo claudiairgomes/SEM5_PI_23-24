@@ -43,6 +43,11 @@ export default async ({ expressApp }) => {
     schema: '../persistence/schemas/robotSchema',
   }
 
+  const passageSchema={
+    name: 'passageSchema',
+    schema: '../persistence/schemas/passageSchema',
+  }
+
 
   const roleController = {
     name: config.controllers.role.name,
@@ -67,6 +72,11 @@ export default async ({ expressApp }) => {
   const robotController = {
     name: config.controllers.robot.name,
     path: config.controllers.robot.path
+  }
+
+  const passageController = {
+    name: config.controllers.passage.name,
+    path: config.controllers.passage.path
   }
 
 
@@ -100,6 +110,11 @@ export default async ({ expressApp }) => {
     path: config.repos.elevator.path
   }
 
+  const passageRepo = {
+    name: config.repos.passage.name,
+    path: config.repos.passage.path
+  }
+
 
   const roleService = {
     name: config.services.role.name,
@@ -126,6 +141,11 @@ export default async ({ expressApp }) => {
     path: config.services.robot.path
   }
 
+  const passageService = {
+    name: config.services.passage.name,
+    path: config.services.passage.path
+  }
+
 
   await dependencyInjectorLoader({
     mongoConnection,
@@ -135,7 +155,8 @@ export default async ({ expressApp }) => {
       buildingSchema,
       elevatorSchema,
       floorSchema,
-      robotSchema
+      robotSchema,
+      passageSchema
     ],
     controllers: [
       roleController,
@@ -143,6 +164,7 @@ export default async ({ expressApp }) => {
       elevatorController,
       floorController,
       robotController,
+      passageController
     ],
     repos: [
       roleRepo,
@@ -150,14 +172,16 @@ export default async ({ expressApp }) => {
       buildingRepo,
       elevatorRepo,
       floorRepo,
-      robotRepo
+      robotRepo,
+      passageRepo
     ],
     services: [
       roleService,
       buildingService,
       elevatorService,
       floorService,
-      robotService
+      robotService,
+      passageService
     ]
   });
   Logger.info('✌️ Schemas, Controllers, Repositories, Services, etc. loaded');

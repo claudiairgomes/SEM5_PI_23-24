@@ -5,27 +5,30 @@ import {Result} from "../core/logic/Result";
 import config from "../../config";
 
 
-import IFloorRepo from "./IRepos/IFloorRepo";
-import {Floor} from "../domain/floor";
-import {FloorMap} from "../mappers/FloorMap";
+import IPassageService from "./IServices/IPassageService";
+import IPassageRepo from "./IRepos/IPassageRepo";
+import {IPassageDTO} from "../dto/IPassageDTO";
+import {PassageMap} from "../mappers/PassageMap";
+import {Passage} from "../domain/passage";
 
 @Service()
-export default class FloorService implements IFloorService{
+export default class PassageService implements IPassageService{
 
   constructor(
-    @Inject(config.repos.floor.name) private floorRepo : IFloorRepo
+    @Inject(config.repos.passage.name) private passageRepo : IPassageRepo
+
   ) {}
 
-  public async getFloor( floorId: string): Promise<Result<IFloorDTO>> {
+  public async getPassage( passageId: string): Promise<Result<IPassageDTO>> {
     try {
-      const floor = await this.floorRepo.findByDomainId(floorId);
+      const passage = await this.passageRepo.findByDomainId(passageId);
 
-      if (floor === null) {
-        return Result.fail<IFloorDTO>("Floor not found");
+      if (passage === null) {
+        return Result.fail<IPassageDTO>("Passage not found");
       }
       else {
-        const roleDTOResult = FloorMap.toDTO( floor ) as IFloorDTO;
-        return Result.ok<IFloorDTO>( roleDTOResult )
+        const passageDTOResult = PassageMap.toDTO( passage ) as IPassageDTO;
+        return Result.ok<IPassageDTO>( passageDTOResult )
       }
     } catch (e) {
       throw e;
@@ -33,41 +36,41 @@ export default class FloorService implements IFloorService{
   }
 
 
-  public async createFloor(floorDTO: IFloorDTO): Promise<Result<IFloorDTO>> {
+  public async createPassage(passageDTO: IPassageDTO): Promise<Result<IPassageDTO>> {
     try {
 
-      const floorOrError = await Floor.create( floorDTO );
+      const passageOrError = await Passage.create( passageDTO );
 
-      if (floorOrError.isFailure) {
-        return Result.fail<IFloorDTO>(floorOrError.errorValue());
+      if (passageOrError.isFailure) {
+        return Result.fail<IPassageDTO>(passageOrError.errorValue());
       }
 
-      const floorResult = floorOrError.getValue();
+      const passageResult = passageOrError.getValue();
 
-      await this.floorRepo.save(floorResult);
+      await this.passageRepo.save(passageResult);
 
-      const floorDTOResult = FloorMap.toDTO( floorResult ) as IFloorDTO;
-      return Result.ok<IFloorDTO>( floorDTOResult )
+      const passageDTOResult = PassageMap.toDTO( passageResult ) as IPassageDTO;
+      return Result.ok<IPassageDTO>( passageDTOResult )
     } catch (e) {
       throw e;
     }
   }
 
-  public async updateFloor(floorDTO: IFloorDTO): Promise<Result<IFloorDTO>> {
+  public async updatePassage(passageDTO: IPassageDTO): Promise<Result<IPassageDTO>> {
     try {
-      const floor = await this.floorRepo.findByDomainId(floorDTO.id);
+      const passage = await this.passageRepo.findByDomainId(passageDTO.id);
 
-      if (floor === null) {
-        return Result.fail<IFloorDTO>("Floor not found");
+      if (passage === null) {
+        return Result.fail<IPassageDTO>("Passage not found");
       }
       else {
-        floor.props.buildingId = floorDTO.buildingId;
-        floor.props.floorNumber = floorDTO.floorNumber;
-        floor.props.description = floorDTO.description;
-        await this.floorRepo.save(floor);
+        passage.props.fromFloorId = passageDTO.fromFloorId;
+        passage.props.toFloorId = passageDTO.toFloorId;
+        passage.props.description = passageDTO.description;
+        await this.passageRepo.save(passage);
 
-        const floorDTOResult = FloorMap.toDTO( floor ) as IFloorDTO;
-        return Result.ok<IFloorDTO>( floorDTOResult )
+        const passageDTOResult = PassageMap.toDTO( passage ) as IPassageDTO;
+        return Result.ok<IPassageDTO>( passageDTOResult )
       }
     } catch (e) {
       throw e;

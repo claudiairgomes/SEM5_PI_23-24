@@ -16,7 +16,7 @@ const ElevatorSchema = new mongoose.Schema(
     },
 
     floorList: {
-      type: String//[Floor]
+      type: Array <Floor>
     },
 
     brand: {

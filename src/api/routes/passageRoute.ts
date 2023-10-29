@@ -18,7 +18,7 @@ export default (app:Router) => {
       body: Joi.object({
         fromFloorId: Joi.string().required(),
         toFloorId: Joi.string().required(),
-        floorId: Joi.number().required(),
+       // floorId: Joi.number().required(),
         description: Joi.string().required(),
       })
     }),

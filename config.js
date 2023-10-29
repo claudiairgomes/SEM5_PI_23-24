@@ -64,6 +64,11 @@ export default {
     elevator: {
       name: "ElevatorController",
       path: "../controllers/elevatorController"
+    },
+
+    passage: {
+      name: "PassageController",
+      path: "../controllers/passageController"
     }
 
   },
@@ -96,6 +101,11 @@ export default {
     elevator: {
       name: "ElevatorRepo",
       path: "../repos/elevatorRepo"
+    },
+
+    passage: {
+      name: "PassageRepo",
+      path: "../repos/passageRepo"
     }
   },
 
@@ -124,6 +134,11 @@ export default {
     elevator: {
       name: "ElevatorService",
       path: "../services/elevatorService"
+    },
+
+    passage: {
+      name: "PassageService",
+      path: "../services/passageService"
     }
   },
 };

@@ -7,7 +7,7 @@ import IElevatorController from "./IControllers/IElevatorController";
 import {IBuildingDTO} from "../dto/IBuildingDTO";
 import {Result} from "../core/logic/Result";
 import {IElevatorDTO} from "../dto/IElevatorDTO";
-import {IElevatorDTObeta} from "../dto/IElevatorDTObeta";
+import {sortedUniq} from "lodash";
 
 
 @Service()
@@ -42,7 +42,7 @@ export default class ElevatorController implements IElevatorController{
     try {
 
 
-      const elevatorOrError = await this.elevatorServiceInstance.createElevator(req.body as IElevatorDTObeta) as Result<IElevatorDTO>;
+      const elevatorOrError = await this.elevatorServiceInstance.createElevator(req.body as IElevatorDTO) as Result<IElevatorDTO>;
 
       if (elevatorOrError.isFailure) {
         return res.status(402).send();

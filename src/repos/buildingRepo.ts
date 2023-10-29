@@ -71,9 +71,11 @@ constructor(
   }
 
 
-  async findByCode(code: string): Promise<Building> {
+  public async findByCode(code: string): Promise<Building> {
     const query = {code: code.toString()};
     const buildingRecord = await this.buildingSchema.findOne(query);
+
+
 
     if (buildingRecord != null) {
       return BuildingMap.toDomain(buildingRecord);
@@ -96,12 +98,18 @@ constructor(
 
    */
 
-  findByDomainId(buildingId: BuildingId | string): Promise<Building> {
-    const query = { domainId: buildingId};
-    const businessRecord = this.buildingSchema.findOne( query as FilterQuery<IBuildingPersistence & Document> );
+  async findByDomainId(buildingId: BuildingId | string): Promise<Building> {
 
-    if( businessRecord != null) {
-      return BuildingMap.toDomain(businessRecord);
+
+
+    const query = { domainId: buildingId};
+    const buildingRecord = await this.buildingSchema.findOne( query as FilterQuery<IBuildingPersistence & Document> );
+
+
+
+    if( buildingRecord != null) {
+
+      return BuildingMap.toDomain(buildingRecord);
     }
     else
       return null;
@@ -109,7 +117,7 @@ constructor(
   }
 
 
-  async findAll(){
+  public async findAll(){
   try{
     //const buildingRecords = await this.buildingSchema.find();
     return await this.buildingSchema.find();

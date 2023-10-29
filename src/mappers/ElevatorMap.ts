@@ -2,7 +2,7 @@ import {Mapper} from "../core/infra/Mapper";
 import {Elevator} from "../domain/elevator";
 import {IElevatorDTO} from "../dto/IElevatorDTO";
 import {UniqueEntityID} from "../core/domain/UniqueEntityID";
-import {IElevatorDTObeta} from "../dto/IElevatorDTObeta";
+
 
 export class ElevatorMap extends Mapper<Elevator>{
 
@@ -38,7 +38,7 @@ export class ElevatorMap extends Mapper<Elevator>{
 
     const elevatorOrError = Elevator.create(
       {
-        building: raw.building,
+        buildingId: raw.buildingId,
         floorList: raw.floorList,
         brand: raw.brand,
         model: raw.model,

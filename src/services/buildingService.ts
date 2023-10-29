@@ -35,7 +35,7 @@ export default class BuildingService implements IBuildingService{
   }
 
 
-  public async createBuilding(buildingDTO: IBuildingDTO): Promise<Result<IBuildingDTO>> {
+  async createBuilding(buildingDTO: IBuildingDTO): Promise<Result<IBuildingDTO>> {
     try {
 
       const buildingOrError = await Building.create( buildingDTO );
@@ -55,10 +55,11 @@ export default class BuildingService implements IBuildingService{
     }
   }
 
-  public async updateBuilding(buildingDTO: IBuildingDTO): Promise<Result<IBuildingDTO>> {
+  async updateBuilding(buildingDTO: IBuildingDTO): Promise<Result<IBuildingDTO>> {
 
     try {
       const building = await this.buildingRepo.findByDomainId(buildingDTO.id);
+
 
       if (building === null) {
         return Result.fail<IBuildingDTO>("Building not found");

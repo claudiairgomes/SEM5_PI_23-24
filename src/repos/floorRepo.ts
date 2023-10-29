@@ -1,19 +1,18 @@
 import { Service, Inject } from 'typedi';
 
-import { Document, Model } from 'mongoose';
+import {Document, FilterQuery, Model} from 'mongoose';
 import { IFloorPersistence } from '../dataschema/IFloorPersistence';
 
 import IFloorRepo from "../services/IRepos/IFloorRepo";
 import {Floor} from "../domain/floor";
 import {FloorId} from "../domain/floorId";
 import {FloorMap} from "../mappers/FloorMap";
+import {IPassagePersistence} from "../dataschema/IPassagePersistence";
+import {PassageMap} from "../mappers/PassageMap";
 
 
 @Service()
 export default class FloorRepo implements IFloorRepo{
-  findByDomainId(FloorId: FloorId | string): Promise<Floor> {
-    return Promise.resolve(undefined);
-  }
 
   private models: any;
 
@@ -25,6 +24,19 @@ export default class FloorRepo implements IFloorRepo{
     return{
       where:{},
     }
+  }
+
+  async findByDomainId(floorId: FloorId | string): Promise<Floor> {
+    const query = {domainId: floorId};
+    const floorRecord = await this.floorSchema.findOne(query as FilterQuery<IFloorPersistence & Document>);
+
+
+    if (floorRecord != null) {
+
+      return FloorMap.toDomain(floorRecord);
+    } else
+      return null;
+    -console.log("Floor doesn't exist");
   }
 
   public async exists (floorId: FloorId | string): Promise<boolean>{

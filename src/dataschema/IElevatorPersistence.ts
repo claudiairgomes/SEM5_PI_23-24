@@ -5,7 +5,7 @@ export interface IElevatorPersistence{
 
   domainId: string;
   building: Building;
-  floorList: Floor[];
+  floorList: Array<Floor>;
   brand: string;
   model: string;
   serialNumber: string;

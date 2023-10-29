@@ -8,7 +8,6 @@ import {BuildingId} from "./buildingId";
 
 interface FloorProps {
   buildingId: string;
-
   floorNumber: number;
   description: string;
 }
