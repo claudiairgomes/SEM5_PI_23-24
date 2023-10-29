@@ -16,9 +16,9 @@ const BuildingSchema = new mongoose.Schema(
       //index: true,
     },
 
-    dimensions: {
+    dimension: {
       type: String
-      ,required: [true, 'Please enter building dimensions'],
+      ,required: [true, 'Please enter building dimension'],
       //index: true,
     },
 
