@@ -38,7 +38,7 @@ export class ElevatorMap extends Mapper<Elevator>{
 
     const elevatorOrError = Elevator.create(
       {
-        buildingId: raw.buildingId,
+        building: raw.building,
         floorList: raw.floorList,
         brand: raw.brand,
         model: raw.model,
