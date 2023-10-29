@@ -1,0 +1,46 @@
+@startuml
+
+skinparam Monochrome true
+skinparam PackageStyle rectangle
+skinparam Shadowing false
+
+title Sequence Diagram: US150
+
+participant "SPA" as SPA
+participant "GestaoInfoAPI" as API
+participant "ElevatorController" as Controller
+participant "ElevatorService" as Service
+participant "ElevatorRepo" as Repo
+participant "ElevatorMap" as Map
+participant "Elevator" as Building
+
+
+
+
+activate SPA
+SPA -> API: post(api/elevators)
+activate API
+API -> Controller: post
+activate Controller
+Controller -> Service: createElevator()
+activate Service
+Service -> Elevator: create
+
+Service -> Repo: save(elevator)
+activate Repo
+Repo -> Service: elevator
+deactivate Repo
+
+
+Service -> Map: toDTO(elevator)
+activate Map
+Map -> Service: elevatorDTO
+deactivate
+
+
+Service -> Controller: elevatorDTO()
+Controller -> API: status code 201
+API -> SPA: Success
+
+
+@enduml

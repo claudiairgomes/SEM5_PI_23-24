@@ -10,6 +10,7 @@ import {Building} from "../domain/building";
 import {BuildingMap} from "../mappers/BuildingMap";
 import BuildingRepo from "../repos/buildingRepo";
 import {sortedUniq} from "lodash";
+import IFloorRepo from "./IRepos/IFloorRepo";
 
 @Service()
 export default class BuildingService implements IBuildingService{

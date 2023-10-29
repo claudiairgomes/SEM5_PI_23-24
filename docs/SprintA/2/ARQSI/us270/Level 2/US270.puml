@@ -1,0 +1,31 @@
+@startuml
+
+skinparam Monochrome true
+skinparam PackageStyle rectangle
+skinparam Shadowing false
+
+title Sequence Diagram: US270
+
+actor "User" as User
+participant "SPA" as SPA
+participant "Elevator" as Elevator
+
+activate User
+
+User -> SPA : Asks to create a elevator
+activate SPA
+SPA -> User: Requests elevator data (building, floorList, brand, model, serialNumber, description)
+User -> SPA: Inserts requested data
+
+SPA -> Elevator: POST/ elevator{building, floorList, brand, model, serialNumber, description}
+activate Elevator
+Elevator -> SPA: Status code
+deactivate
+
+alt successfull case
+SPA -> User: Elevator is created successfully
+else failure case
+SPA -> User: Elevator is not created
+end
+
+@enduml
