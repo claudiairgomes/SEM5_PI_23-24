@@ -3,8 +3,8 @@ import {Floor} from "../domain/floor";
 
 export  interface IElevatorDTO{
   id: string;
-  building: Building;
-  floorList: Array<Floor>;
+  building:string;
+  floorList: Array<string>;
   brand: string;
   model: string;
   serialNumber: string;

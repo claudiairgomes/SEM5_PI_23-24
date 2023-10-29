@@ -14,13 +14,13 @@ export default (app:Router)=> {
   route.post('',
     celebrate({
       body: Joi.object({
-        buildingId: Joi.string().required(),
-        //floorsIdList: Joi.array().items(Joi.string().required()).required(),
-        floorsIdList: Joi.array().items(Joi.object({id:Joi.string().required()})).required(),
+        building: Joi.string().required(),
+        floorList: Joi.array().items(Joi.string().required()).required(),
+        //floorsIdList: Joi.array().items(Joi.object({id:Joi.string().required()})).required(),
         brand: Joi.string().required(),
         model: Joi.string().required(),
         serialNumber: Joi.string().required(),
-        description: Joi.string().required()
+        description: Joi.string().optional()
       })
     }),
     (req, res, next) => ctrl.createElevator(req, res, next));
@@ -29,12 +29,12 @@ export default (app:Router)=> {
     celebrate({
       body: Joi.object({
         elevatorDomainId: Joi.string().required(),
-        buildingId: Joi.string().required(),
-        floorsIdList: Joi.array().items(Joi.string()).required(),
+        building: Joi.string().required(),
+        floorList: Joi.array().items(Joi.string()).required(),
         brand: Joi.string().required(),
         model: Joi.string().required(),
         serialNumber: Joi.string().required(),
-        description: Joi.string().required()
+        description: Joi.string().optional()
 
       })
     }),

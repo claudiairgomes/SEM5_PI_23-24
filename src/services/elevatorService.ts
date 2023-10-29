@@ -69,7 +69,7 @@ export default class ElevatorService implements IElevatorService{
 
   public async createElevator(elevatorDTO: IElevatorDTO): Promise<Result<IElevatorDTO>> {
     try {
-      const building: Building = await this.buildingRepo.findByDomainId(elevatorDTO.building);
+      /*const building: Building = await this.buildingRepo.findByDomainId(elevatorDTO.building);
       const floorList: Array<Floor> = new Array<Floor>();
 
       elevatorDTO.building = building;
@@ -89,7 +89,7 @@ export default class ElevatorService implements IElevatorService{
       }
 
       // Replace the floor IDs with the actual Floor objects in elevatorDTO
-      elevatorDTO.floorList = floorList;
+      elevatorDTO.floorList = floorList;*/
 
       const elevatorOrError = await Elevator.create(elevatorDTO);
 
@@ -109,29 +109,6 @@ export default class ElevatorService implements IElevatorService{
   }
 
 
-  /*public async createElevator(elevatorDTObeta: IElevatorDTObeta): Promise<Result<IElevatorDTO>> {
-    try {
-      console.log("serialN");
-      console.log(elevatorDTObeta);
-      const elevatorDTO: IElevatorDTO = await this.turnDTObetaToDTO(elevatorDTObeta);
-
-      const elevatorOrError = await Elevator.create( elevatorDTO );
-
-      if (elevatorOrError.isFailure) {
-        return Result.fail<IElevatorDTO>(elevatorOrError.errorValue());
-      }
-
-      const elevatorResult = elevatorOrError.getValue();
-
-      await this.elevatorRepo.save(elevatorResult);
-
-      const elevatorDTOResult = ElevatorMap.toDTO( elevatorResult ) as IElevatorDTO;
-      return Result.ok<IElevatorDTO>( elevatorDTOResult )
-    } catch (e) {
-      throw e;
-    }
-  }*/
-
   public async updateElevator(elevatorDTO: IElevatorDTO): Promise<Result<IElevatorDTO>> {
 
     try {
@@ -142,7 +119,7 @@ export default class ElevatorService implements IElevatorService{
       }
       else {
 
-          elevator.props.buildingId= elevatorDTO.building;
+          elevator.props.building= elevatorDTO.building;
           elevator.props.floorList= elevatorDTO.floorList;
           elevator.props.brand= elevatorDTO.brand;
           elevator.props.model= elevatorDTO.model;
@@ -204,41 +181,11 @@ export default class ElevatorService implements IElevatorService{
 
     // Assuming that 'elevator' has a property 'floors' to store the list of floors
     // Set the 'floors' property of the 'elevator' to the fetched 'floors'
-    elevator.setFloorList(floors);
+    // elevator.setFloorList(floors);
 
     // Save the updated 'elevator' to your data source (e.g., a database) if necessary
     return elevator;
   }
-
-  /*async turnDTObetaToDTO(elevatorDTObeta: IElevatorDTObeta): Promise<IElevatorDTO> {
-
-    // Use the getFloorsByIds method to fetch the Floor objects based on the provided IDs
-    //await this.floorRepo.findByDomainId(floorId)
-
-    const elevatorDTO: IElevatorDTO= null;
-
-    const building = await this.buildingRepo.findByDomainId(elevatorDTObeta.building);
-    console.log("Building");
-    console.log(building);
-    const floors = await this.getFloorsByIds(elevatorDTObeta.floorList);
-
-
-    //console.log(elevatorDTObeta.floorList);
-    //console.log(floors);
-
-    elevatorDTO.building= building;
-    elevatorDTO.floorList= floors;
-    elevatorDTO.brand= elevatorDTObeta.brand;
-    elevatorDTO.model= elevatorDTObeta.model;
-    elevatorDTO.serialNumber= elevatorDTObeta.serialNumber;
-    elevatorDTO.description= elevatorDTObeta.description;
-
-
-
-    // Save the updated 'elevator' to your data source (e.g., a database) if necessary
-    return elevatorDTO;
-  }
-  */
 
 
 

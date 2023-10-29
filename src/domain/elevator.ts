@@ -9,8 +9,8 @@ import {Guard} from "../core/logic/Guard";
 import {ElevatorId} from "./elevatorId";
 
 interface ElevatorProps{
-  buildingId: string;
-  floorList: Array<Floor>;
+  building: string;
+  floorList: Array<string>;
   brand: string;//(opcional)
   model: string;//(opcional)
   serialNumber: string;//(optional)
@@ -31,14 +31,14 @@ export class Elevator extends AggregateRoot<ElevatorProps> {
   }
 
   get building(): string{
-    return this.props.buildingId;
+    return this.props.building;
   }
 
-  get floorList(): Floor[] {
+  get floorList(): string[] {
     return this.props.floorList;
   }
 
-  setFloorList(floorList: Floor[]): void {
+  setFloorList(floorList: string[]): void {
     this.props.floorList = floorList;
   }
 
@@ -65,7 +65,7 @@ export class Elevator extends AggregateRoot<ElevatorProps> {
   public static create(props: ElevatorProps, id?: UniqueEntityID): Result<Elevator> {
 
     const guardedProps = [
-      {argument: props.buildingId, argumentName: 'buildingId'},
+      {argument: props.building, argumentName: 'building'},
       {argument: props.floorList, argumentName: 'floorList'},
       {argument: props.brand, argumentName: 'brand'},
       {argument: props.model, argumentName: 'model'},
