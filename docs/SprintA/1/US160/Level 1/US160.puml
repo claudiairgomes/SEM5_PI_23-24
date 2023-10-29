@@ -1,0 +1,23 @@
+@startuml
+skinparam Monochrome true
+skinparam PackageStyle rectangle
+skinparam Shadowing false
+
+title Sequence Diagram: US160
+
+actor "User" as User
+participant "UI" as UI
+
+activate User
+User -> UI : 1 : Starts the editing building process
+activate UI
+UI --> User : 1.1 : Requests data (name, description, dimension, code)
+deactivate UI
+User -> UI : 2 : Inserts requested data
+activate UI
+UI --> User : 2.1 : Shows success confirmation and updated building information
+
+
+deactivate UI
+
+@enduml

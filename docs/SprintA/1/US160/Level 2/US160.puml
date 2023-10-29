@@ -1,0 +1,29 @@
+@startuml
+
+autonumber
+
+Actor User
+activate User
+User -> SPA : Edit a building information
+activate SPA
+
+SPA --> User : Requests building data (id)
+deactivate SPA
+
+User -> SPA : Inserts data
+activate SPA
+
+SPA -> Building : PUT/PATCH/buildings/{name, description, dimension, code}
+activate Building
+
+Building --> SPA : status code
+deactivate Building
+
+alt successfull case
+    SPA --> User : Building updated successfully
+else failure
+    SPA --> User : Building not updated
+end
+
+
+@enduml

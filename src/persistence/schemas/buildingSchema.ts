@@ -3,10 +3,13 @@ import {IBuildingPersistence} from "../../dataschema/IBuildingPersistence";
 
 const BuildingSchema = new mongoose.Schema(
   {
-    domainId: { type: String, unique: true },
+    domainId: {
+      type: String,
+      unique: true },
+
     name: {
       type: String
-      , required: [true, 'Please enter building id'],
+      , required: [true, 'Please enter building name'],
       //index: true,
     },
 

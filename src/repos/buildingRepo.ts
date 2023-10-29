@@ -100,12 +100,8 @@ constructor(
 
   async findByDomainId(buildingId: BuildingId | string): Promise<Building> {
 
-
-
     const query = { domainId: buildingId};
     const buildingRecord = await this.buildingSchema.findOne( query as FilterQuery<IBuildingPersistence & Document> );
-
-
 
     if( buildingRecord != null) {
 

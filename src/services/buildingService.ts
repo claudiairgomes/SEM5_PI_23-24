@@ -60,13 +60,12 @@ export default class BuildingService implements IBuildingService{
     try {
       const building = await this.buildingRepo.findByDomainId(buildingDTO.id);
 
-
       if (building === null) {
         return Result.fail<IBuildingDTO>("Building not found");
       }
       else {
         building.props.name = buildingDTO.name;
-        building.props.description = buildingDTO.description;
+        building.props.description  = buildingDTO.description;
         building.props.dimension = buildingDTO.dimension;
         building.props.code = buildingDTO.code;
         await this.buildingRepo.save(building);
