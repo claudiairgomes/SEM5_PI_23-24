@@ -80,14 +80,6 @@ package "<Aggregate> Elevator" #eeeeee {
 
 }
 
-package "<Aggregate> RobotType" #ffddeb {
-  entity RobotType <<root>> {}
-  class Brand <<(V,#B8255F)value object>>
-  class Model <<(V,#B8255F)value object>>
-
-  RobotType "1" --> "1" Brand : is of
-  RobotType "1" --> "1" Model : has
-}
 
 SystemUser --|> User
 SystemUser --|> Admin
@@ -120,7 +112,6 @@ FleetManager "1" --> "*" RobotType : configure
 
 CampusManager "1" --> "*" Building : manages
 
-ObjectDelivery "1" --> "1..*" RoomCode : has
 
 RobotType --|> Robot
 
