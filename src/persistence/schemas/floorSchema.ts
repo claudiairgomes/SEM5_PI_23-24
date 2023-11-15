@@ -4,6 +4,7 @@ import {IFloorPersistence} from "../../dataschema/IFloorPersistence";
 const floorSchema = new mongoose.Schema(
   {
     domainId: { type: String, unique: true },
+
     buildingId: {
       type: String,
       required: [true, 'Please enter building id'],

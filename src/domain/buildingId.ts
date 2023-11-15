@@ -6,7 +6,7 @@ export class BuildingId extends Entity<any>{
     return this._id;
   }
 
-  constructor(id?: UniqueEntityID) {
+ private constructor(id?: UniqueEntityID) {
     super(null, id);
   }
 

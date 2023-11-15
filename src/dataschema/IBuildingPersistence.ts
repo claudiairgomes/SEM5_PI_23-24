@@ -1,5 +1,5 @@
-export interface IBuildingPersistence{
-  domainId: string;
+export interface IBuildingPersistence {
+  _id: string;
   name: string;
   description: string;
   dimension: string;

@@ -53,7 +53,7 @@ export default class FloorService implements IFloorService{
     }
   }
 
-  public async updateFloor(floorDTO: IFloorDTO): Promise<Result<IFloorDTO>> {
+/*  public async updateFloor(floorDTO: IFloorDTO): Promise<Result<IFloorDTO>> {
     try {
 
       const floor = await this.floorRepo.findByDomainId(floorDTO.id);
@@ -75,4 +75,38 @@ export default class FloorService implements IFloorService{
       throw e;
     }
   }
+
+ */
+
+
+
+  public async updateFloor(floorDTO: IFloorDTO): Promise<Result<IFloorDTO>> {
+    try {
+      const floor = await this.floorRepo.findByDomainId(floorDTO.id);
+
+
+      if (!floor) {
+        return Result.fail<IFloorDTO>("Floor not found");
+      } else {
+        // Check which fields are present in the request and update them
+        if (floorDTO.buildingId !== undefined) {
+          floor.props.buildingId = floorDTO.buildingId;
+        }
+        if (floorDTO.floorNumber !== undefined) {
+          floor.props.floorNumber = floorDTO.floorNumber;
+        }
+        if (floorDTO.description !== undefined) {
+          floor.props.description = floorDTO.description;
+        }
+
+        await this.floorRepo.save(floor);
+
+        const floorDTOResult = FloorMap.toDTO(floor) as IFloorDTO;
+        return Result.ok<IFloorDTO>(floorDTOResult);
+      }
+    } catch (e) {
+      throw e;
+    }
+  }
+
 }

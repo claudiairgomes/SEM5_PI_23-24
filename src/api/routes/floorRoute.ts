@@ -9,7 +9,7 @@ import config from "../../../config";
 const route = Router();
 
 export default (app:Router) => {
-  app.use('/floor',route)
+  app.use('/floors',route)
 
   const ctrl = Container.get(config.controllers.floor.name) as IFloorController;
 
@@ -33,5 +33,16 @@ export default (app:Router) => {
       }),
     }),
     (req, res, next) => ctrl.updateFloor(req, res, next) );
+
+
+  route.patch('', celebrate({
+    body: Joi.object({
+      id: Joi.string().required(),
+      buildingId: Joi.string(),
+      floorNumber: Joi.number(),
+      description: Joi.string(),
+    }),
+  }), (req, res, next) => ctrl.updateFloor(req, res, next));
+
 
 }

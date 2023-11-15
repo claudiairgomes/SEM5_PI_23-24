@@ -11,4 +11,6 @@ export default interface IBuildingRepo extends Repo<Building>{
   findByDomainId (buildingId: BuildingId | string): Promise<Building>;
 
   findAll();
+
+  exists(buildingId: BuildingId | string): Promise<boolean>;
 }

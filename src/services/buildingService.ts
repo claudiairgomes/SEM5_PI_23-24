@@ -36,7 +36,7 @@ export default class BuildingService implements IBuildingService{
   }
 
 
-  async createBuilding(buildingDTO: IBuildingDTO): Promise<Result<IBuildingDTO>> {
+  public async createBuilding(buildingDTO: IBuildingDTO): Promise<Result<IBuildingDTO>> {
     try {
 
       const buildingOrError = await Building.create( buildingDTO );
@@ -56,19 +56,33 @@ export default class BuildingService implements IBuildingService{
     }
   }
 
-  async updateBuilding(buildingDTO: IBuildingDTO): Promise<Result<IBuildingDTO>> {
+
+  public async updateBuilding(buildingDTO: IBuildingDTO): Promise<Result<IBuildingDTO>> {
+
 
     try {
       const building = await this.buildingRepo.findByDomainId(buildingDTO.id);
+      // const floor = await this.floorRepo.findByDomainId(floorDTO.id);
 
       if (building === null) {
         return Result.fail<IBuildingDTO>("Building not found");
       }
       else {
-        building.props.name = buildingDTO.name;
-        building.props.description  = buildingDTO.description;
-        building.props.dimension = buildingDTO.dimension;
-        building.props.code = buildingDTO.code;
+        // Check which fields are present in the request and update them
+        if(buildingDTO.name!== undefined){
+          building.props.name = buildingDTO.name;
+        }
+        if (buildingDTO.description!==undefined){
+          building.props.description  = buildingDTO.description;
+
+
+        }
+        if (buildingDTO.dimension!==undefined){
+          building.props.dimension = buildingDTO.dimension;
+        }
+        if (buildingDTO.code!==undefined){
+          building.props.code = buildingDTO.code;
+        }
         await this.buildingRepo.save(building);
 
         const buildingDTOResult = BuildingMap.toDTO( building ) as IBuildingDTO;

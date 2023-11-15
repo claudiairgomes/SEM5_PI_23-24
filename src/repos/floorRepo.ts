@@ -27,6 +27,7 @@ export default class FloorRepo implements IFloorRepo{
   }
 
   async findByDomainId(floorId: FloorId | string): Promise<Floor> {
+
     const query = {domainId: floorId};
     const floorRecord = await this.floorSchema.findOne(query as FilterQuery<IFloorPersistence & Document>);
 

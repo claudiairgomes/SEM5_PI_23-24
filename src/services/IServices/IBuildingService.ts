@@ -7,6 +7,5 @@ createBuilding(buildingDTO: IBuildingDTO): Promise<Result<IBuildingDTO>>;
 
 updateBuilding(buildingDTO: IBuildingDTO): Promise<Result<IBuildingDTO>>;
 
-
-
+  getAllBuildings() ;
 }
