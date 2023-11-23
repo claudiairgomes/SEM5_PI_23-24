@@ -35,4 +35,15 @@ export default (app:Router) => {
     }),
     (req, res, next) => ctrl.updatePassage(req, res, next) );
 
+  route.patch('',
+    celebrate({
+      body: Joi.object({
+        id: Joi.string().required(),
+        fromFloorId: Joi.string().required(),
+        toFloorId: Joi.string().required(),
+        description: Joi.string().required(),
+      }),
+    }),
+    (req, res, next) => ctrl.updatePassage(req, res, next) );
+
 }

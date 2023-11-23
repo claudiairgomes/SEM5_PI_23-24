@@ -1,0 +1,50 @@
+.menu{
+
+    background-color: #328def;
+    font-size:0;
+  
+  }
+  
+  .menu ul {
+  
+    style-list: none;
+    display: inline;
+  
+  }
+  
+  .menu ul li { display: grid; width: 100%; }
+  
+  .menu ul li a{
+    
+    display: inline-block;
+    text-decoration: none;
+    padding: 15px 20px;
+    color: #fff;
+    font-size: 16px;
+  
+  }
+  
+  .menu ul li a.ativo{
+  
+    background-color: #464a4b;
+  
+  }
+  
+  .menu ul li a:hover{
+  
+    background-color: #464a4b;
+  
+  }
+  
+  .menu ul li:last-child {
+  
+    float: right;
+  
+  }
+  
+
+  @media (min-width:48em){
+  
+    .menu ul li { display:inline-block; width:auto; }
+  
+  }
