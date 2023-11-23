@@ -42,10 +42,10 @@ export default (app:Router) => {
     celebrate({
       body: Joi.object({
         id: Joi.string().required(),
-        name: Joi.string().required(),
-        description: Joi.string().required(),
-        dimension: Joi.string().required(),
-        code: Joi.string().required()
+        name: Joi.string(),
+        description: Joi.string(),
+        dimension: Joi.string(),
+        code: Joi.string(),
       }),
     }),
     (req, res, next) => ctrl.updateBuilding(req, res, next) );

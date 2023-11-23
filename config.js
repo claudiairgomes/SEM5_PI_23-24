@@ -57,7 +57,7 @@ export default {
     },
 
     floor: {
-      name: "FlorController",
+      name: "FloorController",
       path: "../controllers/floorController"
     },
 

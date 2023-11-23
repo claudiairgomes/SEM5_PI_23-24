@@ -31,10 +31,10 @@ exports.default = (app) => {
     route.patch('', (0, celebrate_1.celebrate)({
         body: celebrate_1.Joi.object({
             id: celebrate_1.Joi.string().required(),
-            name: celebrate_1.Joi.string().required(),
-            description: celebrate_1.Joi.string().required(),
-            dimension: celebrate_1.Joi.string().required(),
-            code: celebrate_1.Joi.string().required()
+            name: celebrate_1.Joi.string(),
+            description: celebrate_1.Joi.string(),
+            dimension: celebrate_1.Joi.string(),
+            code: celebrate_1.Joi.string()
         }),
     }), (req, res, next) => ctrl.updateBuilding(req, res, next));
     route.get('/findAll', (req, res, next) => ctrl.getBuildings(req, res, next));
