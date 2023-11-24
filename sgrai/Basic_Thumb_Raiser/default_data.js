@@ -15,10 +15,28 @@ export const buildingA1Data = {
 }
 
 export const buildingA2Data = {
-    url: "./mazes/EdA-P2.json",
+    url: "./mazes/EdA-P2.json", 
+    credits: "Maze designed by Cecília Fernandes and Nikita.",
+    scale: new THREE.Vector3(1.0, 1.0, 1.0),
+   
+}
+
+export const buildingB1Data = {
+    url: "./mazes/EdB-P1.json",
     credits: "Maze designed by Cecília Fernandes and Nikita.",
     scale: new THREE.Vector3(1.0, 1.0, 1.0),
 }
+export const buildingB2Data = {
+    url: "./mazes/EdB-P2.json",
+    credits: "Maze designed by Cecília Fernandes and Nikita.",
+    scale: new THREE.Vector3(1.0, 1.0, 1.0),
+}
+export const buildingB3Data = {
+    url: "./mazes/EdB-P3.json",
+    credits: "Maze designed by Cecília Fernandes and Nikita.",
+    scale: new THREE.Vector3(1.0, 1.0, 1.0),
+}
+
 
 export const playerData = {
     url: "./models/gltf/RobotExpressive/RobotExpressive.glb",

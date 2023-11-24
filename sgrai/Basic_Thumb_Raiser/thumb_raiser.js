@@ -690,6 +690,9 @@ export default class ThumbRaiser {
 
             if (this.maze.loaded && this.player.loaded) { // If all resources have been loaded
                 // Add the maze, the player and the lights to the scene
+                console.log("Currentmaze");
+                console.log(this.maze);
+                  
                 this.scene3D.add(this.maze.object);
                 this.scene3D.add(this.player.object);
                 //this.scene3D.add(this.elevator.object);
@@ -707,18 +710,18 @@ export default class ThumbRaiser {
                 this.player.position = this.maze.initialPosition.clone();
                 this.player.direction = this.maze.initialDirection;
 
-                // Start the game
-                this.gameRunning = true;
-                
                 if (this.userInterface == null) {
                     // Create the user interface
-                    this.userInterface = new UserInterface(this.scene3D, this.renderer, this.lights, this.fog, this.player.object, this.animations, this.maze);
+                    this.userInterface = new UserInterface(this.scene3D, this.renderer, this.lights, this.fog, this.player.object, this.animations, this.maze,this);
                     //this.floorInterface = new FloorInterface(this.scene3D, this.renderer,this.maze, this.lights, this.fog, this.player.object, this.animations);
-                    console.log(this.maze);
-                    this.gameRunning=false;
                     
                 }
                 
+
+                // Start the game
+                this.gameRunning = true;
+                
+               
             }
 
         }

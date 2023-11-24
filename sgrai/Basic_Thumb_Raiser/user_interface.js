@@ -1,14 +1,18 @@
 import * as THREE from "three";
 import { GUI } from "three/addons/libs/lil-gui.module.min.js";
-import {mazeParameters,buildingA1Data,buildingA2Data } from "./default_data.js";
+import {mazeParameters,buildingA1Data,buildingA2Data,buildingB1Data,buildingB2Data,buildingB3Data } from "./default_data.js";
 import Maze from "./maze.js";
 import { merge } from "./merge.js";
 
 export default class UserInteraction {
-    constructor(scene, renderer, lights, fog, object, animations,finalMaze) {
+    constructor(scene, renderer, lights, fog, object, animations,finalMaze,thumbRaser) {
         
         this.buildingA1parameters = merge({}, buildingA1Data, mazeParameters);
         this.buildingA2parameters = merge({}, buildingA2Data, mazeParameters);
+        this.buildingB1Parameters =merge({},buildingB1Data,mazeParameters);
+        this.buildingB2Parameters =merge({},buildingB2Data,mazeParameters);
+        this.buildingB3Parameters =merge({},buildingB3Data,mazeParameters);
+        //thumbRaser.gameRunning=false;
 
         function colorCallback(object, color) {
             object.color.set(color);
@@ -49,8 +53,9 @@ export default class UserInteraction {
                  const buildingB=buildingFolder.addFolder("Building B")
         
                  // Add a button to change building parameters
-                buildingB.add({ 'Floor 1': () => changeBuildingParameters(/*vazio*/) }, 'Floor 1');
-                buildingB.add({ 'Floor 2': () => changeBuildingParameters(/*vazio*/) }, 'Floor 2');
+                buildingB.add({ 'Floor 1': () => changeBuildingParameters(buildingB1Data) }, 'Floor 1');
+                buildingB.add({ 'Floor 2': () => changeBuildingParameters(buildingB2Data) }, 'Floor 2');
+                buildingB.add({ 'Floor 3': () => changeBuildingParameters(buildingB3Data) }, 'Floor 3');
         
         
                 function changeBuildingParameters(parameters){
@@ -65,14 +70,18 @@ export default class UserInteraction {
                 function createMaze(parameters) {
                     // Remove o labirinto atual da cena se houver um
                     if (finalMaze) {
-                        scene.remove(finalMaze);
+                        scene.remove(thumbRaser.maze.object);
+                        thumbRaser.gameRunning=false;
+                        scene.remove(thumbRaser.gui);
                     }
             
                     // Cria um novo labirinto
                     finalMaze = new Maze(parameters);
+                    finalMaze.scale= thumbRaser.maze.scale
+                    thumbRaser.maze= finalMaze;
             
                     // Adiciona o novo labirinto à cena
-                    scene.add(finalMaze);
+                    //scene.add(finalMaze);
                 }
                
 
