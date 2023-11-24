@@ -21,7 +21,7 @@ export class BuildingMap extends Mapper<Building>{
 
     const buildingOrError = Building.create(
       {
-        name: raw.firstName,
+        name: raw.name,
         description: raw.description,
         dimension: raw.dimension,
         code: raw.code,
