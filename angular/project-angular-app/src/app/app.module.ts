@@ -13,6 +13,7 @@ import { BuildingsComponent } from './features/buildings/buildings.component';
     AppComponent,
     BuildingsComponent,
     CreateBuildingsComponent
+    
   ],
   imports: [
     BrowserModule,

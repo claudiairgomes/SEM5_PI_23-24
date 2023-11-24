@@ -64,6 +64,8 @@ export class Elevator extends AggregateRoot<ElevatorProps> {
 
   public static create(props: ElevatorProps, id?: UniqueEntityID): Result<Elevator> {
 
+
+
     const guardedProps = [
       {argument: props.building, argumentName: 'building'},
       {argument: props.floorList, argumentName: 'floorList'},

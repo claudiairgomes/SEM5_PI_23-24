@@ -4,10 +4,10 @@ import * as sinon from 'sinon';
 import { Response, Request, NextFunction } from 'express';
 import { Container } from 'typedi';
 
-import {IBuildingDTO} from "../../dto/IBuildingDTO";
-import IBuildingService from "../../services/IServices/IBuildingService";
-import BuildingController from "../buildingController";
-import {Result} from "../../core/logic/Result";
+import {IBuildingDTO} from "../dto/IBuildingDTO";
+import IBuildingService from "../services/IServices/IBuildingService";
+import BuildingController from "./buildingController";
+import {Result} from "../core/logic/Result";
 
 
 describe('building controller', function () {

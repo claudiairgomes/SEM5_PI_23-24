@@ -2,13 +2,14 @@ import { Component } from '@angular/core';
 import { Buildings } from 'src/app/Interfaces/buildings';
 import { BuildingService } from 'src/app/Services/buildings.service';
 
+
 @Component({
   selector: 'app-create-buildings',
   templateUrl: './create-buildings.component.html',
   styleUrls: ['./create-buildings.component.css']
 })
 export class CreateBuildingsComponent {
-  building ={
+ /* building ={
     name:'',
     description:'',
     dimension:'',
@@ -27,5 +28,5 @@ export class CreateBuildingsComponent {
       }
     );
 
-  }
+  }*/
 }

@@ -6,11 +6,13 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-buildings',
   templateUrl: './buildings.component.html',
-  //styleUrls: ['./buildings.component.css']
+  styleUrls: ['./buildings.component.css']
 })
 export class BuildingsComponent {
 
   constructor(private observer: BreakpointObserver, private router: Router){
   }
+
+
 
 }
