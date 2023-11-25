@@ -1,0 +1,39 @@
+.menu {
+  background-color: #328def;
+  font-size: 0;
+}
+
+.menu ul {
+  list-style: none;
+  display: inline;
+}
+
+.menu h1 {
+  color: #fff;
+  font-size: 24px;
+  margin: 0;
+}
+
+.sub-menu {
+  text-decoration: none;
+  padding: 15px 20px;
+  color: #fff;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.sub-menu:hover {
+  background-color: #464a4b;
+}
+
+.menu ul li:last-child {
+  float: right;
+}
+
+@media (min-width: 48em) {
+  .menu ul li {
+    display: inline-block;
+    width: auto;
+  }
+}
