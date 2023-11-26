@@ -6,8 +6,6 @@ import IRobotController from '../../controllers/IControllers/IRobotController';
 
 import config from "../../../config";
 
-//var user_controller = require('../../controllers/userController');
-
 const route = Router();
 
 
@@ -27,7 +25,7 @@ export default (app: Router) => {
         description: Joi.string().required()
       }),
     }),
-    (req, res, next) => ctrl.updateRobot(req, res, next));
+    (req, res, next) => ctrl.createRobot(req, res, next));
 
   route.put('',
     celebrate({
@@ -37,7 +35,7 @@ export default (app: Router) => {
         nickName: Joi.string().required(),
         type: Joi.string().required(),
         serialNumber: Joi.string().required(),
-        description: Joi.string().optional(),
+        description: Joi.string().required(),
       }),
     }),
     (req, res, next) => ctrl.updateRobot(req, res, next) );
@@ -46,11 +44,11 @@ export default (app: Router) => {
     celebrate({
       body: Joi.object({
         id: Joi.string().required(),
-        codRobot : Joi.string().required(),
-        nickName: Joi.string().required(),
-        type: Joi.string().required(),
-        serialNumber: Joi.string().required(),
-        description: Joi.string().optional(),
+        codRobot : Joi.string(),
+        nickName: Joi.string(),
+        type: Joi.string(),
+        serialNumber: Joi.string(),
+        description: Joi.string(),
       }),
     }),
     (req, res, next) => ctrl.updateRobot(req, res, next) );
