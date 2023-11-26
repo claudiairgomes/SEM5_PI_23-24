@@ -5,7 +5,7 @@ import { Passages } from '../../../Interfaces/passages';
 @Component({
   selector: 'app-list-passages',
   templateUrl: './list-passages.component.html',
-  styleUrls: ['./list-passages.component.css']
+  //styleUrls: ['./list-passages.component.css']
 })
 export class ListPassagesComponent {
   selectedPassage?: Passages;

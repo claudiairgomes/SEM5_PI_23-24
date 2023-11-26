@@ -6,7 +6,7 @@ import { merge } from "./merge.js";
 
 export default class UserInteraction {
     constructor(scene, renderer, lights, fog, object, animations,finalMaze,thumbRaser) {
-        
+
         this.buildingA1parameters = merge({}, buildingA1Data, mazeParameters);
         this.buildingA2parameters = merge({}, buildingA2Data, mazeParameters);
         this.buildingB1Parameters =merge({},buildingB1Data,mazeParameters);
@@ -31,10 +31,10 @@ export default class UserInteraction {
                 animations.fadeToAction(name, 0.2);
             };
             emotesFolder.add(callbacks, name);
-          
+
         }
 
-  
+
         // Create the graphical user interface
         this.gui = new GUI({ hideable: false });
         const buildingFolder = this.gui.addFolder('Buildings');
@@ -47,17 +47,17 @@ export default class UserInteraction {
                 // Add a button to change building parameters
                 buildingA.add({ 'Floor 1': () => changeBuildingParameters(this.buildingA1parameters) }, 'Floor 1');
                 buildingA.add({ 'Floor 2': () => changeBuildingParameters(this.buildingA2parameters) }, 'Floor 2');
-        
-        
+
+
                  //Create the building B folder
                  const buildingB=buildingFolder.addFolder("Building B")
-        
+
                  // Add a button to change building parameters
-                buildingB.add({ 'Floor 1': () => changeBuildingParameters(buildingB1Data) }, 'Floor 1');
-                buildingB.add({ 'Floor 2': () => changeBuildingParameters(buildingB2Data) }, 'Floor 2');
-                buildingB.add({ 'Floor 3': () => changeBuildingParameters(buildingB3Data) }, 'Floor 3');
-        
-        
+                buildingB.add({ 'Floor 1': () => changeBuildingParameters(this.buildingB1Parameters) }, 'Floor 1');
+                buildingB.add({ 'Floor 2': () => changeBuildingParameters(this.buildingB2Parameters) }, 'Floor 2');
+                buildingB.add({ 'Floor 3': () => changeBuildingParameters(this.buildingB3Parameters) }, 'Floor 3');
+
+
                 function changeBuildingParameters(parameters){
                     if (parameters) {
                         console.log("New Floor:")
@@ -66,7 +66,7 @@ export default class UserInteraction {
                         createMaze(parameters);
                     }
                 }
-            
+
                 function createMaze(parameters) {
                     // Remove o labirinto atual da cena se houver um
                     if (finalMaze) {
@@ -74,19 +74,19 @@ export default class UserInteraction {
                         thumbRaser.gameRunning=false;
                         scene.remove(thumbRaser.gui);
                     }
-            
+
                     // Cria um novo labirinto
                     finalMaze = new Maze(parameters);
                     finalMaze.scale= thumbRaser.maze.scale
                     thumbRaser.maze= finalMaze;
-            
+
                     // Adiciona o novo labirinto à cena
                     //scene.add(finalMaze);
                 }
-               
 
 
-    
+
+
         // Create the lights folder
         const lightsFolder = this.gui.addFolder("Lights");
 
@@ -161,5 +161,5 @@ export default class UserInteraction {
 
 
 
-    
+
 }

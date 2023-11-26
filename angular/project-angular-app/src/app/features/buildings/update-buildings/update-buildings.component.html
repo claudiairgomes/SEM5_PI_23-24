@@ -1,30 +1,29 @@
-<div class="create-building-container">
-    <h2>Update Building</h2>
-    
-    <form (ngSubmit)="updateBuilding()">
-      <div class="form-group">
-        <label for="name">Name:</label>
-        <input type="text" id="name" [(ngModel)]="building.name" name="name" required>
-      </div>
-      
-      <div class="form-group">
-        <label for="description">Description:</label>
-        <input type="text" id="description" [(ngModel)]="building.description" name="description" required>
-      </div>
-      
-      <div class="form-group">
-        <label for="dimension">Dimension:</label>
-        <input type="text" id="dimension" [(ngModel)]="building.dimension" name="dimension" required>
-      </div>
-      
-      <div class="form-group">
-        <label for="code">Code:</label>
-        <input type="text" id="code" [(ngModel)]="building.code" name="code" required>
-      </div>
-      
-      <button type="submit">Create Building</button>
-    </form>
-  </div>
+<!-- update-buildings.component.html -->
 
+<div>
+  <h2>List of Buildings</h2>
+  <ul>
+    <li *ngFor="let building of buildings">
+      <button (click)="editBuilding(building.id)">{{ building.name }}</button>
+    </li>
+  </ul>
+</div>
 
-<h1>Funciona!</h1>
+<div *ngIf="selectedBuilding">
+  <h2>Edit Building</h2>
+  <form (submit)="updateBuilding()">
+    <label for="name">Name:</label>
+    <input type="text" id="name" [(ngModel)]="selectedBuilding.name" required>
+
+    <label for="description">Description:</label>
+    <textarea id="description" [(ngModel)]="selectedBuilding.description" required></textarea>
+
+    <label for="dimension">Dimension:</label>
+    <input type="text" id="dimension" [(ngModel)]="selectedBuilding.dimension" required>
+
+    <label for="code">Code:</label>
+    <input type="text" id="code" [(ngModel)]="selectedBuilding.code" required>
+
+    <button type="submit">Update Building</button>
+  </form>
+</div>

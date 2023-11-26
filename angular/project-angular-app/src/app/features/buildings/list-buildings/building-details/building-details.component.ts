@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Buildings } from '../../../../Interfaces/buildings';
+import { Buildings } from 'src/app/Interfaces/buildings';
+
 
 @Component({
   selector: 'app-building-details',

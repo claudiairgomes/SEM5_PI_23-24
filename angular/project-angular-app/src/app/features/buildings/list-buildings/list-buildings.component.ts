@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { BuildingService } from '../../../Services/buildings.service';
-import { Buildings } from '../../../Interfaces/buildings';
+import { Buildings } from 'src/app/Interfaces/buildings';
+import { BuildingService } from 'src/app/Services/buildings.service';
+
 
 @Component({
   selector: 'app-list-buildings',
   templateUrl: './list-buildings.component.html',
-  //styleUrls: ['./list-buildings.component.css']
+  styleUrls: ['./list-buildings.component.css']
 })
 export class ListBuildingsComponent {
   selectedBuilding?: Buildings;

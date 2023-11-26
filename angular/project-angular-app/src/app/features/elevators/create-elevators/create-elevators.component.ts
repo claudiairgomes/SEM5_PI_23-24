@@ -11,7 +11,7 @@ import { ElevatorsService } from 'src/app/Services/elevators.service';
 export class CreateElevatorsComponent {
   elevator = {
     building: '',
-    floorList: '',
+    floorList: [''],
     brand: '',
     model: '',
     serialNumber: '',
@@ -20,7 +20,7 @@ export class CreateElevatorsComponent {
 
   constructor(private elevatorService: ElevatorsService) {}
 
-  /*createElevator() {
+  createElevator() {
     const elevatorData = this.elevatorService.createElevator(this.elevator as Elevators).subscribe(
       (response) => {
         alert("Elevator created successfully!");
@@ -29,5 +29,5 @@ export class CreateElevatorsComponent {
         alert("Error creating elevator...");
       }
     );
-  }*/
+  }
 }
