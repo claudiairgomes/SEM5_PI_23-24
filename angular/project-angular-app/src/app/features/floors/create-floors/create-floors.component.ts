@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { Floors } from 'src/app/Interfaces/floors';
 import { FloorService } from 'src/app/Services/floors.service';
-import {Floor} from "../../../../../../../src/domain/floor";
+
+
 
 @Component({
   selector: 'app-create-floors',

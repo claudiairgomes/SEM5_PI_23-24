@@ -7,6 +7,8 @@ import { ListBuildingsComponent } from './features/buildings/list-buildings/list
 import { CreateElevatorsComponent } from './features/elevators/create-elevators/create-elevators.component';
 import { ElevatorsComponent } from './features/elevators/elevators.component';
 import { BuildingDetailsComponent } from './features/buildings/list-buildings/building-details/building-details.component';
+import { FloorsComponent } from './features/floors/floors.component';
+import { CreateFloorsComponent } from './features/floors/create-floors/create-floors.component';
 
 const routes: Routes = [
   {
@@ -49,6 +51,18 @@ const routes: Routes = [
     path: 'elevators/createElevators',
     component: CreateElevatorsComponent
   },
+
+  
+  {
+    path: 'floors',
+    component: FloorsComponent
+  },
+
+  {
+    path: 'floors/createFloors',
+    component: CreateFloorsComponent
+  },
+
 
 
 

@@ -4,7 +4,7 @@ import {FloorId} from "../../domain/floorId";
 import {PassageId} from "../../domain/passageId";
 
 export default interface IFloorRepo extends Repo<Floor>{
-  save (bloor:Floor): Promise <Floor>;
+  save (floor:Floor): Promise <Floor>;
   findById(id:string): Promise<Floor>;
 
   findByCode(code:string): Promise<Floor>

@@ -39,6 +39,6 @@ export class FloorService {
         const httpOptions = {
             headers : new HttpHeaders({'Content-Type': 'application/json'})
     }
-    return this.http.patch<Floors>(`http://localhost:4000/api/floor`, body, httpOptions);
+    return this.http.patch<Floors>(`http://localhost:4000/api/floors`, body, httpOptions);
     }
 }

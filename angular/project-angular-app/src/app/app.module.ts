@@ -13,6 +13,7 @@ import { ElevatorsComponent } from './features/elevators/elevators.component';
 import { CreateElevatorsComponent } from './features/elevators/create-elevators/create-elevators.component';
 import { CreateFloorsComponent } from './features/floors/create-floors/create-floors.component';
 import { FloorsComponent } from './features/floors/floors.component';
+import { ListFloorsComponent } from './features/floors/list-floors/list-floors.component';
 
 
 
@@ -27,7 +28,8 @@ import { FloorsComponent } from './features/floors/floors.component';
     CreateElevatorsComponent,
     CreateBuildingsComponent,
     FloorsComponent,
-    CreateFloorsComponent
+    CreateFloorsComponent,
+    ListFloorsComponent
 
   ],
   imports: [
