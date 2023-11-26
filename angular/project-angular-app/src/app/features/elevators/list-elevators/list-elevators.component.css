@@ -1,0 +1,45 @@
+/* Estilo para o título h2 */
+h2 {
+    color: #333; /* Cor do texto */
+    font-size: 24px; /* Tamanho da fonte */
+    margin-bottom: 10px; /* Margem inferior */
+  }
+  
+  /* Estilo para o subtítulo h3 */
+  h3 {
+    color: #555; /* Cor do texto */
+  }
+  
+  /* Estilo para a lista de edifícios */
+  .buildings-menu {
+    list-style-type: none; /* Remover marcadores de lista */
+    padding: 0; /* Remover preenchimento padrão */
+  }
+  
+  /* Estilo para cada item da lista */
+  .buildings-menu li {
+    margin-bottom: 8px; /* Espaçamento inferior entre os itens */
+  }
+  
+  /* Estilo para o botão */
+  .buildings-menu li button {
+    background-color: #4CAF50; /* Cor de fundo do botão */
+    color: #fff; /* Cor do texto do botão */
+    padding: 10px 15px; /* Preenchimento interno do botão */
+    border: none; /* Remover borda do botão */
+    cursor: pointer; /* Cursor ao passar o mouse sobre o botão */
+    outline: none; /* Remover contorno ao clicar no botão */
+    width: 100%; /* Largura total do botão */
+    text-align: left; /* Alinhamento do texto à esquerda */
+  }
+  
+  /* Estilo para o texto dentro do botão */
+  .buildings-menu li button .name {
+    font-size: 18px; /* Tamanho da fonte do nome do edifício */
+  }
+  
+  /* Estilo quando o botão está selecionado */
+  .buildings-menu li button.selected {
+    background-color: #333; /* Cor de fundo quando selecionado */
+  }
+  

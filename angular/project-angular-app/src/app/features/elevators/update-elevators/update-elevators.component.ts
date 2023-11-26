@@ -4,11 +4,11 @@ import { BuildingService } from 'src/app/Services/buildings.service';
 
 
 @Component({
-  selector: 'app-create-buildings',
-  templateUrl: './create-buildings.component.html',
-  styleUrls: ['./create-buildings.component.css']
+  selector: 'app-update-buildings',
+  templateUrl: './update-elevators.component.html',
+  styleUrls: ['./update-elevators.component.css']
 })
-export class CreateBuildingsComponent {
+export class UpdateBuildingsComponent {
   building ={
     name:'',
     description:'',
@@ -16,7 +16,7 @@ export class CreateBuildingsComponent {
     code:'',
   }  
 
-  constructor(private buildingService:BuildingService) { }
+ /* constructor(private buildingService:BuildingService) { }
 
  createBuilding() {
     const buildingData = this.buildingService.createBuilding(this.building as Buildings).subscribe(
@@ -27,6 +27,5 @@ export class CreateBuildingsComponent {
         alert("Error creating building...");
       }
     );
-
-  }
+  }*/
 }

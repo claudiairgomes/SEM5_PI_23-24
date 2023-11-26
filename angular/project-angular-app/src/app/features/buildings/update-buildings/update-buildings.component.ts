@@ -4,11 +4,11 @@ import { BuildingService } from 'src/app/Services/buildings.service';
 
 
 @Component({
-  selector: 'app-create-buildings',
-  templateUrl: './create-buildings.component.html',
-  styleUrls: ['./create-buildings.component.css']
+  selector: 'app-update-buildings',
+  templateUrl: './update-buildings.component.html',
+  styleUrls: ['./update-buildings.component.css']
 })
-export class CreateBuildingsComponent {
+export class UpdateBuildingsComponent {
   building ={
     name:'',
     description:'',
@@ -18,8 +18,8 @@ export class CreateBuildingsComponent {
 
   constructor(private buildingService:BuildingService) { }
 
- createBuilding() {
-    const buildingData = this.buildingService.createBuilding(this.building as Buildings).subscribe(
+ updateBuilding() {
+    const buildingData = this.buildingService.updateBuilding(this.building as Buildings).subscribe(
       (response) => {
         alert("Building created successfully!");
       },

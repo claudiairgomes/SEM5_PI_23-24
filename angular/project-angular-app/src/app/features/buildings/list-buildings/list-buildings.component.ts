@@ -18,6 +18,7 @@ export class ListBuildingsComponent {
   }
 
   getBuildings(): void {
+    console.log(this.buildings);
     this.buildingService.getBuildings()
       .subscribe(buildings => this.buildings = buildings);
   }
