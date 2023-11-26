@@ -11,6 +11,9 @@ import { ListBuildingsComponent } from './features/buildings/list-buildings/list
 import { HttpClientModule } from '@angular/common/http'; // Importe o HttpClientModule aqui
 import { ElevatorsComponent } from './features/elevators/elevators.component';
 import { CreateElevatorsComponent } from './features/elevators/create-elevators/create-elevators.component';
+import { CreateFloorsComponent } from './features/floors/create-floors/create-floors.component';
+import { FloorsComponent } from './features/floors/floors.component';
+
 
 
 @NgModule({
@@ -21,14 +24,18 @@ import { CreateElevatorsComponent } from './features/elevators/create-elevators/
     UpdateBuildingsComponent,
     ListBuildingsComponent,
     ElevatorsComponent,
-    CreateElevatorsComponent
+    CreateElevatorsComponent,
+    CreateBuildingsComponent,
+    FloorsComponent,
+    CreateFloorsComponent
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule
-    ,HttpClientModule 
+    ,HttpClientModule
     ],
   providers: [],
   bootstrap: [AppComponent]
