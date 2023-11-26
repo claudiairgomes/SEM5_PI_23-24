@@ -8,7 +8,7 @@
 .menu h1 {
   color: #ecf0f1; /* Light gray */
   font-size: 24px;
-  margin-bottom: 20px;
+  margin: 0;
 }
 
 .menu ul {
@@ -16,45 +16,27 @@
   display: inline-flex;
 }
 
-.menu ul li {
-  margin: 0 10px;
-}
-
-.menu ul li a {
+.sub-menu {
   text-decoration: none;
   padding: 15px 20px;
-  color: #ecf0f1; /* Light gray */
-  font-size: 16px;
-  border-radius: 5px;
-  transition: background-color 0.3s ease-in-out;
-}
-
-.menu ul li a:hover {
-  background-color: #3498db; /* Bright blue */
-}
-
-.menu button {
-  text-decoration: none;
-  padding: 15px 30px;
-  color: #ecf0f1; /* Light gray */
+  color: #495575; /* Light gray */
   font-size: 16px;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
 }
 
-.menu button:hover {
+.sub-menu:hover {
   background-color: #3498db; /* Bright blue */
 }
 
-.menu button:last-child {
+.menu ul li:last-child {
   float: right;
 }
 
 @media (min-width: 48em) {
-  .menu ul {
-    display: flex;
+  .menu ul li {
+    display: inline-block;
+    width: auto;
   }
 }
-

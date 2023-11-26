@@ -15,6 +15,10 @@ import {PassagesComponent} from "./features/passages/passages.component";
 import {CreatePassagesComponent} from "./features/passages/create-passages/create-passages.component";
 import {ListPassagesComponent} from "./features/passages/list-passages/list-passages.component";
 import {UpdatePassagesComponent} from "./features/passages/update-passages/update-passages.component";
+import {RobotsComponent} from "./features/robots/robots.component";
+import {CreateRobotsComponent} from "./features/robots/create-robots/create-robots.component";
+import {ListRobotsComponent} from "./features/robots/list-robots/list-robots.component";
+import {UpdateRobotsComponent} from "./features/robots/update-robots/update-robots.component";
 
 
 const routes: Routes = [
@@ -95,6 +99,25 @@ const routes: Routes = [
   {
     path: 'passages/updatePassages',
     component: UpdatePassagesComponent
+  },
+
+  {
+    path: 'robots',
+    component: RobotsComponent
+  },
+
+  {
+    path: 'passages/createRobots',
+    component: CreateRobotsComponent
+  },
+
+  {
+    path: 'passages/listRobots',
+    component: ListRobotsComponent
+  },
+  {
+    path: 'passages/updateRobots',
+    component: UpdateRobotsComponent
   },
 
 

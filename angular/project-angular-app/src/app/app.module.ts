@@ -14,11 +14,15 @@ import { CreateElevatorsComponent } from './features/elevators/create-elevators/
 import { CreateFloorsComponent } from './features/floors/create-floors/create-floors.component';
 import { FloorsComponent } from './features/floors/floors.component';
 import { ListFloorsComponent } from './features/floors/list-floors/list-floors.component';
-import {UpdateFloorsComponent} from "./features/floors/update-floors/update-floors.component";
-import {PassagesComponent} from "./features/passages/passages.component";
-import {CreatePassagesComponent} from "./features/passages/create-passages/create-passages.component";
-import {ListPassagesComponent} from "./features/passages/list-passages/list-passages.component";
-import {UpdatePassagesComponent} from "./features/passages/update-passages/update-passages.component";
+import { UpdateFloorsComponent} from "./features/floors/update-floors/update-floors.component";
+import { PassagesComponent} from "./features/passages/passages.component";
+import { CreatePassagesComponent} from "./features/passages/create-passages/create-passages.component";
+import { ListPassagesComponent} from "./features/passages/list-passages/list-passages.component";
+import { UpdatePassagesComponent} from "./features/passages/update-passages/update-passages.component";
+import {RobotsComponent} from "./features/robots/robots.component";
+import {CreateRobotsComponent} from "./features/robots/create-robots/create-robots.component";
+import {ListRobotsComponent} from "./features/robots/list-robots/list-robots.component";
+import {UpdateRobotsComponent} from "./features/robots/update-robots/update-robots.component";
 
 
 
@@ -41,7 +45,11 @@ import {UpdatePassagesComponent} from "./features/passages/update-passages/updat
     PassagesComponent,
     CreatePassagesComponent,
     ListPassagesComponent,
-    UpdatePassagesComponent
+    UpdatePassagesComponent,
+    RobotsComponent,
+    CreateRobotsComponent,
+    ListRobotsComponent,
+    UpdateRobotsComponent
 
   ],
   imports: [
