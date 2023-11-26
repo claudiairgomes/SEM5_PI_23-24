@@ -1,0 +1,23 @@
+<div class="create-passage-container">
+    <h2>Update Passage</h2>
+
+    <form (ngSubmit)="updatePassage()">
+      <div class="form-group">
+        <label for="fromFloorId">From Floor Id</label>
+        <input type="text" id="fromFloorId" [(ngModel)]="passage.fromFloorId" name="name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="toFloorId">To Floor Id</label>
+        <input type="text" id="toFloorId" [(ngModel)]="passage.toFloorId" name="name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <input type="text" id="description" [(ngModel)]="passage.description" name="description" required>
+      </div>
+
+      <button type="submit">Update Passage</button>
+    </form>
+  </div>
+

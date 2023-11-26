@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="create-passages.component.css">
+    </head>
+    <body>
+        <div class="container">
+            <h1> Create a New Passage</h1>
+            <form (ngSubmit)="createPassage()">
+                <div class="form-group">
+                    <label for="code">From Floor Id:</label>
+                    <input type="text" id="code" name="code" [(ngModel)]="passage.fromFloorId" >
+                </div>
+
+                <div class="form-group">
+                    <label for="name">To Floor Id:</label>
+                    <input type="text" id="name" name="name" [(ngModel)]="passage.toFloorId" >
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <input type="text" id="description" name="description" [(ngModel)]="passage.description" rows="4" >
+                </div>
+              
+                <button type="submit">Create Passage</button>
+            </form>
+        </div>
+    </body>
+</html>
