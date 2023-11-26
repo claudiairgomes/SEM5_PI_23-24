@@ -21,15 +21,41 @@ let RobotController = class RobotController {
     constructor(robotServiceInstance) {
         this.robotServiceInstance = robotServiceInstance;
     }
+
+  async createRobot(req, res, next) {
+    try {
+      const robotOrError = await this.robotServiceInstance.createRobot(req.body);
+      if (robotOrError.isFailure) {
+        return res.status(402).send();
+      }
+      const robotDTO = robotOrError.getValue();
+      return res.json(robotDTO).status(201);
+    }
+    catch (e) {
+      return next(e);
+    }
+  }
+  ;
     async getAllRobots(req, res, next) {
     }
     ;
     async getRobotById(req, res, next) {
     }
     ;
-    async updateRobot(req, res, next) {
+  async updateRobot(req, res, next) {
+    try {
+      const robotOrError = await this.robotServiceInstance.updateRobot(req.body);
+      if (robotOrError.isFailure) {
+        return res.status(404).send();
+      }
+      const robotDTO = robotOrError.getValue();
+      return res.status(201).json(robotDTO);
     }
-    ;
+    catch (e) {
+      return next(e);
+    }
+  }
+  ;
 };
 RobotController = __decorate([
     (0, typedi_1.Service)(),

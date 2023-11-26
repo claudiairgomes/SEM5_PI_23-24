@@ -12,6 +12,7 @@ import IBuildingController from "./IControllers/IBuildingController";
 import IBuildingService from "../services/IServices/IBuildingService";
 import IRobotController from "./IControllers/IRobotController";
 import IRobotService from "../services/IServices/IRobotService";
+import {IFloorDTO} from "../dto/IFloorDTO";
 
 
 @Service()
@@ -27,25 +28,37 @@ export default class RobotController implements IRobotController /* TODO: extend
   public async getRobotById(req: Request, res: Response, next: NextFunction) {
   };
 
-  public async updateRobot(req: Request, res: Response, next: NextFunction) {
+
+  public async createRobot(req: Request, res: Response, next: NextFunction) {
+    try {
+
+      const robotOrError = await this.robotServiceInstance.createRobot(req.body as IRobotDTO) as Result<IRobotDTO>;
+
+      if (robotOrError.isFailure) {
+        return res.status(402).send();
+      }
+
+      const robotDTO = robotOrError.getValue();
+      return res.json( robotDTO ).status(201);
+    }
+    catch (e) {
+      return next(e);
+    }
   };
+  public async updateRobot(req: Request, res: Response, next: NextFunction) {
+    try {
 
+      const robotOrError = await this.robotServiceInstance.updateRobot(req.body as IRobotDTO) as Result<IRobotDTO>;
 
-//exports.getMe = async function(req, res: Response) {
+      if (robotOrError.isFailure) {
+        return res.status(404).send();
+      }
 
-  // NB: a arquitetura ONION não está a ser seguida aqui
-
- /* const robotRepo = Container.get(config.repos.robot.name) as IRobotRepo
-
-  if( !req.token || req.token == undefined )
-    return res.json( new Error("Token inexistente ou inválido")).status(401);
-
-  const robot = await robotRepo.findById( req.token.id );
-  if (!robot)
-    return res.json( new Error("Utilizador não registado")).status(401);
-
-  const robotDTO = RobotMap.toDTO( robot ) as IRobotDTO;
-  return res.json( robotDTO ).status(200);
-
-  */
+      const robotDTO = robotOrError.getValue();
+      return res.status(201).json( robotDTO );
+    }
+    catch (e) {
+      return next(e);
+    }
+  };
 }
