@@ -1,9 +1,1 @@
 <h2>All Passages</h2>
-<h3>- Click to See Details: </h3>
-<ul class="passages-menu">
-  <li *ngFor="let passage of passages">
-    <button [class.selected]="passage === selectedPassage" type="button" (click)="onSelect(passage)">
-        <span class="name">{{passage.name}}</span>
-    </button>
-  </li>
-</ul>
