@@ -9,6 +9,13 @@ import { ElevatorsComponent } from './features/elevators/elevators.component';
 import { BuildingDetailsComponent } from './features/buildings/list-buildings/building-details/building-details.component';
 import { FloorsComponent } from './features/floors/floors.component';
 import { CreateFloorsComponent } from './features/floors/create-floors/create-floors.component';
+import {ListFloorsComponent} from "./features/floors/list-floors/list-floors.component";
+import {UpdateFloorsComponent} from "./features/floors/update-floors/update-floors.component";
+import {PassagesComponent} from "./features/passages/passages.component";
+import {CreatePassagesComponent} from "./features/passages/create-passages/create-passages.component";
+import {ListPassagesComponent} from "./features/passages/list-passages/list-passages.component";
+import {UpdatePassagesComponent} from "./features/passages/update-passages/update-passages.component";
+
 
 const routes: Routes = [
   {
@@ -52,7 +59,6 @@ const routes: Routes = [
     component: CreateElevatorsComponent
   },
 
-  
   {
     path: 'floors',
     component: FloorsComponent
@@ -63,7 +69,33 @@ const routes: Routes = [
     component: CreateFloorsComponent
   },
 
+  {
+    path: 'floors/listFloors',
+    component: ListFloorsComponent
+  },
+  {
+    path: 'floors/updateFloors',
+    component: UpdateFloorsComponent
+  },
 
+  {
+    path: 'passages',
+    component: PassagesComponent
+  },
+
+  {
+    path: 'passages/createPassages',
+    component: CreatePassagesComponent
+  },
+
+  {
+    path: 'passages/listPassages',
+    component: ListPassagesComponent
+  },
+  {
+    path: 'passages/updatePassages',
+    component: UpdatePassagesComponent
+  },
 
 
 ];

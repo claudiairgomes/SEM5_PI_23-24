@@ -14,6 +14,13 @@ import { CreateElevatorsComponent } from './features/elevators/create-elevators/
 import { CreateFloorsComponent } from './features/floors/create-floors/create-floors.component';
 import { FloorsComponent } from './features/floors/floors.component';
 import { ListFloorsComponent } from './features/floors/list-floors/list-floors.component';
+import {UpdateFloorsComponent} from "./features/floors/update-floors/update-floors.component";
+import {PassagesComponent} from "./features/passages/passages.component";
+import {CreatePassagesComponent} from "./features/passages/create-passages/create-passages.component";
+import {ListPassagesComponent} from "./features/passages/list-passages/list-passages.component";
+import {UpdatePassagesComponent} from "./features/passages/update-passages/update-passages.component";
+
+
 
 
 
@@ -29,7 +36,12 @@ import { ListFloorsComponent } from './features/floors/list-floors/list-floors.c
     CreateBuildingsComponent,
     FloorsComponent,
     CreateFloorsComponent,
-    ListFloorsComponent
+    ListFloorsComponent,
+    UpdateFloorsComponent,
+    PassagesComponent,
+    CreatePassagesComponent,
+    ListPassagesComponent,
+    UpdatePassagesComponent
 
   ],
   imports: [

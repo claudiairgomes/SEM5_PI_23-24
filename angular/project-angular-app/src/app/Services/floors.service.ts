@@ -9,7 +9,7 @@ import { Observable } from "rxjs";
 export class FloorService {
     constructor(private http:HttpClient) { }
 
-    createBuilding(floor: Floors): Observable<Floors> {
+    createFloor(floor: Floors): Observable<Floors> {
         const httpOptions = {
             headers : new HttpHeaders({'Content-Type': 'application/json'})
     }
