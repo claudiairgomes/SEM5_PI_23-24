@@ -38,7 +38,7 @@ export default class Maze {
             this.wall = new Wall( {textureUrl: description.wallTextureUrl} )
 
             //Create a doorWay
-            this.door = new Door({ textureUrl: description.doorWayTextureUrl });
+            this.door = new Door({ textureUrl: description.doorTextureUrl });
 
             // Create the elevator
             this.elevator = new Elevator({textureUrl: description.elevatorTextureUrl} );

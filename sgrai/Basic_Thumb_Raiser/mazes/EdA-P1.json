@@ -2,7 +2,7 @@
     "groundTextureUrl": "./textures/ground4.jpg",
     "wallTextureUrl": "./textures/wall5.jpg",
     "elevatorModelUrl": "",
-    "doorTextureUrl": "./textures/door_texture.jpg",
+    "doorTextureUrl": "./textures/door_2.png",
     "size": { "width": 22, "height": 10 },
     "map": [
         [3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 2, 2, 2, 3, 2, 2, 2, 3, 2, 3, 2, 1],            
