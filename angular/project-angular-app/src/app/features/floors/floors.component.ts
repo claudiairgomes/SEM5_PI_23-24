@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-floors',
   templateUrl: './floors.component.html',
-  //styleUrls: ['./floors.component.css']
+  styleUrls: ['./floors.component.css']
 })
 export class FloorsComponent {
 

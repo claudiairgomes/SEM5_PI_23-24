@@ -1,2 +1,33 @@
-<br><br><br><h1>create-floors works!</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="create-floors.component.css">
+</head>
+<body>
+<div class="container">
+  <h1> Create a New Floor</h1>
+  <form (ngSubmit)="createFloor()">
+    <div class="form-group">
+      <label for="code">Building Id:</label>
+      <input type="text" id="code" name="code" [(ngModel)]="floor.buildingId" >
+    </div>
 
+    <div class="form-group">
+      <label for="name">Floor Number:</label>
+      <input type="text" id="name" name="name" [(ngModel)]="floor.floorNumber" >
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <input type="text" id="description" name="description" [(ngModel)]="floor.description" rows="4" >
+    </div>
+
+    <button type="submit">Create Floor</button>
+  </form>
+</div>
+</body>
+
+
+</html>

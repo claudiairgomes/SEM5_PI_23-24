@@ -17,6 +17,7 @@ export class BuildingService {
     }
 
     getBuildings(): Observable<Buildings[]> {
+        console.log("Service");
         return this.http.get<Buildings[]>('http://localhost:4000/api/buildings');
     }
 
@@ -41,6 +42,6 @@ export class BuildingService {
         const httpOptions = {
             headers : new HttpHeaders({'Content-Type': 'application/json'})
     }
-    return this.http.patch<Buildings>(`http://localhost:4000/api/building`, body, httpOptions);
+    return this.http.patch<Buildings>(`http://localhost:4000/api/buildings`, body, httpOptions);
     }
 }

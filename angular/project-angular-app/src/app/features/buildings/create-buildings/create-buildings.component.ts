@@ -9,7 +9,7 @@ import { BuildingService } from 'src/app/Services/buildings.service';
   styleUrls: ['./create-buildings.component.css']
 })
 export class CreateBuildingsComponent {
- /* building ={
+  building ={
     name:'',
     description:'',
     dimension:'',
@@ -18,7 +18,7 @@ export class CreateBuildingsComponent {
 
   constructor(private buildingService:BuildingService) { }
 
-  createBuilding() {
+ createBuilding() {
     const buildingData = this.buildingService.createBuilding(this.building as Buildings).subscribe(
       (response) => {
         alert("Building created successfully!");
@@ -28,5 +28,5 @@ export class CreateBuildingsComponent {
       }
     );
 
-  }*/
+  }
 }

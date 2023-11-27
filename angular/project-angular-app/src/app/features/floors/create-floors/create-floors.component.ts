@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Floors } from 'src/app/Interfaces/floors';
 import { FloorService } from 'src/app/Services/floors.service';
-import {Floor} from "../../../../../../../src/domain/floor";
 
 @Component({
   selector: 'app-create-floors',
@@ -9,16 +8,16 @@ import {Floor} from "../../../../../../../src/domain/floor";
   styleUrls: ['./create-floors.component.css']
 })
 export class CreateFloorsComponent {
- /* floor ={
+  floor ={
     buildingId:'',
-    floorNumber:'',
+    floorNumber:0,
     description:''
   }
 
-  constructor(private floorservice:Floorservice) { }
+  constructor(private floorService:FloorService) { }
 
   createFloor() {
-    const floorData = this.floorservice.createBuilding(this.floor as Floor).subscribe(
+    const floorData = this.floorService.createFloor(this.floor as Floors ).subscribe(
       (response) => {
         alert("Floor created successfully!");
       },
@@ -27,5 +26,5 @@ export class CreateFloorsComponent {
       }
     );
 
-  }*/
+  }
 }
