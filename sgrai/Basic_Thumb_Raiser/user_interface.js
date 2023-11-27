@@ -1,17 +1,25 @@
 import * as THREE from "three";
 import { GUI } from "three/addons/libs/lil-gui.module.min.js";
-import {mazeParameters,buildingA1Data,buildingA2Data,buildingB1Data,buildingB2Data,buildingB3Data } from "./default_data.js";
+import {mazeParameters,buildingA1Data,buildingA2Data,buildingB1Data,buildingB2Data,buildingB3Data, buildingC1Data, buildingC2Data, buildingC3Data, buildingC4Data, buildingD1Data, buildingD2Data, buildingD3Data} from "./default_data.js";
 import Maze from "./maze.js";
 import { merge } from "./merge.js";
 
 export default class UserInteraction {
     constructor(scene, renderer, lights, fog, object, animations,finalMaze,thumbRaser) {
 
-        this.buildingA1parameters = merge({}, buildingA1Data, mazeParameters);
-        this.buildingA2parameters = merge({}, buildingA2Data, mazeParameters);
+        this.buildingA1Parameters = merge({}, buildingA1Data, mazeParameters);
+        this.buildingA2Parameters = merge({}, buildingA2Data, mazeParameters);
         this.buildingB1Parameters =merge({},buildingB1Data,mazeParameters);
         this.buildingB2Parameters =merge({},buildingB2Data,mazeParameters);
         this.buildingB3Parameters =merge({},buildingB3Data,mazeParameters);
+        this.buildingC1Parameters =merge({},buildingC1Data,mazeParameters);
+        this.buildingC2Parameters =merge({},buildingC2Data,mazeParameters);
+        this.buildingC3Parameters =merge({},buildingC3Data,mazeParameters);
+        this.buildingC4Parameters =merge({},buildingC4Data,mazeParameters);
+        this.buildingD1Parameters =merge({},buildingD1Data,mazeParameters);
+        this.buildingD2Parameters =merge({},buildingD2Data,mazeParameters);
+        this.buildingD3Parameters =merge({},buildingD3Data,mazeParameters);
+
         //thumbRaser.gameRunning=false;
 
         function colorCallback(object, color) {
@@ -38,51 +46,65 @@ export default class UserInteraction {
         // Create the graphical user interface
         this.gui = new GUI({ hideable: false });
         const buildingFolder = this.gui.addFolder('Buildings');
-        //let finalMaze= new Maze(buildingA1Data);
 
-                //Create the building A folder
-                const buildingA=buildingFolder.addFolder("Building A")
+        //Create the building A folder
+        const buildingA=buildingFolder.addFolder("Building A")
 
-
-                // Add a button to change building parameters
-                buildingA.add({ 'Floor 1': () => changeBuildingParameters(this.buildingA1parameters) }, 'Floor 1');
-                buildingA.add({ 'Floor 2': () => changeBuildingParameters(this.buildingA2parameters) }, 'Floor 2');
+        // Add a button to change building parameters
+        buildingA.add({ 'Floor 1': () => changeBuildingParameters(this.buildingA1Parameters) }, 'Floor 1');
+        buildingA.add({ 'Floor 2': () => changeBuildingParameters(this.buildingA2Parameters) }, 'Floor 2');
 
 
-                 //Create the building B folder
-                 const buildingB=buildingFolder.addFolder("Building B")
+         //Create the building B folder
+         const buildingB=buildingFolder.addFolder("Building B")
 
-                 // Add a button to change building parameters
-                buildingB.add({ 'Floor 1': () => changeBuildingParameters(this.buildingB1Parameters) }, 'Floor 1');
-                buildingB.add({ 'Floor 2': () => changeBuildingParameters(this.buildingB2Parameters) }, 'Floor 2');
-                buildingB.add({ 'Floor 3': () => changeBuildingParameters(this.buildingB3Parameters) }, 'Floor 3');
+         // Add a button to change building parameters
+        buildingB.add({ 'Floor 1': () => changeBuildingParameters(this.buildingB1Parameters) }, 'Floor 1');
+        buildingB.add({ 'Floor 2': () => changeBuildingParameters(this.buildingB2Parameters) }, 'Floor 2');
+        buildingB.add({ 'Floor 3': () => changeBuildingParameters(this.buildingB3Parameters) }, 'Floor 3');
 
 
-                function changeBuildingParameters(parameters){
-                    if (parameters) {
-                        console.log("New Floor:")
-                        console.log(parameters);
-                        // Cria um novo labirinto com base nos parâmetros fornecidos
-                        createMaze(parameters);
-                    }
-                }
+        //Create the building C folder
+        const buildingC=buildingFolder.addFolder("Building C")
 
-                function createMaze(parameters) {
-                    // Remove o labirinto atual da cena se houver um
-                    if (finalMaze) {
-                        scene.remove(thumbRaser.maze.object);
-                        thumbRaser.gameRunning=false;
-                        scene.remove(thumbRaser.gui);
-                    }
+        // Add a button to change building parameters
+        buildingC.add({ 'Floor 1': () => changeBuildingParameters(this.buildingC1Parameters) }, 'Floor 1');
+        buildingC.add({ 'Floor 2': () => changeBuildingParameters(this.buildingC2Parameters) }, 'Floor 2');
+        buildingC.add({ 'Floor 3': () => changeBuildingParameters(this.buildingC3Parameters) }, 'Floor 3');
+        buildingC.add({ 'Floor 4': () => changeBuildingParameters(this.buildingC4Parameters) }, 'Floor 4');
 
-                    // Cria um novo labirinto
-                    finalMaze = new Maze(parameters);
-                    finalMaze.scale= thumbRaser.maze.scale
-                    thumbRaser.maze= finalMaze;
 
-                    // Adiciona o novo labirinto à cena
-                    //scene.add(finalMaze);
-                }
+        //Create the building D folder
+        const buildingD=buildingFolder.addFolder("Building D")
+
+        // Add a button to change building parameters
+        buildingD.add({ 'Floor 1': () => changeBuildingParameters(this.buildingD1Parameters) }, 'Floor 1');
+        buildingD.add({ 'Floor 2': () => changeBuildingParameters(this.buildingD2Parameters) }, 'Floor 2');
+        buildingD.add({ 'Floor 3': () => changeBuildingParameters(this.buildingD3Parameters) }, 'Floor 3');
+
+
+        function changeBuildingParameters(parameters){
+            if (parameters) {
+                console.log("New Floor:")
+                console.log(parameters);
+                // Cria um novo edifício com base nos parâmetros fornecidos
+                createMaze(parameters);
+            }
+        }
+
+        function createMaze(parameters) {
+            // Remove o labirinto atual da cena se houver um
+            if (finalMaze) {
+                scene.remove(thumbRaser.maze.object);
+                thumbRaser.gameRunning=false;
+                scene.remove(thumbRaser.gui);
+            }
+
+            // Cria um novo edifício
+            finalMaze = new Maze(parameters);
+            finalMaze.scale= thumbRaser.maze.scale
+            thumbRaser.maze= finalMaze;
+        }
 
 
 

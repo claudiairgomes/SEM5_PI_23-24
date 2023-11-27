@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
 /*
  * parameters = {
@@ -23,13 +24,22 @@ export default class Door {
 
         // Create a group of objects
         this.object = new THREE.Group();
+        
+        // Create the front face (a rectangle)
+        let geometry = new THREE.BoxGeometry(1, 3.0, 0.05);
+        
+        let face = new THREE.Mesh(geometry, material);
+        face.position.set(0.0, 0.0, 0.025);
+        face.castShadow = true;
+        face.receiveShadow = true;
+        this.object.add(face);
 
-         // Create the front face (a rectangle)
-         let geometry = new THREE.BoxGeometry(1, 2.0, 0.05);
+        // Create the rear face (a rectangle)
+        face = new THREE.Mesh().copy(face, false);
+        face.rotateY(Math.PI);
+        face.position.set(0.0, 0.0, -0.025);
+        this.object.add(face);
 
-         this.door = new THREE.Mesh(geometry, material);
-
-         this.object.add(this.door);
 
 
             // Animation parameters

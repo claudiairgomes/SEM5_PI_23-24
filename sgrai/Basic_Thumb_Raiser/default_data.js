@@ -11,14 +11,11 @@ export const buildingA1Data = {
     url: "./mazes/EdA-P1.json", 
     credits: "Maze designed by Cecília Fernandes and Nikita.",
     scale: new THREE.Vector3(1.0, 1.0, 1.0),
-   
 }
-
 export const buildingA2Data = {
     url: "./mazes/EdA-P2.json", 
     credits: "Maze designed by Cecília Fernandes and Nikita.",
     scale: new THREE.Vector3(1.0, 1.0, 1.0),
-   
 }
 
 export const buildingB1Data = {
@@ -37,6 +34,42 @@ export const buildingB3Data = {
     scale: new THREE.Vector3(1.0, 1.0, 1.0),
 }
 
+export const buildingC1Data = {
+    url: "./mazes/EdC-P1.json",
+    credits: "Maze designed by Cecília Fernandes and Nikita.",
+    scale: new THREE.Vector3(1.0, 1.0, 1.0),
+}
+export const buildingC2Data = {
+    url: "./mazes/EdC-P2.json",
+    credits: "Maze designed by Cecília Fernandes and Nikita.",
+    scale: new THREE.Vector3(1.0, 1.0, 1.0),
+}
+export const buildingC3Data = {
+    url: "./mazes/EdC-P3.json",
+    credits: "Maze designed by Cecília Fernandes and Nikita.",
+    scale: new THREE.Vector3(1.0, 1.0, 1.0),
+}
+export const buildingC4Data = {
+    url: "./mazes/EdC-P4.json",
+    credits: "Maze designed by Cecília Fernandes and Nikita.",
+    scale: new THREE.Vector3(1.0, 1.0, 1.0),
+}
+export const buildingD1Data = {
+    url: "./mazes/EdD-P1.json",
+    credits: "Maze designed by Cecília Fernandes and Nikita.",
+    scale: new THREE.Vector3(1.0, 1.0, 1.0),
+}
+export const buildingD2Data = {
+    url: "./mazes/EdD-P2.json",
+    credits: "Maze designed by Cecília Fernandes and Nikita.",
+    scale: new THREE.Vector3(1.0, 1.0, 1.0),
+}
+export const buildingD3Data = {
+    url: "./mazes/EdD-P3.json",
+    credits: "Maze designed by Cecília Fernandes and Nikita.",
+    scale: new THREE.Vector3(1.0, 1.0, 1.0),
+}
+
 
 export const playerData = {
     url: "./models/gltf/RobotExpressive/RobotExpressive.glb",
@@ -48,13 +81,6 @@ export const playerData = {
     turningSpeed: 180.0, // Expressed in degrees / second
     runningFactor: 2.0, // Affects walking speed and turning speed
     keyCodes: { fixedView: "Digit1", firstPersonView: "Digit2", thirdPersonView: "Digit3", topView: "Digit4", viewMode: "KeyV", userInterface: "KeyU", miniMap: "KeyM", help: "KeyH", statistics: "KeyS", run: "KeyR", left: "ArrowLeft", right: "ArrowRight", backward: "ArrowDown", forward: "ArrowUp", jump: "KeyJ", yes: "KeyY", no: "KeyN", wave: "KeyW", punch: "KeyP", thumbsUp: "KeyT" }
-}
-
-
-export const elevatorData={
-    url: "./models/gltf/simple-elevator-with-animation (1)/source/ElevatorAnimation.glb",
-    credits:"https://sketchfab.com/3d-models/simple-elevator-with-animation-770488a2f94a453fb90a7445bda63cd0) by lhaegy.fu (https://sketchfab.com/lhaegy.fu) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/",
-    openingSpeed:1
 }
 
 export const lightsData = {

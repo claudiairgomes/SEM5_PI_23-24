@@ -24,8 +24,8 @@ export default class Wall {
         this.object = new THREE.Group();
 
         // Create the front face (a rectangle)
-        let geometry = new THREE.PlaneGeometry(1.0, 2.0);
-        let material = new THREE.MeshPhongMaterial({ color: 0xffffff, map: texture });
+        let geometry = new THREE.PlaneGeometry(1.05, 3.0);
+        let material = new THREE.MeshPhongMaterial({ color: 0xfff0ff, map: texture });
         let face = new THREE.Mesh(geometry, material);
         face.position.set(0.0, 0.0, 0.025);
         face.castShadow = true;
@@ -50,6 +50,7 @@ export default class Wall {
             -0.475, -1, -0.025,
             -0.5, -1, 0.0
         ]);
+
         let normals = new Float32Array([
             -0.707, 0.0, 0.707,
             -0.707, 0.0, 0.707,
@@ -90,6 +91,7 @@ export default class Wall {
             0.475, 1, -0.025,
             0.5, 1, 0.0
         ]);
+
         normals = new Float32Array([
             0.0, 1.0, 0.0,
             0.0, 1.0, 0.0,
