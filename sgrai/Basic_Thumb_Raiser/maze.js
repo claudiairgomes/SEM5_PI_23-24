@@ -2,10 +2,7 @@ import * as THREE from "three";
 import Ground from "./ground.js";
 import Wall from "./wall.js";
 import Door from "./door.js";
-import DoorAnimations from "./doorAnimations.js";
 import Elevator from "./elevator.js";
-import {  elevatorData } from "./default_data.js";
-import { merge } from "./merge.js";
 
 /*
  * parameters = {
@@ -18,9 +15,6 @@ import { merge } from "./merge.js";
 export default class Maze {
     constructor(parameters) {
         this.onLoad = function (description) {
-
-            //elevator Parameters
-            //this.elevatorParameters = merge({}, elevatorData, elevatorParameters);
 
             // Store the maze's map and size
             this.map = description.map;
@@ -46,18 +40,15 @@ export default class Maze {
             //Create a doorWay
             this.door = new Door({ textureUrl: description.doorWayTextureUrl });
 
-             // Create door animations (states)
-           //  this.animations = new Animations(this.doorWay, this.doorWay.animations);
-
-
             // Create the elevator
-            this.elevator = new Elevator({textureUrl: description.wallTextureUrl} );
-            
+            this.elevator = new Elevator({textureUrl: description.elevatorTextureUrl} );
 
             // Build the maze
             let wallObject;
             let doorObject;
             let elevatorObject;
+            let coordenada5;
+            let coordenada4;
 
             for (let i = 0; i <= description.size.width; i++) { // In order to represent the eastmost walls, the map width is one column greater than the actual maze width
                 for (let j = 0; j <= description.size.height; j++) { // In order to represent the southmost walls, the map height is one row greater than the actual maze height
@@ -78,22 +69,30 @@ export default class Maze {
                         wallObject.position.set(i - description.size.width / 2.0 + 0.5, 0.5, j - description.size.height / 2.0);
                         this.object.add(wallObject);
                     }
+                            
                     if (description.map[j][i] == 1 || description.map[j][i] == 3) {
                         wallObject = this.wall.object.clone();
                         wallObject.rotateY(Math.PI / 2.0);
                         wallObject.position.set(i - description.size.width / 2.0, 0.5, j - description.size.height / 2.0 + 0.5);
                         this.object.add(wallObject);
                     }
+        
                     if (description.map[j][i] == 4) {
                         doorObject = this.door.object.clone();
-                        
                         doorObject.position.set(i - description.size.width / 2.0 + 0.5, 0.5, j - description.size.height / 2.0);
+                        //se quiser abrir as portas, descomente a linha abaixo
+                        //doorObject.rotateY(Math.PI / 2.0);
+                        //doorObject.position.set((i - description.size.width / 2.0 + 0.5)+0.5, 0.5, (j - description.size.height / 2.0)+0.5);
                         this.object.add(doorObject);
                     }
-
+        
                     if (description.map[j][i] == 5) {
                         doorObject = this.door.object.clone();
-                        doorObject.position.set(i - description.size.width / 2.0 + 0.5, 0.5, j - description.size.height / 2.0);
+                        doorObject.rotateY(Math.PI / 2.0);
+                        doorObject.position.set(i - description.size.width / 2.0, 0.5, j - description.size.height / 2.0 + 0.5);
+                        //se quiser abrir as portas, descomente a linha abaixo
+                        //doorObject.rotateY(Math.PI / 2.0);
+                        //doorObject.position.set((i - description.size.width / 2.0)+0.5, 0.5, (j - description.size.height / 2.0 + 0.5)+0.5);
                         this.object.add(doorObject);
                     }
 
@@ -102,7 +101,13 @@ export default class Maze {
                         elevatorObject.rotateY(Math.PI / 2.0);
                         elevatorObject.position.set(i - description.size.width / 2.0, 0.5, j - description.size.height / 2.0 + 0.5);
                         this.object.add(elevatorObject);
+                    }
 
+                    if (description.map[j][i] == 7) {
+                        elevatorObject = this.elevator.object.clone();
+                        elevatorObject.rotateY(-(Math.PI / 2.0));
+                        elevatorObject.position.set(i - description.size.width / 2.0, 0.5, j - description.size.height / 2.0 + 0.5);
+                        this.object.add(elevatorObject);
                     }
                   
                 }
@@ -151,8 +156,6 @@ export default class Maze {
     }
 
 
-    
-
 
     // Convert cell [row, column] coordinates to cartesian (x, y, z) coordinates
     cellToCartesian(position) {
@@ -198,26 +201,57 @@ export default class Maze {
         return Infinity;
     }
 
-    distanceToDoor(position){
+    distanceToEastDoor(position) {
         const indices = this.cartesianToCell(position);
-        indices[0]++;
-        if (this.map[indices[0]][indices[1]] == 4) {
-            this.door.openDoor();
-            return this.cellToCartesian(indices).z - this.scale.z / 2.0 - position.z;
-           
-            
+        indices[1]++;
+        if (this.map[indices[0]][indices[1]] == 5) {
+            return this.cellToCartesian(indices).x - this.scale.x / 2.0 - position.x;
         }
         return Infinity;
     }
 
-    distanceToElevator(position){const indices = this.cartesianToCell(position);
-        indices[0]++;
-        if (this.map[indices[0]][indices[1]] == 6) {
-            this.elevator.openDoors();
-            return this.cellToCartesian(indices).z - this.scale.z / 2.0 - position.z;
-           
+    distanceToWestDoor(position) {
+        const indices = this.cartesianToCell(position);
+        if (this.map[indices[0]][indices[1]] == 5) {
+            return position.x - this.cellToCartesian(indices).x + this.scale.x / 2.0;
         }
-        return Infinity;}
+        return Infinity;
+    }
+
+    distanceToNorthDoor(position) {
+        const indices = this.cartesianToCell(position);
+        if (this.map[indices[0]][indices[1]] == 4) {
+            return position.z - this.cellToCartesian(indices).z + this.scale.z / 2.0;
+        }
+        return Infinity;
+    }
+
+    distanceToSouthDoor(position) {
+        const indices = this.cartesianToCell(position);
+        indices[0]++;
+        if (this.map[indices[0]][indices[1]] == 4) {
+            return this.cellToCartesian(indices).z - this.scale.z / 2.0 - position.z;
+        }
+        return Infinity;
+    }
+
+    distanceToElevatorWest(position){
+        const indices = this.cartesianToCell(position);
+        indices[1]++;
+        if (this.map[indices[0]][indices[1]] == 6) {
+            return (position.x + 0.95) - this.cellToCartesian(indices).x + this.scale.x / 2.0; //oeste
+        }
+        return Infinity;
+    }
+
+    distanceToElevatorEast(position){
+        const indices = this.cartesianToCell(position);
+        indices[1]++;
+        if (this.map[indices[0]][indices[1]] == 6) {
+            return this.cellToCartesian(indices).x - this.scale.x / 2.0 - (position.x + 0.95); //este
+        }
+        return Infinity;
+    }
 
     foundExit(position) {
         return Math.abs(position.x - this.exitLocation.x) < 0.5 * this.scale.x && Math.abs(position.z - this.exitLocation.z) < 0.5 * this.scale.z

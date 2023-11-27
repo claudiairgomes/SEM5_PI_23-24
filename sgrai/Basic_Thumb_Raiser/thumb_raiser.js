@@ -13,7 +13,7 @@
 import * as THREE from "three";
 import Stats from "three/addons/libs/stats.module.js";
 import Orientation from "./orientation.js";
-import { generalData, buildingA1Data,buildingA2Data, playerData, lightsData, fogData, cameraData, elevatorData } from "./default_data.js";
+import { generalData, buildingA1Data,buildingA2Data, buildingB1Data,buildingB2Data,buildingB3Data, buildingC1Data, buildingC2Data, buildingC3Data, buildingC4Data, buildingD1Data, buildingD2Data, buildingD3Data, playerData, lightsData, fogData, cameraData} from "./default_data.js";
 import { merge } from "./merge.js";
 import Maze from "./maze.js";
 import Player from "./player.js";
@@ -22,9 +22,7 @@ import Fog from "./fog.js";
 import Camera from "./camera.js";
 import Animations from "./animations.js";
 import UserInterface from "./user_interface.js";
-import Elevator from "./elevator.js";
-import Door from "./door.js";
-import FloorInterface from "./floorInterface.js";
+
 /*
  * generalParameters = {
  *  setDevicePixelRatio: Boolean
@@ -152,11 +150,21 @@ import FloorInterface from "./floorInterface.js";
  */
 
 export default class ThumbRaiser {
-    constructor(generalParameters,mazeParameters, buildingParameters, playerParameters, lightsParameters, fogParameters, fixedViewCameraParameters, firstPersonViewCameraParameters, thirdPersonViewCameraParameters, topViewCameraParameters, miniMapCameraParameters,elevatorParameters) {
+    constructor(generalParameters,mazeParameters, buildingParameters, playerParameters, lightsParameters, fogParameters, fixedViewCameraParameters, firstPersonViewCameraParameters, thirdPersonViewCameraParameters, topViewCameraParameters, miniMapCameraParameters) {
         this.generalParameters = merge({}, generalData, generalParameters);
 
-        this.buildingA1parameters = merge({}, buildingA1Data, mazeParameters);
-        this.buildingA2parameters = merge({}, buildingA2Data, mazeParameters);
+        this.buildingA1Parameters = merge({}, buildingA1Data, mazeParameters);
+        this.buildingA2Parameters = merge({}, buildingA2Data, mazeParameters);
+        this.buildingB1Parameters =merge({},buildingB1Data,mazeParameters);
+        this.buildingB2Parameters =merge({},buildingB2Data,mazeParameters);
+        this.buildingB3Parameters =merge({},buildingB3Data,mazeParameters);
+        this.buildingC1Parameters =merge({},buildingC1Data,mazeParameters);
+        this.buildingC2Parameters =merge({},buildingC2Data,mazeParameters);
+        this.buildingC3Parameters =merge({},buildingC3Data,mazeParameters);
+        this.buildingC4Parameters =merge({},buildingC4Data,mazeParameters);
+        this.buildingD1Parameters =merge({},buildingD1Data,mazeParameters);
+        this.buildingD2Parameters =merge({},buildingD2Data,mazeParameters);
+        this.buildingD3Parameters =merge({},buildingD3Data,mazeParameters);
 
         this.playerParameters = merge({}, playerData, playerParameters);
         this.lightsParameters = merge({}, lightsData, lightsParameters);
@@ -166,9 +174,7 @@ export default class ThumbRaiser {
         this.thirdPersonViewCameraParameters = merge({}, cameraData, thirdPersonViewCameraParameters);
         this.topViewCameraParameters = merge({}, cameraData, topViewCameraParameters);
         this.miniMapCameraParameters = merge({}, cameraData, miniMapCameraParameters);
-        this.elevatorParameters= merge({},elevatorData,elevatorParameters);
-      
-
+    
         // Create a 2D scene (the viewports frames)
         this.scene2D = new THREE.Scene();
 
@@ -187,13 +193,9 @@ export default class ThumbRaiser {
 
         // Create the maze   
         this.maze = new Maze(buildingParameters);
-    
 
         // Create the player
         this.player = new Player(this.playerParameters);
-
-        //Create the elevator 
-        //this.elevator = new Elevator(this.elevatorParameters);
 
         // Create the lights
         this.lights = new Lights(this.lightsParameters);
@@ -265,8 +267,6 @@ export default class ThumbRaiser {
 
         // Build the help panel
         this.buildHelpPanel();
-
-        
         
         //this.selectBuilding();
 
@@ -663,30 +663,17 @@ export default class ThumbRaiser {
         this.animations.fadeToAction("Dance", 0.2);
     }
 
-
     collision(position) {
-        return this.maze.distanceToWestWall(position) < this.player.radius || this.maze.distanceToEastWall(position) < this.player.radius 
+        return this.maze.distanceToWestWall(position) < this.player.radius || this.maze.distanceToEastWall(position) < this.player.radius
         || this.maze.distanceToNorthWall(position) < this.player.radius || this.maze.distanceToSouthWall(position) < this.player.radius
-        || this.maze.distanceToDoor(position) < this.player.radius || this.maze.distanceToElevator(position) < this.player.radius;
+        ||this.maze.distanceToElevatorWest(position) < (this.player.radius*2) ||this.maze.distanceToElevatorEast(position) < (this.player.radius*2)
+        || this.maze.distanceToWestDoor(position) < (this.player.radius*2) || this.maze.distanceToEastDoor(position) < (this.player.radius*2) 
+        || this.maze.distanceToNorthDoor(position) < (this.player.radius*2) || this.maze.distanceToSouthDoor(position) < (this.player.radius*2);
     }
 
-    selectBuilding(){
-       
-        if (this.maze=!null){} this.maze = this.floorInterface.getMaze();
-
-        //console.log(this.maze);
-        //this.maze.loaded=false;
-        //this.buildMaze();
-         this.update();
-    }
-
-   
 
     update() {
         if (!this.gameRunning) {
-
-                //Build the Floor interface
-         //console.log(this.maze);
 
             if (this.maze.loaded && this.player.loaded) { // If all resources have been loaded
                 // Add the maze, the player and the lights to the scene
@@ -695,7 +682,6 @@ export default class ThumbRaiser {
                   
                 this.scene3D.add(this.maze.object);
                 this.scene3D.add(this.player.object);
-                //this.scene3D.add(this.elevator.object);
                 this.scene3D.add(this.lights.object);
 
                 // Create the clock
@@ -704,8 +690,6 @@ export default class ThumbRaiser {
                 // Create model animations (states, emotes and expressions)
                 this.animations = new Animations(this.player.object, this.player.animations);
 
-
-
                 // Set the player's position and direction
                 this.player.position = this.maze.initialPosition.clone();
                 this.player.direction = this.maze.initialDirection;
@@ -713,15 +697,11 @@ export default class ThumbRaiser {
                 if (this.userInterface == null) {
                     // Create the user interface
                     this.userInterface = new UserInterface(this.scene3D, this.renderer, this.lights, this.fog, this.player.object, this.animations, this.maze,this);
-                    //this.floorInterface = new FloorInterface(this.scene3D, this.renderer,this.maze, this.lights, this.fog, this.player.object, this.animations);
-                    
                 }
                 
-
                 // Start the game
                 this.gameRunning = true;
-                
-               
+                  
             }
 
         }
@@ -758,7 +738,7 @@ export default class ThumbRaiser {
                 if (this.player.keyStates.backward) {
                     const newPosition = new THREE.Vector3(-coveredDistance * Math.sin(direction), 0.0, -coveredDistance * Math.cos(direction)).add(this.player.position);
                     if (this.collision(newPosition)) {
-                        //this.animations.fadeToAction("Death", 0.2);
+                        
                     }
                     else {
                         this.animations.fadeToAction(this.player.keyStates.run ? "Running" : "Walking", 0.2);
@@ -768,9 +748,7 @@ export default class ThumbRaiser {
                 else if (this.player.keyStates.forward) {
                     const newPosition = new THREE.Vector3(coveredDistance * Math.sin(direction), 0.0, coveredDistance * Math.cos(direction)).add(this.player.position);
                     if (this.collision(newPosition)) {
-
-                       // this.animations.fadeToAction("Death", 0.2);
-                       //this.maze.openDoor(this.scene3D, this.camera.object, this.renderer);
+                    
                     }
                     else {
                         this.animations.fadeToAction(this.player.keyStates.run ? "Running" : "Walking", 0.2);
