@@ -107,16 +107,16 @@ const routes: Routes = [
   },
 
   {
-    path: 'passages/createRobots',
+    path: 'robots/createRobots',
     component: CreateRobotsComponent
   },
 
   {
-    path: 'passages/listRobots',
+    path: 'robots/listRobots',
     component: ListRobotsComponent
   },
   {
-    path: 'passages/updateRobots',
+    path: 'robots/updateRobots',
     component: UpdateRobotsComponent
   },
 

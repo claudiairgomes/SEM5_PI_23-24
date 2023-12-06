@@ -44,5 +44,10 @@ export default (app:Router) => {
     }),
   }), (req, res, next) => ctrl.updateFloor(req, res, next));
 
+  route.get(
+    '/findAll',
+    (req, res, next) => ctrl.getFloors(req, res, next)
+  );
+
 
 }

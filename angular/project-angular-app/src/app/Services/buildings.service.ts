@@ -18,7 +18,9 @@ export class BuildingService {
 
     getBuildings(): Observable<Buildings[]> {
         console.log("Service");
-        return this.http.get<Buildings[]>('http://localhost:4000/api/buildings');
+        
+        return this.http.get<Buildings[]>('http://localhost:4000/api/buildings/findAll');
+        
     }
 
     getBuildingById(id: string): Observable<Buildings> {

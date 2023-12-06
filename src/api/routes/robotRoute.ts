@@ -10,7 +10,7 @@ const route = Router();
 
 
 export default (app: Router) => {
-  app.use('/robot', route);
+  app.use('/robots', route);
 
   const ctrl = Container.get(config.controllers.robot.name) as IRobotController;
 
@@ -19,7 +19,7 @@ export default (app: Router) => {
     celebrate({
       body: Joi.object({
         codRobot: Joi.string().required(),
-        nickname: Joi.string().required(),
+        nickName: Joi.string().required(),
         type: Joi.string().required(),
         serialNumber: Joi.string().required(),
         description: Joi.string().required()

@@ -47,4 +47,21 @@ export default class FloorController implements IFloorController /* TODO: extend
       return next(e);
     }
   };
+
+  public async getFloors(req: Request, res: Response, next: NextFunction) {
+    try {
+      const floors = await this.floorServiceInstance.getAllFloors();
+
+      if (!floors || floors.length === 0) {
+        // Return an appropriate response if there are no floors
+        return res.status(404).json({ message: 'No floors found' });
+      }
+
+      return res.status(200).json(floors);
+    } catch (error) {
+      // Handle any errors that may occur during the process
+      console.error('Error while fetching floors:', error);
+      return res.status(500).json({ message: 'Internal server error' });
+    }
+  }
 }

@@ -10,6 +10,8 @@ import IRoleService from "../services/IServices/IRoleService";
 import IBuildingController from "./IControllers/IBuildingController";
 import IBuildingService from "../services/IServices/IBuildingService";
 import BuildingService from "../services/buildingService";
+import { ParamsDictionary } from 'express-serve-static-core';
+import { ParsedQs } from 'qs';
 @Service()
 export default class BuildingController implements IBuildingController /* TODO: extends ../core/infra/BaseController */ {
   constructor(
@@ -75,4 +77,23 @@ export default class BuildingController implements IBuildingController /* TODO: 
       return res.status(500).json({ message: 'Internal server error' });
     }
   }
+
+
+  async getBuildingById(req: Request, res: Response, next: NextFunction) {
+    try{
+    const buildingOrError = await this.buildingServiceInstance.getBuildingById(req.body) as Result<IBuildingDTO>;
+
+    if (buildingOrError.isFailure) {
+      return res.status(404).send();
+    }
+
+    const buildingDTO = buildingOrError.getValue();
+    return res.status(201).json( buildingDTO );
+  }
+  catch (e) {
+    return next(e);
+  }
+  }
+
+
 }

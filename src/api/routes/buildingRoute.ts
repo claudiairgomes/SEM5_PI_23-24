@@ -55,6 +55,14 @@ export default (app:Router) => {
     (req, res, next) => ctrl.getBuildings(req, res, next)
   );
 
+  route.get('',
+  celebrate({
+    body: Joi.object({
+      id: Joi.string().required(),
+
+    }),
+  }),
+  (req, res, next) => ctrl.getBuildingById(req, res, next) );
   //  route.get('/me', middlewares.isAuth, middlewares.attachCurrentUser, user_controller.getMe);
 
 }

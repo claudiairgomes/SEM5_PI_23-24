@@ -13,6 +13,9 @@ export default class RobotService implements IRobotService {
   constructor(
     @Inject(config.repos.robot.name) private robotRepo : IRobotRepo
   ) {}
+  updateRobot(robotDTO: IRobotDTO): Promise<Result<IRobotDTO>> {
+    throw new Error('Method not implemented.');
+  }
 
   public async getRobot( robotId: string): Promise<Result<IRobotDTO>> {
     try {

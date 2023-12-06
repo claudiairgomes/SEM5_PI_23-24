@@ -32,6 +32,23 @@ export default class FloorService implements IFloorService{
     }
   }
 
+  public async findAll() {
+    try {
+      // Implement the logic to retrieve a list of all floors from your data source
+
+      const floorList = await this.floorRepo.findAll();
+
+      // Return the list of building DTOs
+      return Result.ok<IFloorDTO[]>(floorList);
+    } catch (error) {
+      // Handle any errors, log them, and return a Result indicating failure
+      console.error('Error while fetching buildings:', error);
+      return Result.fail('Failed to fetch buildings');
+    }
+  }
+
+  
+
 
   public async createFloor(floorDTO: IFloorDTO): Promise<Result<IFloorDTO>> {
     try {
@@ -108,5 +125,22 @@ export default class FloorService implements IFloorService{
       throw e;
     }
   }
+
+  public async getAllFloors() {
+    try {
+      // Implement the logic to retrieve a list of all buildings from your data source
+      // For example, if you have a BuildingRepository, you can call a method like getAllBuildings from there
+
+      const floors = await this.floorRepo.findAll();
+
+      // Return the list of building DTOs
+      return Result.ok<IFloorDTO[]>(floors);
+    } catch (error) {
+      // Handle any errors, log them, and return a Result indicating failure
+      console.error('Error while fetching floors:', error);
+      return Result.fail('Failed to fetch floors');
+    }
+  }
+
 
 }

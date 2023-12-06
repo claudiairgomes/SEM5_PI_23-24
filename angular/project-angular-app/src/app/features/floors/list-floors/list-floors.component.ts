@@ -5,7 +5,7 @@ import { Floors } from '../../../Interfaces/floors';
 @Component({
   selector: 'app-list-floors',
   templateUrl: './list-floors.component.html',
-  //styleUrls: ['./list-floors.component.css']
+  styleUrls: ['./list-floors.component.css']
 })
 export class ListFloorsComponent {
   selectedFloor?: Floors;

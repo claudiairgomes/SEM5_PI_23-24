@@ -16,10 +16,14 @@ import IFloorRepo from "./IRepos/IFloorRepo";
 export default class BuildingService implements IBuildingService{
 
   constructor(
-    @Inject(config.repos.building.name) private buildingRepo : IBuildingRepo
+    @Inject(config.repos.building.name) private buildingRepo : IBuildingRepo,
+    @Inject(config.repos.floor.name) private floorRepo: IFloorRepo
+
   ) {}
 
-  public async getBuilding( buildingId: string): Promise<Result<IBuildingDTO>> {
+
+
+  public async getBuildingById( buildingId: string): Promise<Result<IBuildingDTO>> {
     try {
       const building = await this.buildingRepo.findByDomainId(buildingId);
 
@@ -94,7 +98,7 @@ export default class BuildingService implements IBuildingService{
   }
 
 
-  public async getAllBuildings() {
+  public async getAllBuildings() :Promise<Result<IBuildingDTO>>{
     try {
       // Implement the logic to retrieve a list of all buildings from your data source
       // For example, if you have a BuildingRepository, you can call a method like getAllBuildings from there
@@ -102,11 +106,28 @@ export default class BuildingService implements IBuildingService{
       const buildings = await this.buildingRepo.findAll();
 
       // Return the list of building DTOs
-      return Result.ok<IBuildingDTO[]>(buildings);
+      return buildings;
     } catch (error) {
       // Handle any errors, log them, and return a Result indicating failure
       console.error('Error while fetching buildings:', error);
       return Result.fail('Failed to fetch buildings');
+    }
+  }
+
+
+    
+  public async getBuildingsByFloorRange(minFloors: number, maxFloors: number) {
+    try {
+      // Implement the logic to retrieve a list of buildings with a range of floors
+      // For example, if you have a FloorRepository, you can call a method like findBuildingsByFloorRange from there
+
+      const buildingsWithFloorRange = await this.buildingRepo.findBuildingsByFloorRange(minFloors, maxFloors);
+
+      // Return the list of building DTOs
+      return Result.ok<IBuildingDTO[]>(buildingsWithFloorRange);
+    } catch (error) {
+      console.error('Error while fetching buildings by floor range:', error);
+      return Result.fail('Failed to fetch buildings by floor range');
     }
   }
 }

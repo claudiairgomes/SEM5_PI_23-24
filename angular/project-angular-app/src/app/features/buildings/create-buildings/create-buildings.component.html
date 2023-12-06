@@ -35,40 +35,40 @@
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="create-buildings.component.css">
-    </head>
-    <body>
-        <div class="container">
-            <h1> Create a New Building</h1>
-            <form (ngSubmit)="createBuilding()">
-                <div class="form-group">
-                    <label for="code">Building Code:</label>
-                    <input type="text" id="code" name="code" [(ngModel)]="building.code" >
-                </div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="create-buildings.component.css">
+</head>
+<body>
+<div class="container">
+  <h1> Create a New Building</h1>
+  <form (ngSubmit)="createBuilding()">
+    <div class="form-group">
+      <label for="code">Building Code:</label>
+      <input type="text" id="code" name="code" [(ngModel)]="building.code" >
+    </div>
 
-                <div class="form-group">
-                    <label for="name">Building Name:</label>
-                    <input type="text" id="name" name="name" [(ngModel)]="building.name" >
-                </div>
+    <div class="form-group">
+      <label for="name">Building Name:</label>
+      <input type="text" id="name" name="name" [(ngModel)]="building.name" >
+    </div>
 
-                <div class="form-group">
-                    <label for="description">Description:</label>
-                    <input type="text" id="description" name="description" [(ngModel)]="building.description" rows="4" >
-                </div>
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <input type="text" id="description" name="description" [(ngModel)]="building.description" rows="4" >
+    </div>
 
-                <div class="form-group">
-                  <label for="description">Dimension:</label>
-                  <input type="text" id="description" name="dimension" [(ngModel)]="building.dimension" rows="4" >
-              </div>
+    <div class="form-group">
+      <label for="description">Dimension:</label>
+      <input type="text" id="description" name="dimension" [(ngModel)]="building.dimension" rows="4" >
+    </div>
 
 
-                <button type="submit">Create Building</button>
-            </form>
-        </div>
-    </body>
+    <button type="submit">Create Building</button>
+  </form>
+</div>
+</body>
 
 
 </html>

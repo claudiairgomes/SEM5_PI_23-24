@@ -26,6 +26,7 @@ private models: any;
 
 constructor(
   @Inject('buildingSchema') private buildingSchema: Model<IBuildingPersistence & Document>,
+  @Inject('floorSchema')private floorSchema: Model<IBuildingPersistence & Document>,
 
 ){}
   private createBaseQuery(): any{
@@ -124,6 +125,28 @@ constructor(
     //return buildingRecords.map((record) => BuildingMap.toDomain(record));
   }
 
+  async findBuildingsByFloorRange(minFloors: number, maxFloors: number) {
+    // Implement the logic to find buildings based on the floor range
+    // For example, if you have a floorModel with a floorNumber field, you can use the aggregation framework
+
+    return this.buildingSchema.aggregate([
+      {
+        $lookup: {
+          from: "floors",
+          localField: "_id",
+          foreignField: "buildingId",
+          as: "floors",
+        },
+      },
+      {
+        $match: {
+          "floors.floorNumber": { $gte: minFloors, $lte: maxFloors },
+        },
+      },
+    ]).exec();
+  }
 }
+
+
 
 

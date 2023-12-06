@@ -13,4 +13,6 @@ export default interface IBuildingRepo extends Repo<Building>{
   findAll();
 
   exists(buildingId: BuildingId | string): Promise<boolean>;
+
+  findBuildingsByFloorRange(minFloors: number, maxFloors: number) ;
 }

@@ -4,6 +4,7 @@ export class Result<T> {
   public isFailure: boolean
   public error: T | string;
   private _value: T;
+  length: number;
 
   public constructor (isSuccess: boolean, error?: T | string, value?: T) {
     if (isSuccess && error) {

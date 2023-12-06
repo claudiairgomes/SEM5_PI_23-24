@@ -5,7 +5,7 @@ import { Buildings } from 'src/app/Interfaces/buildings';
 @Component({
   selector: 'app-building-details',
   templateUrl: './building-details.component.html',
-  //styleUrls: ['./building-details.component.css']
+  styleUrls: ['./building-details.component.css']
 })
 export class BuildingDetailsComponent {
     @Input() building?: Buildings;

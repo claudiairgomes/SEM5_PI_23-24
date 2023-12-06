@@ -12,4 +12,7 @@ export default interface IFloorRepo extends Repo<Floor>{
   findByDomainId (floorId: FloorId | string): Promise<Floor>;
 
   exists(passageId: PassageId | string): Promise<boolean>;
+
+  
+  findAll();
 }

@@ -37,6 +37,7 @@ export class UpdateBuildingsComponent implements OnInit {
   }
 
   editBuilding(id: string) {
+    console.log(id);
     this.buildingService.getBuildingById(id).subscribe(
       (building) => {
         this.selectedBuilding = building;

@@ -10,7 +10,8 @@ import { BuildingService } from 'src/app/Services/buildings.service';
 })
 export class ListBuildingsComponent {
   selectedBuilding?: Buildings;
-  buildings: Buildings[] = [];
+  buildingsList: Buildings[]=[];
+isLinear: any;
 
   constructor(private buildingService: BuildingService) { }
 
@@ -19,9 +20,12 @@ export class ListBuildingsComponent {
   }
 
   getBuildings(): void {
-    console.log(this.buildings);
     this.buildingService.getBuildings()
-      .subscribe(buildings => this.buildings = buildings);
+      .subscribe(buildings => {this.buildingsList = buildings}
+         
+      );
+  
+
   }
 
   onSelect(building: Buildings): void {

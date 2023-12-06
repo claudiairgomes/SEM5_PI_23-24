@@ -99,6 +99,17 @@ export default class FloorRepo implements IFloorRepo{
 
   }
 
+  public async findAll(){
+    try{
+      //const buildingRecords = await this.buildingSchema.find();
+      return await this.floorSchema.find();
+    }catch (e){
+      throw e;
+    }
+  
+      //return buildingRecords.map((record) => BuildingMap.toDomain(record));
+    }
+
 }
 
 

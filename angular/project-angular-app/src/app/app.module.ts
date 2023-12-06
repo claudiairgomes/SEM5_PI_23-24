@@ -23,6 +23,7 @@ import {RobotsComponent} from "./features/robots/robots.component";
 import {CreateRobotsComponent} from "./features/robots/create-robots/create-robots.component";
 import {ListRobotsComponent} from "./features/robots/list-robots/list-robots.component";
 import {UpdateRobotsComponent} from "./features/robots/update-robots/update-robots.component";
+import { BuildingDetailsComponent } from './features/buildings/list-buildings/building-details/building-details.component';
 
 
 
@@ -35,6 +36,7 @@ import {UpdateRobotsComponent} from "./features/robots/update-robots/update-robo
     CreateBuildingsComponent,
     UpdateBuildingsComponent,
     ListBuildingsComponent,
+    BuildingDetailsComponent,
     ElevatorsComponent,
     CreateElevatorsComponent,
     CreateBuildingsComponent,

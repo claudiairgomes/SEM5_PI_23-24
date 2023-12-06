@@ -17,7 +17,8 @@ export class FloorService {
     }
 
     getFloors(): Observable<Floors[]> {
-        return this.http.get<Floors[]>('http://localhost:4000/api/floors');
+        console.log("Service");
+        return this.http.get<Floors[]>('http://localhost:4000/api/floors/findAll');
     }
 
     getFloorsById(id: string): Observable<Floors> {
