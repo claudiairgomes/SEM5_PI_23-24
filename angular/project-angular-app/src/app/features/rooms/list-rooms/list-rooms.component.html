@@ -1,0 +1,11 @@
+<h2>All Rooms</h2>
+<h3>- Click to See Details: </h3>
+<ul class="rooms-menu">
+  <li *ngFor="let room of roomsList">
+    <button [class.selected]="room === selectedRoom" type="button" (click)="onSelect(room)" >
+        <span class="name">{{room.name}}</span>
+    </button>
+  </li>
+</ul>
+
+<app-room-details [room]="selectedRoom"></app-room-details>

@@ -22,24 +22,6 @@ export default class BuildingService implements IBuildingService{
   ) {}
 
 
-
-  public async getBuildingById( buildingId: string): Promise<Result<IBuildingDTO>> {
-    try {
-      const building = await this.buildingRepo.findByDomainId(buildingId);
-
-      if (building === null) {
-        return Result.fail<IBuildingDTO>("Building not found");
-      }
-      else {
-        const roleDTOResult = BuildingMap.toDTO( building ) as IBuildingDTO;
-        return Result.ok<IBuildingDTO>( roleDTOResult )
-      }
-    } catch (e) {
-      throw e;
-    }
-  }
-
-
   public async createBuilding(buildingDTO: IBuildingDTO): Promise<Result<IBuildingDTO>> {
     try {
 
@@ -115,7 +97,7 @@ export default class BuildingService implements IBuildingService{
   }
 
 
-    
+
   public async getBuildingsByFloorRange(minFloors: number, maxFloors: number) {
     try {
       // Implement the logic to retrieve a list of buildings with a range of floors

@@ -8,6 +8,8 @@ import config from "../../config";
 import IFloorRepo from "./IRepos/IFloorRepo";
 import {Floor} from "../domain/floor";
 import {FloorMap} from "../mappers/FloorMap";
+import {IBuildingDTO} from "../dto/IBuildingDTO";
+import {BuildingMap} from "../mappers/BuildingMap";
 
 @Service()
 export default class FloorService implements IFloorService{
@@ -47,7 +49,7 @@ export default class FloorService implements IFloorService{
     }
   }
 
-  
+
 
 
   public async createFloor(floorDTO: IFloorDTO): Promise<Result<IFloorDTO>> {
@@ -69,34 +71,6 @@ export default class FloorService implements IFloorService{
       throw e;
     }
   }
-
-/*  public async updateFloor(floorDTO: IFloorDTO): Promise<Result<IFloorDTO>> {
-    try {
-
-      const floor = await this.floorRepo.findByDomainId(floorDTO.id);
-
-
-      if (floor === null) {
-        return Result.fail<IFloorDTO>("Floor not found");
-      }
-      else {
-        floor.props.buildingId = floorDTO.buildingId;
-        floor.props.floorNumber = floorDTO.floorNumber;
-        floor.props.description = floorDTO.description;
-        await this.floorRepo.save(floor);
-
-        const floorDTOResult = FloorMap.toDTO( floor ) as IFloorDTO;
-        return Result.ok<IFloorDTO>( floorDTOResult )
-      }
-    } catch (e) {
-      throw e;
-    }
-  }
-
- */
-
-
-
   public async updateFloor(floorDTO: IFloorDTO): Promise<Result<IFloorDTO>> {
     try {
       const floor = await this.floorRepo.findByDomainId(floorDTO.id);
@@ -126,6 +100,23 @@ export default class FloorService implements IFloorService{
     }
   }
 
+  public async getFloorById( floorId: string): Promise<Result<IFloorDTO>> {
+    try {
+      const floor = await this.floorRepo.findByDomainId(floorId);
+
+      if (floor === null) {
+        return Result.fail<IFloorDTO>("Floor not found");
+      }
+      else {
+        const roleDTOResult = FloorMap.toDTO( floor ) as IFloorDTO;
+        return Result.ok<IFloorDTO>( roleDTOResult )
+      }
+    } catch (e) {
+      throw e;
+    }
+  }
+
+
   public async getAllFloors() {
     try {
       // Implement the logic to retrieve a list of all buildings from your data source
@@ -134,7 +125,7 @@ export default class FloorService implements IFloorService{
       const floors = await this.floorRepo.findAll();
 
       // Return the list of building DTOs
-      return Result.ok<IFloorDTO[]>(floors);
+      return floors;
     } catch (error) {
       // Handle any errors, log them, and return a Result indicating failure
       console.error('Error while fetching floors:', error);

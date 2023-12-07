@@ -1,0 +1,32 @@
+<div *ngIf="room">
+
+    <h2>{{room.name | uppercase}} Details</h2>
+    <div>
+      <label for="room-name">Name: </label>
+      <input id="room-name" [(ngModel)]="room.name" placeholder="name" readonly><br>
+      <label for="room-name">Description: </label>
+      <input id="room-description" [(ngModel)]="room.description" placeholder="description" readonly><br>
+      <label for="room-name">Code: </label>
+      <input id="room-code" [(ngModel)]="room.code" placeholder="code" readonly>
+      <label for="room-dimension">Dimension: </label>
+      <input id="room-dimension" [(ngModel)]="room.code" placeholder="code" readonly>
+      <label for="room-floor">Floor: </label>
+      <input id="room-floor" [(ngModel)]="room.floorId" placeholder="code" readonly>
+    </div>
+
+  </div>
+
+
+
+
+ <!--<div *ngIf="room">
+  <h3>room Details:</h3>
+  <div class="details-container">
+    <p><strong>Name:</strong> {{ room.name }}</p>
+    <p><strong>Description:</strong> {{ room.description }}</p>
+    Add other details as needed
+  </div>
+</div>
+
+
+-->

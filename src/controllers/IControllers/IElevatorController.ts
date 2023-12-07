@@ -5,4 +5,6 @@ export default interface IElevatorController{
   updateElevator(req: Request, res: Response, next: NextFunction);
 
   getElevators(req: Request, res: Response, next: NextFunction);
+
+  getElevatorById(req: Request, res: Response, next: NextFunction);
 }

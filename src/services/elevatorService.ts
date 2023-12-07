@@ -14,6 +14,8 @@ import {forEach} from "lodash";
 import IFloorRepo from "./IRepos/IFloorRepo";
 import IBuildingRepo from "./IRepos/IBuildingRepo";
 import {FloorId} from "../domain/floorId";
+import {IBuildingDTO} from "../dto/IBuildingDTO";
+import {BuildingMap} from "../mappers/BuildingMap";
 @Service()
 export default class ElevatorService implements IElevatorService{
   constructor(
@@ -38,34 +40,21 @@ export default class ElevatorService implements IElevatorService{
     }
   }
 
-  /*public async createElevator(elevatorDTO: IElevatorDTO): Promise<Result<IElevatorDTO>> {
+  public async getElevatorById( elevatorId: string): Promise<Result<IElevatorDTO>> {
     try {
+      const elevator = await this.elevatorRepo.findByDomainId(elevatorId);
 
-      //const elevatorDTO: IElevatorDTO = await this.turnDTObetaToDTO(elevatorDTObeta);
-
-      elevatorDTO.floorList.forEach((floorId) => {
-
-        // `floorId` is a string representing the ID of a floor
-        // You can perform actions with each `floorId` here
-      });
-      const elevatorOrError = await Elevator.create( elevatorDTO );
-
-      if (elevatorOrError.isFailure) {
-        return Result.fail<IElevatorDTO>(elevatorOrError.errorValue());
+      if (elevator === null) {
+        return Result.fail<IElevatorDTO>("Elevator not found");
       }
-
-      const elevatorResult = elevatorOrError.getValue();
-
-      await this.elevatorRepo.save(elevatorResult);
-
-      const elevatorDTOResult = ElevatorMap.toDTO( elevatorResult ) as IElevatorDTO;
-      return Result.ok<IElevatorDTO>( elevatorDTOResult )
+      else {
+        const roleDTOResult = ElevatorMap.toDTO( elevator ) as IElevatorDTO;
+        return Result.ok<IElevatorDTO>( roleDTOResult )
+      }
     } catch (e) {
       throw e;
     }
   }
-
-   */
 
   public async createElevator(elevatorDTO: IElevatorDTO): Promise<Result<IElevatorDTO>> {
     try {

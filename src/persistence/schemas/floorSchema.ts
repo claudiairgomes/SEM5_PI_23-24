@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import {IFloorPersistence} from "../../dataschema/IFloorPersistence";
 
-const floorSchema = new mongoose.Schema(
+const FloorSchema = new mongoose.Schema(
   {
     domainId: { type: String, unique: true },
 
@@ -26,4 +26,4 @@ const floorSchema = new mongoose.Schema(
   }
 );
 
-export default mongoose.model<IFloorPersistence & mongoose.Document>('floor',floorSchema)
+export default mongoose.model<IFloorPersistence & mongoose.Document>('Floor',FloorSchema)

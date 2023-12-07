@@ -1,9 +1,11 @@
-<h2>All Buildings</h2> 
-<!--<h3>- Click to See Details: </h3>
-<ul class="buildings-menu">
-  <li *ngFor="let building of buildings">
-    <button [class.selected]="building === selectedBuilding" type="button" (click)="onSelect(building)">
-        <span class="name">{{building.name}}</span>
+<h2>All Elevators</h2>
+<h3>- Click to See Details: </h3>
+<ul class="elevators-menu">
+  <li *ngFor="let elevator of elevatorsList">
+    <button [class.selected]="elevator === selectedElevator" type="button" (click)="onSelect(elevator)" >
+      <span class="name">{{elevator.building}}</span>
     </button>
   </li>
-</ul> -->
+</ul>
+
+<app-elevator-details [elevator]="selectedElevator"></app-elevator-details>

@@ -1,37 +1,11 @@
-
-
-<!--<h3>- Click to See Details: </h3>
-<ul class="buildings-menu">
-=======
+<h2>All Floors</h2>
 <h3>- Click to See Details: </h3>
 <ul class="floors-menu">
->>>>>>> Stashed changes
-  <li *ngFor="let floor of floors">
-    <button [class.selected]="floor === selectedFloor" type="button" (click)="onSelect(floor)">
-        <span class="name">{{floor.name}}</span>
-    </button>
-  </li>
-</ul>-->
-
-
-<!-- list-floors.component.html -->
-
-<h2>All Floors</h2>
-
-<ul class="floors-menu">
-  <li *ngFor="let floor of floors">
-    <button [class.selected]="floor === selectedFloor" type="button" (click)="onSelect(floor)">
-      <span class="name">{{ floor.floorNumber }}</span>
-      <span class="details">{{ floor.description }}</span>
+  <li *ngFor="let floor of floorsList">
+    <button [class.selected]="floor === selectedFloor" type="button" (click)="onSelect(floor)" >
+      <span class="name">{{floor.floorNumber}}</span>
     </button>
   </li>
 </ul>
 
-<div *ngIf="selectedFloor">
-  <h3>Selected Floor Details:</h3>
-  <div class="details-container">
-    <p><strong>Number:</strong> {{ selectedFloor.floorNumber}}</p>
-    <p><strong>Description:</strong> {{ selectedFloor.description }}</p>
-    <!-- Add other details as needed -->
-  </div>
-</div>
+<app-floor-details [floor]="selectedFloor"></app-floor-details>

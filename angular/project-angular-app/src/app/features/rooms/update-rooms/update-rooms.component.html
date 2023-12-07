@@ -1,0 +1,32 @@
+<!-- update-rooms.component.html -->
+<div>
+  <h2>List of Rooms</h2>
+  <ul>
+    <li *ngFor="let room of rooms">
+      <button (click)="editRoom(room.id)">{{ room.name }}</button>
+    </li>
+  </ul>
+</div>
+
+<div *ngIf="selectedRoom">
+  <h2>Edit Room</h2>
+  <form (submit)="updateRoom()">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" [(ngModel)]="selectedRoom.name" required>
+
+    <label for="description">Description:</label>
+    <textarea id="description" name="description" [(ngModel)]="selectedRoom.description" required></textarea>
+
+    <label for="dimension">Dimension:</label>
+    <input type="text" id="dimension" name="dimension" [(ngModel)]="selectedRoom.dimension" required>
+
+    <label for="code">Code:</label>
+    <input type="text" id="code" name="code" [(ngModel)]="selectedRoom.code" required>
+
+    <label for="floor">Floor:</label>
+    <input type="text" id="floor" name="floor" [(ngModel)]="selectedRoom.floorId" required>
+
+
+    <button type="submit">Update Room</button>
+  </form>
+</div>

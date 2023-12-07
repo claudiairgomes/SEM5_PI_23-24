@@ -24,6 +24,17 @@ import {CreateRobotsComponent} from "./features/robots/create-robots/create-robo
 import {ListRobotsComponent} from "./features/robots/list-robots/list-robots.component";
 import {UpdateRobotsComponent} from "./features/robots/update-robots/update-robots.component";
 import { BuildingDetailsComponent } from './features/buildings/list-buildings/building-details/building-details.component';
+import {FloorDetailsComponent} from "./features/floors/list-floors/floor-details/floor-details.component";
+import {ListElevatorsComponent} from "./features/elevators/list-elevators/list-elevators.component";
+import {
+  ElevatorDetailsComponent
+} from "./features/elevators/list-elevators/elevator-details/elevator-details.component";
+import {PassageDetailsComponent} from "./features/passages/list-passages/passage-details/passage-details.component";
+import {RoomsComponent} from "./features/rooms/rooms.component";
+import {CreateRoomsComponent} from "./features/rooms/create-rooms/create-rooms.component";
+import {RoomDetailsComponent} from "./features/rooms/list-rooms/room-details/room-details.component";
+import {ListRoomsComponent} from "./features/rooms/list-rooms/list-rooms.component";
+import {UpdateRoomsComponent} from "./features/rooms/update-rooms/update-rooms.component";
 
 
 
@@ -32,22 +43,36 @@ import { BuildingDetailsComponent } from './features/buildings/list-buildings/bu
 @NgModule({
   declarations: [
     AppComponent,
+
     BuildingsComponent,
     CreateBuildingsComponent,
     UpdateBuildingsComponent,
     ListBuildingsComponent,
     BuildingDetailsComponent,
+
     ElevatorsComponent,
     CreateElevatorsComponent,
-    CreateBuildingsComponent,
+    ListElevatorsComponent,
+    ElevatorDetailsComponent,
+
     FloorsComponent,
     CreateFloorsComponent,
+    FloorDetailsComponent,
     ListFloorsComponent,
     UpdateFloorsComponent,
+
+    RoomsComponent,
+    CreateRoomsComponent,
+    RoomDetailsComponent,
+    ListRoomsComponent,
+    UpdateRoomsComponent,
+
     PassagesComponent,
     CreatePassagesComponent,
     ListPassagesComponent,
+    PassageDetailsComponent,
     UpdatePassagesComponent,
+
     RobotsComponent,
     CreateRobotsComponent,
     ListRobotsComponent,

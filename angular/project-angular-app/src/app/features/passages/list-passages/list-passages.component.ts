@@ -5,11 +5,11 @@ import { Passages } from '../../../Interfaces/passages';
 @Component({
   selector: 'app-list-passages',
   templateUrl: './list-passages.component.html',
-  //styleUrls: ['./list-passages.component.css']
+  styleUrls: ['./list-passages.component.css']
 })
 export class ListPassagesComponent {
   selectedPassage?: Passages;
-  passages: Passages[] = [];
+  passagesList: Passages[] = [];
 
   constructor(private passageService: PassageService) { }
 
@@ -18,9 +18,8 @@ export class ListPassagesComponent {
   }
 
   getPassages(): void {
-    console.log(this.passages);
     this.passageService.getPassages()
-      .subscribe(passages => this.passages = passages);
+      .subscribe(passages => this.passagesList = passages);
   }
 
   onSelect(passage: Passages): void {

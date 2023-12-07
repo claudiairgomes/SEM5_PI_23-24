@@ -18,7 +18,7 @@ export class PassageService {
 
   getPassages(): Observable<Passages[]> {
     console.log("Service");
-    return this.http.get<Passages[]>('http://localhost:4000/api/passages');
+    return this.http.get<Passages[]>('http://localhost:4000/api/passages/findAll');
   }
 
   getPassageById(id: string): Observable<Passages> {

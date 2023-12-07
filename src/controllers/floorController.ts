@@ -7,6 +7,7 @@ import IFloorService from '../services/IServices/IFloorService';
 import {IFloorDTO} from '../dto/IFloorDTO';
 
 import { Result } from "../core/logic/Result";
+import {IBuildingDTO} from "../dto/IBuildingDTO";
 
 @Service()
 export default class FloorController implements IFloorController /* TODO: extends ../core/infra/BaseController */ {
@@ -64,4 +65,21 @@ export default class FloorController implements IFloorController /* TODO: extend
       return res.status(500).json({ message: 'Internal server error' });
     }
   }
+
+  async getFloorById(req: Request, res: Response, next: NextFunction) {
+    try{
+      const floorOrError = await this.floorServiceInstance.getFloorById(req.body) as Result<IFloorDTO>;
+
+      if (floorOrError.isFailure) {
+        return res.status(404).send();
+      }
+
+      const buildingDTO = floorOrError.getValue();
+      return res.status(201).json( buildingDTO );
+    }
+    catch (e) {
+      return next(e);
+    }
+  }
+
 }

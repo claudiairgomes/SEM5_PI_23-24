@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Elevators } from 'src/app/Interfaces/elevator';
+import { Elevators } from 'src/app/Interfaces/elevators';
 import { ElevatorsService } from 'src/app/Services/elevators.service';
 
 

@@ -1,13 +1,25 @@
-<!--div *ngIf="building">
+<div *ngIf="elevator">
 
-    <h2>{{building.name | uppercase}} Details</h2>
-    <div>
-      <label for="building-name">Name: </label>
-      <input id="building-name" [(ngModel)]="building.name" placeholder="name" readonly><br>
-      <label for="building-name">Description: </label>
-      <input id="building-description" [(ngModel)]="building.description" placeholder="description" readonly><br>
-      <label for="building-name">Code: </label>
-      <input id="building-code" [(ngModel)]="building.code" placeholder="code" readonly>
-    </div>
-  
-  </div>-->
+  <h2>{{elevator.building | uppercase}} Details</h2>
+  <div>
+    <label for="elevator-building">Building: </label>
+    <input id="elevator-building" [(ngModel)]="elevator.building" placeholder="building" readonly><br>
+
+    <label for="elevator-floorList">Floor List: </label>
+    <input id="elevator-floorList" [(ngModel)]="elevator.floorList" placeholder="floorList" readonly><br>
+
+    <label for="elevator-brand">Brand: </label>
+    <input id="elevator-brand" [(ngModel)]="elevator.brand" placeholder="brand" readonly><br>
+
+    <label for="elevator-model">Model: </label>
+    <input id="elevator-model" [(ngModel)]="elevator.model" placeholder="model" readonly><br>
+
+    <label for="elevator-serialNumber">Serial Number: </label>
+    <input id="elevator-serialNumber" [(ngModel)]="elevator.serialNumber" placeholder="serialNumber" readonly><br>
+
+    <label for="elevator-description">Description: </label>
+    <input id="elevator-description" [(ngModel)]="elevator.description" placeholder="description" readonly>
+
+  </div>
+
+</div>

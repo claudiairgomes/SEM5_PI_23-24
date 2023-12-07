@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Elevators } from "../Interfaces/elevator";
+import { Elevators } from "../Interfaces/elevators";
 import { Observable } from "rxjs";
 
 @Injectable({
@@ -34,7 +34,7 @@ export class ElevatorsService {
             model : any,
             serialNumber: any,
             description: any,
-            
+
         } = {
             id: elevator.id,
         building: elevator.building,
@@ -43,7 +43,7 @@ export class ElevatorsService {
         model: elevator.model,
         serialNumber: elevator.serialNumber,
         description: elevator.description,
-           
+
         }
         const httpOptions = {
             headers : new HttpHeaders({'Content-Type': 'application/json'})

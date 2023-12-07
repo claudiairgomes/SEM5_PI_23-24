@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
-import { Elevators } from 'src/app/Interfaces/elevator';
+import { Elevators } from 'src/app/Interfaces/elevators';
 import { ElevatorsService } from 'src/app/Services/elevators.service';
 
 
 @Component({
   selector: 'app-elevators',
   templateUrl: './list-elevators.component.html',
-  //styleUrls: ['./list-buildings.component.css']
+  styleUrls: ['./list-elevators.component.css']
 })
-export class ListBuildingsComponent {
+export class ListElevatorsComponent {
   selectedElevator?: Elevators;
-  elevators: Elevators[] = [];
+  elevatorsList: Elevators[] = [];
 
   constructor(private elevatorService: ElevatorsService) { }
 
@@ -20,7 +20,7 @@ export class ListBuildingsComponent {
 
   getElevators(): void {
     this.elevatorService.getElevators()
-      .subscribe(elevators => this.elevators = elevators);
+      .subscribe(elevators => this.elevatorsList = elevators);
   }
 
   onSelect(elevator: Elevators): void {

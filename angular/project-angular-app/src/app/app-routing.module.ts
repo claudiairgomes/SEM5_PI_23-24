@@ -19,6 +19,17 @@ import {RobotsComponent} from "./features/robots/robots.component";
 import {CreateRobotsComponent} from "./features/robots/create-robots/create-robots.component";
 import {ListRobotsComponent} from "./features/robots/list-robots/list-robots.component";
 import {UpdateRobotsComponent} from "./features/robots/update-robots/update-robots.component";
+import {FloorDetailsComponent} from "./features/floors/list-floors/floor-details/floor-details.component";
+import {ListElevatorsComponent} from "./features/elevators/list-elevators/list-elevators.component";
+import {
+  ElevatorDetailsComponent
+} from "./features/elevators/list-elevators/elevator-details/elevator-details.component";
+import {PassageDetailsComponent} from "./features/passages/list-passages/passage-details/passage-details.component";
+import {RoomsComponent} from "./features/rooms/rooms.component";
+import {CreateRoomsComponent} from "./features/rooms/create-rooms/create-rooms.component";
+import {UpdateRoomsComponent} from "./features/rooms/update-rooms/update-rooms.component";
+import {ListRoomsComponent} from "./features/rooms/list-rooms/list-rooms.component";
+import {RoomDetailsComponent} from "./features/rooms/list-rooms/room-details/room-details.component";
 
 
 const routes: Routes = [
@@ -53,6 +64,35 @@ const routes: Routes = [
   },
 
 
+
+  {
+    path: 'rooms',
+    component: RoomsComponent
+  },
+
+  {
+    path: 'rooms/createRooms',
+    component: CreateRoomsComponent
+  },
+
+  {
+    path: 'rooms/updateRooms',
+    component: UpdateRoomsComponent
+  },
+
+  {
+    path: 'rooms/listRooms',
+    component: ListRoomsComponent
+  },
+
+  {
+    path: 'rooms/listRooms/roomDetails',
+    component: RoomDetailsComponent
+  },
+
+
+
+
   {
     path: 'elevators',
     component: ElevatorsComponent
@@ -61,6 +101,16 @@ const routes: Routes = [
   {
     path: 'elevators/createElevators',
     component: CreateElevatorsComponent
+  },
+
+  {
+    path: 'elevators/listElevators',
+    component: ListElevatorsComponent
+  },
+
+  {
+    path: 'elevators/listElevators/elevatorDetails',
+    component: ElevatorDetailsComponent
   },
 
   {
@@ -77,6 +127,12 @@ const routes: Routes = [
     path: 'floors/listFloors',
     component: ListFloorsComponent
   },
+
+  {
+    path: 'floors/listFloors/floorDetails',
+    component: FloorDetailsComponent
+  },
+
   {
     path: 'floors/updateFloors',
     component: UpdateFloorsComponent
@@ -95,6 +151,10 @@ const routes: Routes = [
   {
     path: 'passages/listPassages',
     component: ListPassagesComponent
+  },
+  {
+    path: 'passages/listPassages/passagesDetails',
+    component: PassageDetailsComponent
   },
   {
     path: 'passages/updatePassages',

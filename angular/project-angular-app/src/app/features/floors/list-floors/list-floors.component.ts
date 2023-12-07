@@ -9,7 +9,8 @@ import { Floors } from '../../../Interfaces/floors';
 })
 export class ListFloorsComponent {
   selectedFloor?: Floors;
-  floors: Floors[] = [];
+  floorsList: Floors[] = [];
+  isLinear: any;
 
   constructor(private floorService: FloorService) { }
 
@@ -19,7 +20,7 @@ export class ListFloorsComponent {
 
   getFloors(): void {
     this.floorService.getFloors()
-      .subscribe(floors => this.floors = floors);
+      .subscribe(floors => this.floorsList = floors);
   }
 
   onSelect(floor: Floors): void {

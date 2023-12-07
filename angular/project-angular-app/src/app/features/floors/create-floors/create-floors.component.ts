@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { Floors } from 'src/app/Interfaces/floors';
 import { FloorService } from 'src/app/Services/floors.service';
+import {Buildings} from 'src/app/Interfaces/buildings';
+import {BuildingService} from "../../../Services/buildings.service";
 
 
 
@@ -9,16 +11,24 @@ import { FloorService } from 'src/app/Services/floors.service';
   templateUrl: './create-floors.component.html',
   styleUrls: ['./create-floors.component.css']
 })
-export class CreateFloorsComponent {
+export class CreateFloorsComponent implements OnInit {
+
+  selectedBuilding?: Buildings;
+  buildingsList: Buildings[] = [];
   floor ={
     buildingId:'',
     floorNumber:0,
     description:'',
   }
 
-  constructor(private floorservice:FloorService) { }
+  constructor(private floorservice:FloorService,  private buildingService: BuildingService) { }
 
   createFloor() {
+
+    if (this.selectedBuilding) {
+      this.floor.buildingId = this.selectedBuilding.id;
+    }
+
     const floorData = this.floorservice.createFloor(this.floor as Floors).subscribe(
       (response) => {
         alert("Floor created successfully!");
@@ -28,5 +38,17 @@ export class CreateFloorsComponent {
       }
     );
 
+  }
+
+
+  getBuildings(): void {
+    this.buildingService.getBuildings()
+      .subscribe(buildings => {this.buildingsList = buildings}
+
+      );
+  }
+
+  ngOnInit(): void {
+    this.getBuildings();
   }
 }
