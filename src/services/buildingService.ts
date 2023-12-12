@@ -21,6 +21,27 @@ export default class BuildingService implements IBuildingService{
 
   ) {}
 
+  public async getBuildingById(buildingId: string): Promise<Result<IBuildingDTO>> {
+
+   // try{
+    console.log("Building of id:")
+    const building = await this.buildingRepo.findByDomainId(buildingId); 
+
+    console.log("Building of id:")
+    console.log(building);
+
+    const buildingDTOResult = BuildingMap.toDTO( building ) as IBuildingDTO;
+        return Result.ok<IBuildingDTO>( buildingDTOResult )
+  
+        console.log(buildingDTOResult);
+  /*} catch (error) {
+      // Handle any errors, log them, and return a Result indicating failure
+      console.error('Error while fetching building:', error);
+      return Result.fail('Failed to get building');
+    }*/
+  }
+
+
 
   public async createBuilding(buildingDTO: IBuildingDTO): Promise<Result<IBuildingDTO>> {
     try {
@@ -54,7 +75,7 @@ export default class BuildingService implements IBuildingService{
         return Result.fail<IBuildingDTO>("Building not found");
       }
       else {
-        // Check which fields are present in the request and update them
+        // Check which fields are present in the request and update them 
         if(buildingDTO.name!== undefined){
           building.props.name = buildingDTO.name;
         }
@@ -80,7 +101,7 @@ export default class BuildingService implements IBuildingService{
   }
 
 
-  public async getAllBuildings() :Promise<Result<IBuildingDTO>>{
+  public async getAllBuildings() :Promise<Result<IBuildingDTO[]>>{
     try {
       // Implement the logic to retrieve a list of all buildings from your data source
       // For example, if you have a BuildingRepository, you can call a method like getAllBuildings from there
@@ -98,18 +119,27 @@ export default class BuildingService implements IBuildingService{
 
 
 
-  public async getBuildingsByFloorRange(minFloors: number, maxFloors: number) {
+
+  public async getBuildingsByFloorRange(min: number, max: number): Promise<Result<IBuildingDTO[]>>{
     try {
-      // Implement the logic to retrieve a list of buildings with a range of floors
-      // For example, if you have a FloorRepository, you can call a method like findBuildingsByFloorRange from there
+      const buildingResult = await this.buildingRepo.findAll();
 
-      const buildingsWithFloorRange = await this.buildingRepo.findBuildingsByFloorRange(minFloors, maxFloors);
+      const buildings=[];
 
-      // Return the list of building DTOs
-      return Result.ok<IBuildingDTO[]>(buildingsWithFloorRange);
-    } catch (error) {
-      console.error('Error while fetching buildings by floor range:', error);
-      return Result.fail('Failed to fetch buildings by floor range');
+      if(buildingResult.length != 0){
+        buildingResult.forEach(async (element) => {
+          const buildingDTO = BuildingMap.toDTO(element);
+          if(await this.floorRepo.floorInLimit(buildingDTO.id,min,max)){
+            buildings.push(buildingDTO);
+          }
+        })
+      }
+      return Result.ok<IBuildingDTO[]>( buildings );
+    } catch (e) {
+      throw e;
     }
   }
+
+
+  
 }

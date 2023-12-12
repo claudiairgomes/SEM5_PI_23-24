@@ -7,4 +7,5 @@ export default interface IRobotRepo extends Repo<Robot> {
   save(robot: Robot): Promise<Robot>;
   findByDomainId (robotId: RobotId | string): Promise<Robot>;
   findById (id: string): Promise<Robot>;
+  findAll();
 }

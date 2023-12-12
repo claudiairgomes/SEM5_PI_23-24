@@ -7,6 +7,8 @@ import IBuildingRepo from "../services/IRepos/IBuildingRepo";
 import {Building} from "../domain/building";
 import {BuildingId} from "../domain/buildingId";
 import {BuildingMap} from "../mappers/BuildingMap";
+import { IFloorPersistence } from '../dataschema/IFloorPersistence';
+import FloorRepo from './floorRepo';
 
 @Service()
 export default class BuildingRepo implements IBuildingRepo{
@@ -24,9 +26,11 @@ export default class BuildingRepo implements IBuildingRepo{
 
 private models: any;
 
+
+
 constructor(
   @Inject('buildingSchema') private buildingSchema: Model<IBuildingPersistence & Document>,
-  @Inject('floorSchema')private floorSchema: Model<IBuildingPersistence & Document>,
+
 
 ){}
   private createBaseQuery(): any{
@@ -125,15 +129,21 @@ constructor(
     //return buildingRecords.map((record) => BuildingMap.toDomain(record));
   }
 
-  async findBuildingsByFloorRange(minFloors: number, maxFloors: number) {
-    // Implement the logic to find buildings based on the floor range
-    // For example, if you have a floorModel with a floorNumber field, you can use the aggregation framework
+  async findBuildingsByFloorRange(buildingIds: string[]) {
 
-    return this.buildingSchema.aggregate([
+
+
+    // Encontrar os prédios correspondentes
+    const buildingQuery = {
+      _id: { $in: buildingIds }
+    };
+    const buildings = await this.buildingSchema.find(buildingQuery);
+
+   /* return this.buildingSchema.aggregate([
       {
         $lookup: {
           from: "floors",
-          localField: "_id",
+          localField: "domainId",
           foreignField: "buildingId",
           as: "floors",
         },
@@ -143,7 +153,7 @@ constructor(
           "floors.floorNumber": { $gte: minFloors, $lte: maxFloors },
         },
       },
-    ]).exec();
+    ]).exec();*/
   }
 }
 

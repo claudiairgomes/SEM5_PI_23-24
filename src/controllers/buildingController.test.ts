@@ -60,5 +60,5 @@ describe('building controller', function () {
     sinon.assert.calledWith(res.json, sinon.match({ "id": req.body.id, "name": req.body.name,"description": req.body.name,"dimension":req.body.dimension,"code":req.body.code }));
   });
 
-  // Add more test cases as needed
+
 });

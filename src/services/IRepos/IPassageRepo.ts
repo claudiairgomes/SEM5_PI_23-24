@@ -8,4 +8,6 @@ export default interface IPassageRepo extends Repo<Passage>{
   findByDomainId (floorId: PassageId | string): Promise<Passage>;
 
   exists(passageId: PassageId | string): Promise<boolean>;
+
+  findAll();
 }

@@ -18,6 +18,7 @@ export default class BuildingController implements IBuildingController /* TODO: 
     @Inject(config.services.building.name) private buildingServiceInstance : IBuildingService
   ) {}
 
+
   public async createBuilding(req: Request, res: Response, next: NextFunction) {
     try {
       const buildingOrError = await this.buildingServiceInstance.createBuilding(req.body as IBuildingDTO) as Result<IBuildingDTO>;
@@ -95,5 +96,23 @@ export default class BuildingController implements IBuildingController /* TODO: 
   }
   }
 
+  async getBuildingsByRange(req: Request, res: Response, next: NextFunction) {
+    const min = req.body.min;
+    const max = req.body.max;
+
+    try{
+      const buildingOrError = null;//await this.buildingServiceInstance.getBuildingsByFloorRange(min,max) as Result<IBuildingDTO>;
+
+      if (buildingOrError.isFailure) {
+        return res.status(404).send();
+      }
+
+      const buildingDTO = buildingOrError.getValue();
+      return res.status(201).json( buildingDTO );
+    }
+    catch (e) {
+      return next(e);
+    }
+  }
 
 }

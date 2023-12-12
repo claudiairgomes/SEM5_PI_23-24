@@ -106,9 +106,22 @@ export default class FloorRepo implements IFloorRepo{
     }catch (e){
       throw e;
     }
-  
+
       //return buildingRecords.map((record) => BuildingMap.toDomain(record));
     }
+
+    public async floorInLimit (buildingId: string, min : number, max : number): Promise<boolean> {
+      const query = { buildingId: buildingId };
+      const floorRecord = await this.floorSchema.find( query as FilterQuery<IFloorPersistence & Document>);
+      
+      if(floorRecord.length != 0){
+        if((min <= floorRecord.length) && (floorRecord.length <= max)){
+          return true;
+        }
+      }
+      return false;
+    }
+  
 
 }
 

@@ -63,6 +63,19 @@ export default (app:Router) => {
     }),
   }),
   (req, res, next) => ctrl.getBuildingById(req, res, next) );
+
+  route.get('range',
+  celebrate({
+    body: Joi.object({
+      min: Joi.number().required(),
+      max: Joi.number().required()
+
+    }),
+  }),
+  (req, res, next) => ctrl.getBuildingsByRange(req, res, next) );
+
+
+
   //  route.get('/me', middlewares.isAuth, middlewares.attachCurrentUser, user_controller.getMe);
 
 }
