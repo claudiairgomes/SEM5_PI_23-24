@@ -3,7 +3,7 @@ export interface IRobotDTO {
 
   id: string;
   codRobot: string;
-  nickname: string;
+  name: string;
   type: string;
   serialNumber: string;
   description: string;

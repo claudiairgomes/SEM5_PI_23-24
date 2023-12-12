@@ -10,7 +10,7 @@ import { RobotService } from 'src/app/Services/robots.service';
 export class CreateRobotsComponent {
   robot ={
     codRobot:'',
-    nickName:'',
+    name:'',
     type:'',
     serialNumber:'',
     description:''

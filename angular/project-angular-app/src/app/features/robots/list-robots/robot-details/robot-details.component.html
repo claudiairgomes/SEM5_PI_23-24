@@ -1,0 +1,23 @@
+<script src="../../../../Services/robots.service.ts"></script>
+<div *ngIf="robot">
+
+  <h2>{{robot.name | uppercase}} Details</h2>
+  <div>
+    <label for="robot-name">Name: </label>
+    <input id="robot-name" [(ngModel)]="robot.name" placeholder="name" readonly><br>
+
+    <label for="robot-codRobot">Robot code: </label>
+    <input id="robot-codRobot" [(ngModel)]="robot.codRobot" placeholder="codRobot" readonly><br>
+
+    <label for="robot-type">Type: </label>
+    <input id="robot-type" [(ngModel)]="robot.type" placeholder="type" readonly><br>
+
+    <label for="robot-serialNumber">Serial Number: </label>
+    <input id="robot-serialNumber" [(ngModel)]="robot.serialNumber" placeholder="serialNumber" readonly><br>
+
+    <label for="robot-name">Description: </label>
+    <input id="robot-description" [(ngModel)]="robot.description" placeholder="description" readonly><br>
+
+  </div>
+
+</div>

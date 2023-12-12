@@ -8,7 +8,7 @@ import { Guard } from "../core/logic/Guard";
 interface RobotProps {
 
   codRobot: string;
-  nickname: string;
+  name: string;
   type: string;
   serialNumber: string;
   description: string;
@@ -28,8 +28,8 @@ export class Robot extends AggregateRoot<RobotProps> {
     return this.props.codRobot;
   }
 
-  get nickname (): string {
-    return this.props.nickname;
+  get name (): string {
+    return this.props.name;
   }
 
   get type (): string {
@@ -52,7 +52,7 @@ export class Robot extends AggregateRoot<RobotProps> {
 
     const guardedProps = [
       { argument: props.codRobot, argumentName: 'codRobot' },
-      { argument: props.nickname, argumentName: 'nickname' },
+      { argument: props.name, argumentName: 'name' },
       { argument: props.type, argumentName: 'type' },
       { argument: props.serialNumber, argumentName: 'serialNumber' },
       { argument: props.description, argumentName: 'description' }

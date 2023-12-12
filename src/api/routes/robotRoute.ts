@@ -19,7 +19,7 @@ export default (app: Router) => {
     celebrate({
       body: Joi.object({
         codRobot: Joi.string().required(),
-        nickName: Joi.string().required(),
+        name: Joi.string().required(),
         type: Joi.string().required(),
         serialNumber: Joi.string().required(),
         description: Joi.string().required()
@@ -32,7 +32,7 @@ export default (app: Router) => {
       body: Joi.object({
         id: Joi.string().required(),
         codRobot : Joi.string().required(),
-        nickName: Joi.string().required(),
+        name: Joi.string().required(),
         type: Joi.string().required(),
         serialNumber: Joi.string().required(),
         description: Joi.string().required(),
@@ -45,7 +45,7 @@ export default (app: Router) => {
       body: Joi.object({
         id: Joi.string().required(),
         codRobot : Joi.string(),
-        nickName: Joi.string(),
+        name: Joi.string(),
         type: Joi.string(),
         serialNumber: Joi.string(),
         description: Joi.string(),
@@ -53,9 +53,20 @@ export default (app: Router) => {
     }),
     (req, res, next) => ctrl.updateRobot(req, res, next) );
 
-  route.get('', (req, res, next) => ctrl.getAllRobots(req, res, next) );
-  route.get('/id', (req, res, next) => ctrl.getRobotById(req, res, next) );
-  };
+  route.get(
+    '/findAll',
+    (req, res, next) => ctrl.getAllRobots(req, res, next)
+  );
+
+  route.get('',
+    celebrate({
+      body: Joi.object({
+        id: Joi.string().required(),
+      }),
+    }),
+    (req, res, next) => ctrl.getRobotById(req, res, next) );
+  //  route.get('/me', middlewares.isAuth, middlewares.attachCurrentUser, user_controller.getMe);
+};
 
 
 

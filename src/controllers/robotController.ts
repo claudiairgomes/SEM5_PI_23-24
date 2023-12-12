@@ -4,15 +4,10 @@ import {Container, Inject, Service} from 'typedi';
 
 import config from '../../config';
 import {Result} from "../core/logic/Result";
-import IRobotRepo from '../services/IRepos/IRobotRepo';
-
-import { RobotMap } from "../mappers/RobotMap";
 import { IRobotDTO } from '../dto/IRobotDTO';
-import IBuildingController from "./IControllers/IBuildingController";
-import IBuildingService from "../services/IServices/IBuildingService";
 import IRobotController from "./IControllers/IRobotController";
 import IRobotService from "../services/IServices/IRobotService";
-import {IFloorDTO} from "../dto/IFloorDTO";
+
 
 
 @Service()
@@ -21,13 +16,6 @@ export default class RobotController implements IRobotController /* TODO: extend
   constructor(
     @Inject(config.services.robot.name) private robotServiceInstance : IRobotService
   ) {}
-
- public async getAllRobots(req: Request, res: Response, next: NextFunction) {
-  };
-
-  public async getRobotById(req: Request, res: Response, next: NextFunction) {
-  };
-
 
   public async createRobot(req: Request, res: Response, next: NextFunction) {
     try {
@@ -61,4 +49,38 @@ export default class RobotController implements IRobotController /* TODO: extend
       return next(e);
     }
   };
+
+  public async getAllRobots(req: Request, res: Response, next: NextFunction) {
+    try {
+      const robots = await this.robotServiceInstance.getAllRobots();
+
+      if (!robots || robots.length === 0) {
+        // Return an appropriate response if there are no robots
+        return res.status(404).json({ message: 'No robots found' });
+      }
+
+      return res.status(200).json(robots);
+    } catch (error) {
+      // Handle any errors that may occur during the process
+      console.error('Error while fetching robots:', error);
+      return res.status(500).json({ message: 'Internal server error' });
+    }
+  }
+
+
+  async getRobotById(req: Request, res: Response, next: NextFunction) {
+    try{
+      const robotOrError = await this.robotServiceInstance.getRobotById(req.body) as Result<IRobotDTO>;
+
+      if (robotOrError.isFailure) {
+        return res.status(404).send();
+      }
+
+      const robotDTO = robotOrError.getValue();
+      return res.status(201).json( robotDTO );
+    }
+    catch (e) {
+      return next(e);
+    }
+  }
 }

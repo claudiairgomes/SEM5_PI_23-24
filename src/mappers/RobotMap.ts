@@ -14,9 +14,9 @@ export class RobotMap extends Mapper<Robot> {
 
 
     return {
-      //id: robot.id.toString(),
+      id: robot.id.toString(),
       codRobot: robot.codRobot,
-      nickname: robot.nickname,
+      name: robot.name,
       type: robot.type,
       serialNumber:robot.serialNumber,
       description:robot.description,
@@ -24,12 +24,10 @@ export class RobotMap extends Mapper<Robot> {
   }
 
   public static async toDomain (raw: any): Promise<Robot> {
-    //const repo = Container.get(RoleRepo);
-    //const role = await repo.findByDomainId(raw.role);
 
     const robotOrError = Robot.create({
       codRobot: raw.codRobot,
-      nickname: raw.nickname,
+      name: raw.name,
       type: raw.type,
       serialNumber: raw.serialNumber,
       description: raw.description,
@@ -44,7 +42,7 @@ export class RobotMap extends Mapper<Robot> {
     const a = {
       domainId: robot.id.toString(),
       codRobot: robot.codRobot,
-      nickname: robot.nickname,
+      name: robot.name,
       type: robot.type,
       serialNumber: robot.serialNumber,
       description: robot.description,

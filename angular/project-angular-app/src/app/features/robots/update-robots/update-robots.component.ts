@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { Robots } from 'src/app/Interfaces/robots';
 import { RobotService } from 'src/app/Services/robots.service';
+import {Buildings} from "../../../Interfaces/buildings";
 
 
 @Component({
@@ -8,26 +9,56 @@ import { RobotService } from 'src/app/Services/robots.service';
   templateUrl: './update-robots.component.html',
   styleUrls: ['./update-robots.component.css']
 })
-export class UpdateRobotsComponent {
-  robot ={
+export class UpdateRobotsComponent implements OnInit{
+
+  robots: Robots[] = [];
+  selectedRobot ={
+    id:'',
     codRobot:'',
-    nickName:'',
+    name:'',
     type:'',
     serialNumber:'',
     description:''
 
   }
 
-  constructor(private robotervice:RobotService) { }
+  constructor(private robotService:RobotService) { }
 
- updateRobot() {
-    const robotData = this.robotervice.updateRobot(this.robot as Robots).subscribe(
-      (response) => {
-        alert("Robot updated successfully!");
+  ngOnInit(): void {
+    this.loadRobots();
+  }
+
+  loadRobots() {
+    this.robotService.getRobots().subscribe(
+      (robots) => {
+        this.robots = robots;
       },
       (error) => {
-        alert("Error updating robot...");
+        console.error('Error loading robots:', error);
       }
+    );
+  }
+
+  editRobot(id: string) {
+    console.log(id);
+    this.robotService.getRobotsById(id).subscribe(
+      (robot) => {
+        this.selectedRobot = robot;
+      },
+      (error) => {
+        console.error('Error loading robot details:', error);
+      }
+    );
+  }
+ updateRobot() {
+   this.robotService.updateRobot(this.selectedRobot).subscribe(
+     (response) => {
+       alert('Building updated successfully!');
+       this.loadRobots(); // Reload the list of robots after an update
+     },
+     (error) => {
+       alert('Error updating robot...');
+     }
     );
 
   }

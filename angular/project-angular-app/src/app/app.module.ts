@@ -35,6 +35,7 @@ import {CreateRoomsComponent} from "./features/rooms/create-rooms/create-rooms.c
 import {RoomDetailsComponent} from "./features/rooms/list-rooms/room-details/room-details.component";
 import {ListRoomsComponent} from "./features/rooms/list-rooms/list-rooms.component";
 import {UpdateRoomsComponent} from "./features/rooms/update-rooms/update-rooms.component";
+import {RobotDetailsComponent} from "./features/robots/list-robots/robot-details/robot-details.component";
 
 
 
@@ -76,6 +77,7 @@ import {UpdateRoomsComponent} from "./features/rooms/update-rooms/update-rooms.c
     RobotsComponent,
     CreateRobotsComponent,
     ListRobotsComponent,
+    RobotDetailsComponent,
     UpdateRobotsComponent
 
   ],

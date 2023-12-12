@@ -28,14 +28,14 @@ export class RobotService {
         const body: {
             id: any,
             codRobot: any,
-            nickName: any,
+            name: any,
             type: any,
             serialNumber: any,
             description: any
         } = {
             id: robot.id,
             codRobot: robot.codRobot,
-            nickName: robot.nickName,
+            name: robot.name,
             type: robot.type,
             serialNumber:robot.serialNumber,
             description:robot.description
