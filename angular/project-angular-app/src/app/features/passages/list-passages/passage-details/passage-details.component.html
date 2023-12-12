@@ -1,12 +1,15 @@
 <div *ngIf="passage">
 
-  <h2>{{passage.id | uppercase}} Details</h2>
+  <h2>{{passage.name | uppercase}} Details</h2>
   <div>
-    <label for="passage-fromFloorId">From Floor: </label>
-    <input id="passage-fromFloorId" [(ngModel)]="passage.fromFloorId" placeholder="fromFloorId" readonly><br>
+    <label for="passage-name">Name: </label>
+    <input id="passage-name" [(ngModel)]="passage.name" placeholder="name" readonly><br>
 
-    <label for="passage-toFloorId">To Floor: </label>
-    <input id="passage-toFloorId" [(ngModel)]="passage.toFloorId" placeholder="toFloorId" readonly><br>
+    <label for="passage-fromFloor">From Floor: </label>
+    <input id="passage-fromFloor" [(ngModel)]="passage.fromFloor" placeholder="fromFloor" readonly><br>
+
+    <label for="passage-toFloor">To Floor: </label>
+    <input id="passage-toFloor" [(ngModel)]="passage.toFloor" placeholder="toFloor" readonly><br>
 
     <label for="passage-description">Description: </label>
     <input id="passage-description" [(ngModel)]="passage.description" placeholder="description" readonly>

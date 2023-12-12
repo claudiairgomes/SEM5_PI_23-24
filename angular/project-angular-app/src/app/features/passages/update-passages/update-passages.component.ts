@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { Passages } from 'src/app/Interfaces/passages';
 import { PassageService } from 'src/app/Services/passages.service';
 
@@ -8,24 +8,54 @@ import { PassageService } from 'src/app/Services/passages.service';
   templateUrl: './update-passages.component.html',
   styleUrls: ['./update-passages.component.css']
 })
-export class UpdatePassagesComponent {
-  passage ={
-    fromFloorId:'',
-    toFloorId:'',
+export class UpdatePassagesComponent implements OnInit{
+
+  passages: Passages[] = [];
+  selectedPassage: Passages ={
+    id:'',
+    name:'',
+    fromFloor:'',
+    toFloor:'',
     description:'',
   }
 
   constructor(private passageService:PassageService) { }
 
- updatePassage() {
-    const passageData = this.passageService.updatePassage(this.passage as Passages).subscribe(
-      (response) => {
-        alert("Passage created successfully!");
+  ngOnInit(): void {
+    this.loadPassages();
+  }
+
+  loadPassages() {
+    this.passageService.getPassages().subscribe(
+      (passages) => {
+        this.passages = passages;
       },
       (error) => {
-        alert("Error creating passage...");
+        console.error('Error loading passages:', error);
       }
     );
+  }
+  editPassage(id: string) {
+    console.log(id);
+    this.passageService.getPassageById(id).subscribe(
+      (passage) => {
+        this.selectedPassage = passage;
+      },
+      (error) => {
+        console.error('Error loading passage details:', error);
+      }
+    );
+  }
 
+  updatePassage() {
+    this.passageService.updatePassage(this.selectedPassage).subscribe(
+      (response) => {
+        alert('Passage updated successfully!');
+        this.loadPassages(); // Reload the list of passages after an update
+      },
+      (error) => {
+        alert('Error updating passage...');
+      }
+    );
   }
 }

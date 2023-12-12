@@ -4,15 +4,22 @@ import mongoose from "mongoose";
 const passageSchema = new mongoose.Schema(
   {
     domainId: { type: String, unique: true },
-    fromFloorId: {
+
+    name: {
+      type: String
+      , required: [true, 'Please enter passage name'],
+      //index: true,
+    },
+
+    fromFloor: {
       type: String,
-      required: [true, 'Please enter fromFloorId'],
+      required: [true, 'Please enter fromFloor'],
       index: true,
     },
 
-    toFloorId: {
+    toFloor: {
       type: String,
-      required: [true, 'Please enter fromFloorId'],
+      required: [true, 'Please enter fromFloor'],
     },
     description: {
       type: String,

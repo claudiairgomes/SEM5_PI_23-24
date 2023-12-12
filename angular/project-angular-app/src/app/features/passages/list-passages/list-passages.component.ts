@@ -11,6 +11,7 @@ export class ListPassagesComponent {
   selectedPassage?: Passages;
   passagesList: Passages[] = [];
 
+  isLinear: any;
   constructor(private passageService: PassageService) { }
 
   ngOnInit(): void {

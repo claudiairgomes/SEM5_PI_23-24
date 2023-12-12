@@ -43,8 +43,9 @@ describe('PassageService', () => {
   it('should create passage', () => {
     const mockPassage: Passages = {
       id:'',
-      fromFloorId:'',
-      toFloorId:'',
+      name:'',
+      fromFloor:'',
+      toFloor:'',
       description:'',
     } ;
 
@@ -61,8 +62,9 @@ describe('PassageService', () => {
   it('should update passage', () => {
     const mockPassage: Passages = {
       id:'',
-      fromFloorId:'',
-      toFloorId:'',
+      name:'',
+      fromFloor:'',
+      toFloor:'',
       description:'',
     } ;
 
@@ -79,8 +81,9 @@ describe('PassageService', () => {
   it('should get passage by ID', () => {
     const mockPassage: Passages = {
       id:'',
-      fromFloorId:'',
-      toFloorId:'',
+      name:'',
+      fromFloor:'',
+      toFloor:'',
       description:'',
     };
 

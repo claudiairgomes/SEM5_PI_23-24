@@ -8,8 +8,9 @@ export class PassageMap extends Mapper<Passage>{
 
   public static toDTO(passage: Passage): IPassageDTO {
     return {
-      fromFloorId:passage.fromFloorId,
-      toFloorId:passage.toFloorId,
+      name:passage.name,
+      fromFloor:passage.fromFloor,
+      toFloor:passage.toFloor,
       description: passage.description,
     }as IPassageDTO
 
@@ -19,8 +20,9 @@ export class PassageMap extends Mapper<Passage>{
 
     const passageOrError = Passage.create(
       {
-        fromFloorId:raw.fromFloorId,
-        toFloorId:raw.toFloorId,
+        name:raw.name,
+        fromFloor:raw.fromFloor,
+        toFloor:raw.toFloor,
         description: raw.description,
 
       }, new UniqueEntityID(raw.domainId)
@@ -32,8 +34,9 @@ export class PassageMap extends Mapper<Passage>{
   public static toPersistence(passage: Passage): any{
     const a = {
       domainId: passage.id.toString(),
-      fromFloorId:passage.fromFloorId,
-      toFloorId:passage.toFloorId,
+      name: passage.name,
+      fromFloor:passage.fromFloor,
+      toFloor:passage.toFloor,
       description: passage.description,
     }
     return a;

@@ -16,8 +16,9 @@ export default (app:Router) => {
   route.post('',
     celebrate({
       body: Joi.object({
-        fromFloorId: Joi.string().required(),
-        toFloorId: Joi.string().required(),
+        name: Joi.string().required(),
+        fromFloor: Joi.string().required(),
+        toFloor: Joi.string().required(),
        // floorId: Joi.number().required(),
         description: Joi.string().required(),
       })
@@ -28,8 +29,9 @@ export default (app:Router) => {
     celebrate({
       body: Joi.object({
         id: Joi.string().required(),
-        fromFloorId: Joi.string().required(),
-        toFloorId: Joi.string().required(),
+        name: Joi.string().required(),
+        fromFloor: Joi.string().required(),
+        toFloor: Joi.string().required(),
         description: Joi.string().required(),
       }),
     }),
@@ -39,11 +41,26 @@ export default (app:Router) => {
     celebrate({
       body: Joi.object({
         id: Joi.string().required(),
-        fromFloorId: Joi.string().required(),
-        toFloorId: Joi.string().required(),
-        description: Joi.string().required(),
+        name: Joi.string(),
+        fromFloor: Joi.string(),
+        toFloor: Joi.string(),
+        description: Joi.string(),
       }),
     }),
     (req, res, next) => ctrl.updatePassage(req, res, next) );
+
+  route.get(
+    '/findAll',
+    (req, res, next) => ctrl.getAllPassages(req, res, next)
+  );
+
+
+  route.get('',
+    celebrate({
+      body: Joi.object({
+        id: Joi.string().required(),
+      }),
+    }),
+    (req, res, next) => ctrl.getPassageById(req, res, next) );
 
 }

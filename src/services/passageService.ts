@@ -11,6 +11,7 @@ import {IPassageDTO} from "../dto/IPassageDTO";
 import {PassageMap} from "../mappers/PassageMap";
 import {Passage} from "../domain/passage";
 import IFloorRepo from "./IRepos/IFloorRepo";
+import {IBuildingDTO} from "../dto/IBuildingDTO";
 
 @Service()
 export default class PassageService implements IPassageService{
@@ -21,25 +22,8 @@ export default class PassageService implements IPassageService{
 
   ) {}
 
-  public async getPassage( passageId: string): Promise<Result<IPassageDTO>> {
-    try {
-      const passage = await this.passageRepo.findByDomainId(passageId);
-
-      if (passage === null) {
-        return Result.fail<IPassageDTO>("Passage not found");
-      }
-      else {
-        const passageDTOResult = PassageMap.toDTO( passage ) as IPassageDTO;
-        return Result.ok<IPassageDTO>( passageDTOResult )
-      }
-    } catch (e) {
-      throw e;
-    }
-  }
-
 
   public async createPassage(passageDTO: IPassageDTO): Promise<Result<IPassageDTO>> {
-    if (this.isPassage(passageDTO)) {
       try {
         const passageOrError = await Passage.create(passageDTO);
 
@@ -56,55 +40,51 @@ export default class PassageService implements IPassageService{
       } catch (e) {
         throw e;
       }
-    } else {
-      console.log("Passage not valid | Floors are on the same building");
-      // You may want to return an error result here instead of using console.log.
-      return Result.fail<IPassageDTO>("Passage not valid | Floors are on the same building");
     }
-  }
+
 
   public async updatePassage(passageDTO: IPassageDTO): Promise<Result<IPassageDTO>> {
-      try {
-        const passage = await this.passageRepo.findByDomainId(passageDTO.id);
+    try {
+      const passage = await this.passageRepo.findByDomainId(passageDTO.id);
 
-        if (passage === null) {
-          return Result.fail<IPassageDTO>("Passage not found");
+      if (passage === null) {
+        return Result.fail<IPassageDTO>("Passage not found");
+      } else {
+        if (passageDTO.name !== undefined) {
+          passage.props.name = passageDTO.name;
         }
-        else {
-          if(passageDTO.toFloorId!==undefined){
-            passage.props.toFloorId = passageDTO.toFloorId;
-          }
-          if (passageDTO.fromFloorId!==undefined){
-            passage.props.fromFloorId = passageDTO.fromFloorId;
-          }
-          if (passageDTO.description!==undefined){
-            passage.props.description = passageDTO.description;
-          }
-          await this.passageRepo.save(passage);
+        if (passageDTO.toFloor !== undefined) {
+          passage.props.toFloor = passageDTO.toFloor;
+        }
+        if (passageDTO.fromFloor !== undefined) {
+          passage.props.fromFloor = passageDTO.fromFloor;
+        }
+        if (passageDTO.description !== undefined) {
+          passage.props.description = passageDTO.description;
+        }
+        await this.passageRepo.save(passage);
 
-          const passageDTOResult = PassageMap.toDTO( passage ) as IPassageDTO;
-          return Result.ok<IPassageDTO>( passageDTOResult )
-        }
-      } catch (e) {
-        throw e;
+        const passageDTOResult = PassageMap.toDTO(passage) as IPassageDTO;
+        return Result.ok<IPassageDTO>(passageDTOResult)
       }
-
-
-
+    } catch (e) {
+      throw e;
+    }
   }
 
-  protected async isPassage(passageDTO: IPassageDTO): Promise<boolean>{
-    const building1= await this.floorRepo.findByDomainId(passageDTO.fromFloorId);
-    const building2= await this.floorRepo.findByDomainId(passageDTO.toFloorId)
+  public async getAllPassages() :Promise<Result<IPassageDTO>>{
+    try {
+      // Implement the logic to retrieve a list of all buildings from your data source
+      // For example, if you have a BuildingRepository, you can call a method like getAllBuildings from there
 
-    console.log(this.floorRepo.exists(passageDTO.fromFloorId.toString()));
-    console.log(building2 !== null);
+      const passages = await this.passageRepo.findAll();
 
-
-    if (this.floorRepo.exists(passageDTO.fromFloorId.toString())  &&  this.floorRepo.exists(passageDTO.toFloorId.toString())
-      && building2!== null && building2 !== null ){
-      if((!building1.equals(building2))) return true
+      // Return the list of building DTOs
+      return passages;
+    } catch (error) {
+      // Handle any errors, log them, and return a Result indicating failure
+      console.error('Error while fetching passages:', error);
+      return Result.fail('Failed to fetch passages');
     }
-    return false;
   }
 }

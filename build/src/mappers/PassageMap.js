@@ -7,15 +7,17 @@ const UniqueEntityID_1 = require("../core/domain/UniqueEntityID");
 class PassageMap extends Mapper_1.Mapper {
     static toDTO(passage) {
         return {
-            fromFloorId: passage.fromFloorId,
-            toFloorId: passage.toFloorId,
+            name: passage.name,
+            fromFloor: passage.fromFloor,
+            toFloor: passage.toFloor,
             description: passage.description,
         };
     }
     static async toDomain(raw) {
         const passageOrError = passage_1.Passage.create({
-            fromFloorId: raw.fromFloorId,
-            toFloorId: raw.toFloorId,
+            name: raw.name,
+            fromFloor: raw.fromFloor,
+            toFloor: raw.toFloor,
             description: raw.description,
         }, new UniqueEntityID_1.UniqueEntityID(raw.domainId));
         passageOrError.isFailure ? console.log(passageOrError.error) : '';
@@ -24,8 +26,9 @@ class PassageMap extends Mapper_1.Mapper {
     static toPersistence(passage) {
         const a = {
             domainId: passage.id.toString(),
-            fromFloorId: passage.fromFloorId,
-            toFloorId: passage.toFloorId,
+            name: passage.name,
+            fromFloor: passage.fromFloor,
+            toFloor: passage.toFloor,
             description: passage.description,
         };
         return a;

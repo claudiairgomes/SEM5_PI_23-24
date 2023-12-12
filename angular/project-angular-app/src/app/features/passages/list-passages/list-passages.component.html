@@ -3,7 +3,7 @@
 <ul class="passages-menu">
   <li *ngFor="let passage of passagesList">
     <button [class.selected]="passage === selectedPassage" type="button" (click)="onSelect(passage)" >
-      <span class="name">{{passage.id}}</span>
+      <span class="name">{{passage.name}}</span>
     </button>
   </li>
 </ul>

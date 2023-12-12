@@ -17,22 +17,17 @@ export class CreatePassagesComponent {
   selectedFloor2?: Floors;
   floorsList: Floors[] = [];
   passage ={
-    fromFloorId:'',
-    toFloorId: '',
+    name:'',
+    fromFloor:'',
+    toFloor: '',
     description:''
   }
 
   constructor(private passageService:PassageService, private floorService:FloorService) { }
 
  createPassage() {
-   if (this.selectedFloor1) {
-     this.passage.fromFloorId = this.selectedFloor1.id;
-   }
-
-   if (this.selectedFloor2) {
-     this.passage.toFloorId = this.selectedFloor2.id;
-   }
     const passageData = this.passageService.createPassage(this.passage as Passages).subscribe(
+
       (response) => {
         alert("Passage created successfully!");
       },
@@ -40,6 +35,8 @@ export class CreatePassagesComponent {
         alert("Error creating passage...");
       }
     );
+    console.log(passageData)
+
 
   }
 

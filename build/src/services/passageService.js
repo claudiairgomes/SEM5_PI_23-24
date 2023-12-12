@@ -69,11 +69,14 @@ let PassageService = class PassageService {
                 return Result_1.Result.fail("Passage not found");
             }
             else {
-                if (passageDTO.toFloorId !== undefined) {
-                    passage.props.toFloorId = passageDTO.toFloorId;
+                if (passageDTO.name !== undefined) {
+                  passage.props.name = passageDTO.name;
                 }
-                if (passageDTO.fromFloorId !== undefined) {
-                    passage.props.fromFloorId = passageDTO.fromFloorId;
+                if (passageDTO.toFloor !== undefined) {
+                    passage.props.toFloor = passageDTO.toFloor;
+                }
+                if (passageDTO.fromFloor !== undefined) {
+                    passage.props.fromFloor = passageDTO.fromFloor;
                 }
                 if (passageDTO.description !== undefined) {
                     passage.props.description = passageDTO.description;
@@ -88,11 +91,11 @@ let PassageService = class PassageService {
         }
     }
     async isPassage(passageDTO) {
-        const building1 = await this.floorRepo.findByDomainId(passageDTO.fromFloorId);
-        const building2 = await this.floorRepo.findByDomainId(passageDTO.toFloorId);
+        const building1 = await this.floorRepo.findByDomainId(passageDTO.fromFloor);
+        const building2 = await this.floorRepo.findByDomainId(passageDTO.toFloor);
         console.log(this.floorRepo.exists(passageDTO.fromFloorId.toString()));
         console.log(building2 !== null);
-        if (this.floorRepo.exists(passageDTO.fromFloorId.toString()) && this.floorRepo.exists(passageDTO.toFloorId.toString())
+        if (this.floorRepo.exists(passageDTO.fromFloor.toString()) && this.floorRepo.exists(passageDTO.toFloor.toString())
             && building2 !== null && building2 !== null) {
             if ((!building1.equals(building2)))
                 return true;

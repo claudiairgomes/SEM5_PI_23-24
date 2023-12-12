@@ -6,8 +6,9 @@ import {PassageId} from "./passageId";
 
 
 interface PassageProps {
-  fromFloorId: string;
-  toFloorId:string;
+  name: string;
+  fromFloor: string;
+  toFloor:string;
   description: string;
 }
 
@@ -19,11 +20,15 @@ export class Passage extends AggregateRoot<PassageProps> {
   get passageId (): PassageId {
     return PassageId.caller(this.id)
   }
-  get fromFloorId (): string {
-    return this.props.fromFloorId;
+
+  get name (): string {
+    return this.props.name;
   }
-  get toFloorId (): string {
-    return this.props.toFloorId;
+  get fromFloor (): string {
+    return this.props.fromFloor;
+  }
+  get toFloor (): string {
+    return this.props.toFloor;
   }
   get description (): string {
     return this.props.description;
@@ -36,8 +41,9 @@ export class Passage extends AggregateRoot<PassageProps> {
   public static create (props: PassageProps, id?: UniqueEntityID): Result<Passage> {
 
     const guardedProps = [
-      { argument: props.fromFloorId, argumentName: 'fromFloorId' },
-      { argument: props.toFloorId, argumentName: 'toFloorId' },
+      { argument: props.name, argumentName: 'name' },
+      { argument: props.fromFloor, argumentName: 'fromFloor' },
+      { argument: props.toFloor, argumentName: 'toFloor' },
       { argument: props.description, argumentName: 'description' },
 
 

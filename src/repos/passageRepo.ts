@@ -30,6 +30,16 @@ export default class PassageRepo implements IPassageRepo{
     }
   }
 
+
+  public async findAll() {
+    try {
+      //const passageRecords = await this.passageSchema.find();
+      return await this.passageSchema.find();
+    } catch (e) {
+      throw e;
+    }
+  }
+
   public async findByDomainId(passageId: PassageId | string): Promise<Passage> {
     const query = { domainId: passageId};
     const passageRecord = await this.passageSchema.findOne( query as FilterQuery<IPassagePersistence & Document> );
@@ -66,9 +76,9 @@ export default class PassageRepo implements IPassageRepo{
 
         return PassageMap.toDomain(passageCreated);
       } else {
-
-        passageDocument.fromFloorId = passage.fromFloorId;
-        passageDocument.toFloorId = passage.toFloorId;
+        passageDocument.name = passage.name;
+        passageDocument.fromFloor = passage.fromFloor;
+        passageDocument.toFloor = passage.toFloor;
         passageDocument.description = passage.description;
 
         await passageDocument.save();
