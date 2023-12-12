@@ -63,8 +63,9 @@ export default class FloorRepo implements IFloorRepo{
         return FloorMap.toDomain(floorCreated);
       } else {
 
-        floorDocument.buildingId= floor.buildingId;
-        floorDocument.floorNumber=floor.floorNumber;
+        floorDocument.building= floor.building;
+        floorDocument.name=floor.name;
+        floorDocument.number=floor.number;
         floorDocument.description = floor.description;
         await floorDocument.save();
 

@@ -8,8 +8,7 @@ import config from "../../config";
 import IFloorRepo from "./IRepos/IFloorRepo";
 import {Floor} from "../domain/floor";
 import {FloorMap} from "../mappers/FloorMap";
-import {IBuildingDTO} from "../dto/IBuildingDTO";
-import {BuildingMap} from "../mappers/BuildingMap";
+
 
 @Service()
 export default class FloorService implements IFloorService{
@@ -80,11 +79,14 @@ export default class FloorService implements IFloorService{
         return Result.fail<IFloorDTO>("Floor not found");
       } else {
         // Check which fields are present in the request and update them
-        if (floorDTO.buildingId !== undefined) {
-          floor.props.buildingId = floorDTO.buildingId;
+        if (floorDTO.building !== undefined) {
+          floor.props.building = floorDTO.building;
         }
-        if (floorDTO.floorNumber !== undefined) {
-          floor.props.floorNumber = floorDTO.floorNumber;
+        if (floorDTO.name !== undefined) {
+          floor.props.name = floorDTO.name;
+        }
+        if (floorDTO.number !== undefined) {
+          floor.props.number = floorDTO.number;
         }
         if (floorDTO.description !== undefined) {
           floor.props.description = floorDTO.description;

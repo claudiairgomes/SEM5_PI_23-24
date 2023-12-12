@@ -1,7 +1,8 @@
 export interface Floors{
   id: string;
-  buildingId:string;
-  floorNumber:number;
+  building:string;
+  name:string;
+  number:number;
   description:string;
 
 }

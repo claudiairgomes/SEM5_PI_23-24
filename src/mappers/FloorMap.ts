@@ -9,8 +9,9 @@ export class FloorMap extends Mapper<Floor>{
   public static toDTO(floor: Floor): IFloorDTO {
     return {
       id: floor.id.toString(),
-      buildingId:floor.buildingId,
-      floorNumber:floor.floorNumber,
+      name:floor.name,
+      building:floor.building,
+      number:floor.number,
       description: floor.description,
     }as IFloorDTO
 
@@ -20,8 +21,9 @@ export class FloorMap extends Mapper<Floor>{
 
     const floorOrError = Floor.create(
       {
-        buildingId: raw.buildingId,
-        floorNumber: raw.floorNumber,
+        building: raw.building,
+        name:raw.name,
+        number: raw.number,
         description: raw.description,
 
       }, new UniqueEntityID(raw.domainId)
@@ -33,8 +35,9 @@ export class FloorMap extends Mapper<Floor>{
   public static toPersistence(floor: Floor): any{
     const a = {
       domainId: floor.id.toString(),
-      buildingId: floor.buildingId,
-      floorNumber: floor.floorNumber,
+      building: floor.building,
+      name: floor.name,
+      number: floor.number,
       description: floor.description,
     }
     return a;

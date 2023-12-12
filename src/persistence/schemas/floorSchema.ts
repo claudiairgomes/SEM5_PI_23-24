@@ -5,13 +5,19 @@ const FloorSchema = new mongoose.Schema(
   {
     domainId: { type: String, unique: true },
 
-    buildingId: {
+    building: {
       type: String,
       required: [true, 'Please enter building id'],
       index: true,
     },
 
-    floorNumber: {
+    name: {
+      type: String,
+      required: [true, 'Please enter floor name'],
+      index: true,
+    },
+
+    number: {
       type: Number,
       required: [true, 'Please enter floor number'],
     },

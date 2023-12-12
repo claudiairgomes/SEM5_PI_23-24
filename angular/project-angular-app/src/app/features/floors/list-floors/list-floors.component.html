@@ -3,7 +3,7 @@
 <ul class="floors-menu">
   <li *ngFor="let floor of floorsList">
     <button [class.selected]="floor === selectedFloor" type="button" (click)="onSelect(floor)" >
-      <span class="name">{{floor.floorNumber}}</span>
+      <span class="name">{{floor.name}}</span>
     </button>
   </li>
 </ul>

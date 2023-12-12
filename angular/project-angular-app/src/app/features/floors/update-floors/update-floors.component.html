@@ -3,13 +3,18 @@
 
     <form (ngSubmit)="updateFloor()">
       <div class="form-group">
-        <label for="name">Building Id</label>
-        <input type="text" id="name" [(ngModel)]="floor.buildingId" name="name" required>
+        <label for="name">Building</label>
+        <input type="text" id="building" [(ngModel)]="floor.building" name="building" required>
       </div>
 
       <div class="form-group">
-        <label for="dimension">Floor Number:</label>
-        <input type="text" id="dimension" [(ngModel)]="floor.floorNumber" name="dimension" required>
+        <label for="name">Name:</label>
+        <input type="text" id="name" [(ngModel)]="floor.name" name="name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="number">Number:</label>
+        <input type="text" id="number" [(ngModel)]="floor.number" name="number" required>
       </div>
 
       <div class="form-group">

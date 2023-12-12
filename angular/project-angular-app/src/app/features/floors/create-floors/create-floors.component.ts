@@ -16,8 +16,9 @@ export class CreateFloorsComponent implements OnInit {
   selectedBuilding?: Buildings;
   buildingsList: Buildings[] = [];
   floor ={
-    buildingId:'',
-    floorNumber:0,
+    building:'',
+    name:'',
+    number:0,
     description:'',
   }
 
@@ -26,7 +27,7 @@ export class CreateFloorsComponent implements OnInit {
   createFloor() {
 
     if (this.selectedBuilding) {
-      this.floor.buildingId = this.selectedBuilding.id;
+      this.floor.building = this.selectedBuilding.name;
     }
 
     const floorData = this.floorservice.createFloor(this.floor as Floors).subscribe(
