@@ -13,6 +13,7 @@ export class RoomMap extends Mapper<Room>{
       description: room.description,
       dimension: room.dimension,
       code: room.code,
+      floor:room.floor,
     }as IRoomDTO
 
   }
@@ -25,7 +26,7 @@ export class RoomMap extends Mapper<Room>{
         description: raw.description,
         dimension: raw.dimension,
         code: raw.code,
-        floorId: raw.floorId,
+        floor: raw.floor,
       }, new UniqueEntityID(raw.domainId)
     )
     roomOrError.isFailure ? console.log(roomOrError.error): '';
@@ -39,7 +40,7 @@ export class RoomMap extends Mapper<Room>{
       description: room.description,
       dimension: room.dimension,
       code: room.code,
-      floorId: room.floorId,
+      floor: room.floor,
     }
     return a;
   }

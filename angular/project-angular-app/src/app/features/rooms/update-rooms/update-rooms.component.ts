@@ -17,7 +17,7 @@ export class UpdateRoomsComponent implements OnInit {
     description: '',
     dimension: '',
     code: '',
-    floorId: '',
+    floor: '',
   };
 
   constructor(private roomService: RoomService) { }

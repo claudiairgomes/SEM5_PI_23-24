@@ -1,7 +1,8 @@
 
 export interface IFloorDTO {
   id: string;
-  buildingId: string;
-  floorNumber: number;
+  name:string;
+  building: string;
+  number: number;
   description: string;
 }

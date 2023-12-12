@@ -4,5 +4,5 @@ export interface Rooms{
     description:string;
     dimension:string;
     code:string;
-    floorId: string;
+    floor: string;
   }

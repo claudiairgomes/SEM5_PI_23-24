@@ -10,12 +10,13 @@ import {Room} from "../domain/room";
 import {RoomMap} from "../mappers/RoomMap";
 import IFloorRepo from "./IRepos/IFloorRepo";
 
+
 @Service()
 export default class RoomService implements IRoomService{
 
   constructor(
     @Inject(config.repos.room.name) private roomRepo : IRoomRepo,
-    @Inject(config.repos.floor.name) private floorRepo: IFloorRepo
+    @Inject(config.repos.floor.name) private floorRepo: IFloorRepo,
 
   ) {}
 
@@ -58,8 +59,6 @@ export default class RoomService implements IRoomService{
         }
         if (roomDTO.description!==undefined){
           room.props.description  = roomDTO.description;
-
-
         }
         if (roomDTO.dimension!==undefined){
           room.props.dimension = roomDTO.dimension;
@@ -67,8 +66,8 @@ export default class RoomService implements IRoomService{
         if (roomDTO.code!==undefined){
           room.props.code = roomDTO.code;
         }
-        if (roomDTO.floorId!==undefined){
-          room.props.floorId = roomDTO.floorId;
+        if (roomDTO.floor!==undefined){
+          room.props.floor = roomDTO.floor;
         }
         await this.roomRepo.save(room);
 
@@ -97,20 +96,21 @@ export default class RoomService implements IRoomService{
     }
   }
 
-
-
-  public async getRoomsByFloorRange(minFloors: number, maxFloors: number) {
+  public async getRoomById( roomId: string): Promise<Result<IRoomDTO>> {
     try {
-      // Implement the logic to retrieve a list of rooms with a range of floors
-      // For example, if you have a FloorRepository, you can call a method like findRoomsByFloorRange from there
+      const room = await this.roomRepo.findByDomainId(roomId);
 
-      const roomsWithFloorRange = await this.roomRepo.findRoomsByFloorRange(minFloors, maxFloors);
-
-      // Return the list of room DTOs
-      return Result.ok<IRoomDTO[]>(roomsWithFloorRange);
-    } catch (error) {
-      console.error('Error while fetching rooms by floor range:', error);
-      return Result.fail('Failed to fetch rooms by floor range');
+      if (room === null) {
+        return Result.fail<IRoomDTO>("Room not found");
+      }
+      else {
+        const roleDTOResult = RoomMap.toDTO( room ) as IRoomDTO;
+        return Result.ok<IRoomDTO>( roleDTOResult )
+      }
+    } catch (e) {
+      throw e;
     }
   }
+
+
 }

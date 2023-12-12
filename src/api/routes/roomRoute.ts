@@ -16,11 +16,11 @@ export default (app:Router) => {
   route.post('',
     celebrate({
       body: Joi.object({
+        floor: Joi.string().required(),
         name: Joi.string().required(),
         description: Joi.string().required(),
         dimension: Joi.string().required(),
         code: Joi.string().required(),
-        floorId: Joi.string().required()
 
       })
     }),
@@ -30,12 +30,11 @@ export default (app:Router) => {
     celebrate({
       body: Joi.object({
         id: Joi.string().required(),
+        floor: Joi.string().required(),
         name: Joi.string().required(),
         description: Joi.string().required(),
         dimension: Joi.string().required(),
         code: Joi.string().required(),
-        floorId: Joi.string().required()
-
       }),
     }),
     (req, res, next) => ctrl.updateRoom(req, res, next) );
@@ -45,6 +44,7 @@ export default (app:Router) => {
     celebrate({
       body: Joi.object({
         id: Joi.string().required(),
+        floor: Joi.string(),
         name: Joi.string(),
         description: Joi.string(),
         dimension: Joi.string(),
@@ -55,7 +55,7 @@ export default (app:Router) => {
 
   route.get(
     '/findAll',
-    (req, res, next) => ctrl.getRooms(req, res, next)
+    (req, res, next) => ctrl.getAllRooms(req, res, next)
   );
 
   route.get('',

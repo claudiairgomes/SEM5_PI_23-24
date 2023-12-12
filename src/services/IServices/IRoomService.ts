@@ -4,13 +4,9 @@ import { Room } from "../../domain/room";
 
 
 export default interface IRoomService{
-createRoom(roomDTO: IRoomDTO): Promise<Result<IRoomDTO>>;
+  createRoom(roomDTO: IRoomDTO): Promise<Result<IRoomDTO>>;
+  updateRoom(roomDTO: IRoomDTO): Promise<Result<IRoomDTO>>;
+  getAllRooms():Promise<Result<IRoomDTO>> ;
+  getRoomById(roomId:string):Promise<Result<IRoomDTO>>;
 
-updateRoom(roomDTO: IRoomDTO): Promise<Result<IRoomDTO>>;
-
-getAllRooms():Promise<Result<IRoomDTO>> ;
-
-getRoomById(roomId:string):Promise<Result<IRoomDTO>>;
-
-getRoomsByFloorRange(min:number,max:number);
 }

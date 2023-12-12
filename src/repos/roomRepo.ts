@@ -62,7 +62,7 @@ constructor(
         roomDocument.description = room.description;
         roomDocument.dimension= room.dimension;
         roomDocument.code= room.code;
-        roomDocument.floorId=room.floorId;
+        roomDocument.floor=room.floor;
         await roomDocument.save();
 
         return room;
