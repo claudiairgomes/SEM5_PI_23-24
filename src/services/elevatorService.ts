@@ -135,7 +135,7 @@ export default class ElevatorService implements IElevatorService{
       const elevators = await this.elevatorRepo.findAll();
 
       // Return the list of building DTOs
-      return Result.ok<IElevatorDTO[]>(elevators);
+      return elevators;
     } catch (error) {
       // Handle any errors, log them, and return a Result indicating failure
       console.error('Error while fetching elevators:', error);
