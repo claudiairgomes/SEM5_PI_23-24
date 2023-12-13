@@ -28,13 +28,15 @@ export class FloorService {
     updateFloor(floor: Floors): Observable<Floors> {
         const body: {
             id: any,
-            buildingId: any,
-            floorNumber: any,
+            name:any,
+            building: any,
+            number: any,
             description: any
         } = {
             id: floor.id,
-            buildingId: floor.buildingId,
-            floorNumber: floor.floorNumber,
+            name: floor.name,
+            building: floor.building,
+            number: floor.number,
             description: floor.description
         }
         const httpOptions = {

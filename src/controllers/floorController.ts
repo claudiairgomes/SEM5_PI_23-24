@@ -7,7 +7,6 @@ import IFloorService from '../services/IServices/IFloorService';
 import {IFloorDTO} from '../dto/IFloorDTO';
 
 import { Result } from "../core/logic/Result";
-import {IBuildingDTO} from "../dto/IBuildingDTO";
 
 @Service()
 export default class FloorController implements IFloorController /* TODO: extends ../core/infra/BaseController */ {

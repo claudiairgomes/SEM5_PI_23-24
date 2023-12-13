@@ -1,0 +1,24 @@
+
+A "Definition of Ready" (DoR) é uma prática no desenvolvimento de software que estabelece critérios claros para garantir
+que uma tarefa ou funcionalidade está pronta para ser incluída no processo de desenvolvimento.
+Esta definição inclui requisitos específicos que uma tarefa deve cumprir antes de poder ser considerada adequada para começar a ser implementada.
+Geralmente, a DoR envolve a clareza e os detalhes dos requisitos, a disponibilidade de recursos necessários,
+e a compreensão mútua entre a equipa de desenvolvimento e o cliente.
+A aplicação rigorosa da DoR ajuda a diminuir a ambiguidade e a garantir que todos tenham uma compreensão comum do que precisa de ser feito
+antes do início efetivo do trabalho.
+
+
+A "Definition of Done" (DoD) é uma prática que estabelece os critérios que uma tarefa deve cumprir para ser considerada completa.
+Define os padrões de qualidade e os requisitos mínimos que uma user story deve atingit antes de ser entregue ao cliente
+ou considerada finalizada. A DoD abrange aspectos como testes, integração, documentação e outros critérios específicos dentro do contexto do projeto.
+Ao aplicar a DoD de forma consistente, as equipas de desenvolvimento garantem a entrega de um produto de alta qualidade,
+reduzem a necessidade de retrabalho e promovem a transparência nas expectativas de conclusão de uma tarefa.
+
+No contexto do Projeto Integrados do Semestre 5, Sprint C:
+
+US604 - Criar uma interface com o utilizador (GUI) que permita seleccionar o edifício e o piso que se pretende ver em cada momento.
+
+  DoR -
+
+
+  DoD -

@@ -13,7 +13,7 @@ interface RoomProps{
   code: string; //(obrigatório) máx. e caracteres
   //lista de pisos?
  // id: string //(obrigatório)
-  floorId: string;
+  floor: string;
 
 
 }
@@ -43,8 +43,8 @@ export class Room extends AggregateRoot<RoomProps> {
     return this.props.code;
   }
 
-  get floorId(): string {
-    return this.props.floorId;
+  get floor(): string {
+    return this.props.floor;
   }
 
   constructor(props: RoomProps, id?: UniqueEntityID) {
@@ -58,7 +58,7 @@ export class Room extends AggregateRoot<RoomProps> {
       {argument: props.description, argumentName: 'description'},
       {argument: props.dimension, argumentName: 'dimension'},
       {argument: props.code, argumentName: 'code'},
-      {argument: props.floorId, argumentName: 'floorId'},
+      {argument: props.floor, argumentName: 'floor'},
     ];
 
     const guardResult = Guard.againstNullOrUndefinedBulk(guardedProps);

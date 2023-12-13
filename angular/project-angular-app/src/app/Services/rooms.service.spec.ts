@@ -47,7 +47,7 @@ describe('RoomService', () => {
       description:'',
       dimension:'',
       code:'',
-      floorId:'',
+      floor:'',
     } ;
 
     service.createRoom(mockRoom).subscribe(room => {
@@ -67,7 +67,7 @@ describe('RoomService', () => {
       description:'',
       dimension:'',
       code:'',
-      floorId:'',
+      floor:'',
     } ;
 
     service.updateRoom(mockRoom).subscribe(room => {
@@ -87,7 +87,7 @@ describe('RoomService', () => {
       description:'',
       dimension:'',
       code:'',
-      floorId:'',
+      floor:'',
     };
 
     const roomId = '123';

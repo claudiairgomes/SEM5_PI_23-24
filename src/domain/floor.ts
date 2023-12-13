@@ -7,8 +7,9 @@ import {BuildingId} from "./buildingId";
 
 
 interface FloorProps {
-  buildingId: string;
-  floorNumber: number;
+  building: string;
+  name:string;
+  number: number;
   description: string;
 }
 
@@ -21,11 +22,15 @@ export class Floor extends AggregateRoot<FloorProps> {
     return FloorId.caller(this.id)
   }
 
-  get buildingId (): string {
-    return this.props.buildingId
+  get building (): string {
+    return this.props.building
   }
-  get floorNumber (): number {
-    return this.props.floorNumber
+
+  get name (): string {
+    return this.props.name
+  }
+  get number (): number {
+    return this.props.number
   }
   get description (): string {
     return this.props.description;
@@ -38,8 +43,9 @@ export class Floor extends AggregateRoot<FloorProps> {
   public static create (props: FloorProps, id?: UniqueEntityID): Result<Floor> {
 
     const guardedProps = [
-      { argument: props.buildingId, argumentName: 'buildingId' },
-      { argument: props.floorNumber, argumentName: 'floorNumber' },
+      { argument: props.building, argumentName: 'building' },
+      { argument: props.name, argumentName: 'name' },
+      { argument: props.number, argumentName: 'number' },
       { argument: props.description, argumentName: 'description' }
     ];
 

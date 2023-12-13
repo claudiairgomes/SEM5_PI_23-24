@@ -1,7 +1,7 @@
 export interface Robots{
   id: string;
   codRobot: string;
-  nickName: string;
+  name: string;
   type: string;
   serialNumber:string;
   description:string;

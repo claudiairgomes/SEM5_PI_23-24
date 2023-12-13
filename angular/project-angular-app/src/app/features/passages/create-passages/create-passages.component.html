@@ -10,16 +10,21 @@
             <h1> Create a New Passage</h1>
             <form (ngSubmit)="createPassage()">
               <div class="form-group">
-                <label for="fromFloorId" class="form-label">From Floor:</label>
-                <select class="form-select" id="floorId" name="floorId" [(ngModel)]="passage.fromFloorId">
-                  <option *ngFor="let floor of floorsList" [value]="floor.floorNumber">{{ passage.fromFloorId }}</option>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" [(ngModel)]="passage.name" rows="4" >
+              </div>
+
+              <div class="form-group">
+                <label for="fromFloor" class="form-label">From Floor:</label>
+                <select class="form-select" id="fromfloor" name="fromFloor" [(ngModel)]="passage.fromFloor">
+                  <option *ngFor="let floor of floorsList" [value]="floor.name">{{ floor.name }}</option>
                 </select>
               </div>
 
               <div class="form-group">
-                <label for="toFloorId" class="form-label">To Floor:</label>
-                <select class="form-select" id="floorId" name="floorId" [(ngModel)]="passage.toFloorId">
-                  <option *ngFor="let floor of floorsList" [value]="floor.floorNumber">{{ passage.toFloorId }}</option>
+                <label for="toFloor" class="form-label">To Floor:</label>
+                <select class="form-select" id="toFloor" name="toFloor" [(ngModel)]="passage.toFloor">
+                  <option *ngFor="let floor of floorsList" [value]="floor.name">{{ floor.name }}</option>
                 </select>
               </div>
 

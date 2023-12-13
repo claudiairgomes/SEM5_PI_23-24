@@ -43,7 +43,7 @@ export default class RoomController implements IRoomController /* TODO: extends 
       return next(e);
     }
   };
-  public async getRooms(req: Request, res: Response, next: NextFunction) {
+  public async getAllRooms(req: Request, res: Response, next: NextFunction) {
     try {
       const rooms = await this.roomServiceInstance.getAllRooms();
 

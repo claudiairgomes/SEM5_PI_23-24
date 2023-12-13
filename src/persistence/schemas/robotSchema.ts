@@ -13,9 +13,9 @@ const RobotSchema = new mongoose.Schema(
       unique: true
     },
 
-    nickname: {
+    name: {
       type: String,
-      required: [true, 'Please enter robot nickname'],
+      required: [true, 'Please enter robot name'],
       index: true,
     },
 

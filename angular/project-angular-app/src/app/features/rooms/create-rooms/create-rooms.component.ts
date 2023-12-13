@@ -14,7 +14,7 @@ export class CreateRoomsComponent {
     description:'',
     dimension:'',
     code:'',
-    floorId:'',
+    floor:'',
   }
 
   constructor(private roomService:RoomService) { }

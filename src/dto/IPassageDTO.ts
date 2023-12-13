@@ -1,7 +1,8 @@
 
 export interface IPassageDTO {
   id: string;
-  fromFloorId: string;
-  toFloorId: string;
+  name:string;
+  fromFloor: string;
+  toFloor: string;
   description: string;
 }

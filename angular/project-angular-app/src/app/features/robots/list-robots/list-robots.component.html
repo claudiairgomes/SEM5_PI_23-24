@@ -1,14 +1,12 @@
-<h2>All Floors</h2>
-
-<!--<h3>- Click to See Details: </h3>
-<ul class="buildings-menu">
-=======
+<h2>All Robots</h2>
 <h3>- Click to See Details: </h3>
-<ul class="floors-menu">
->>>>>>> Stashed changes
-  <li *ngFor="let floor of floors">
-    <button [class.selected]="floor === selectedFloor" type="button" (click)="onSelect(floor)">
-        <span class="name">{{floor.name}}</span>
+<ul class="robots-menu">
+  <li *ngFor="let robot of robotsList">
+    <button [class.selected]="robot === selectedRobot" type="button" (click)="onSelect(robot)" >
+      <span class="name">{{robot.name}}</span>
     </button>
   </li>
-</ul>-->
+</ul>
+
+<app-robot-details [robot]="selectedRobot"></app-robot-details>
+

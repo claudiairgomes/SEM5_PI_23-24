@@ -1,35 +1,32 @@
-<div class="create-floor-container">
-    <h2>Update Robot</h2>
+<div>
+  <h2>List of Robots</h2>
+  <ul>
+    <li *ngFor="let robot of robots">
+      <button (click)="editRobot(robot.id)">{{ robot.name }}</button>
+    </li>
+  </ul>
+</div>
 
+
+<div *ngIf="selectedRobot">
+  <h2>Edit Robot</h2>
     <form (ngSubmit)="updateRobot()">
 
-      <div class="form-group">
-        <label for="codRobot">Robot Code:</label>
-        <input type="text" id="codRobot" name="codRobot" [(ngModel)]="robot.codRobot" name="codRobot" required>
-      </div>
+        <label for="codRobot" class="form-label">Robot code:</label>
+        <input type="text" id="codRobot" name="codRobot" placeholder={{selectedRobot.codRobot}} [(ngModel)]="selectedRobot.codRobot" >
 
-      <div class="form-group">
-        <label for="nickName">Nickname:</label>
-        <input type="text" id="nickName" name="nickName" [(ngModel)]="robot.nickName" name="nickName" required>
-      </div>
+        <label for="name" class="form-label">Name:</label>
+        <input type="text" id="name" name="name" placeholder={{selectedRobot.name}} [(ngModel)]="selectedRobot.name" >
 
-      <div class="form-group">
-        <label for="type">Type:</label>
-        <input type="text" id="type" name="type" [(ngModel)]="robot.type" name="type" required>
-      </div>
+        <label for="type" class="form-label">Type:</label>
+        <input type="text" id="type" name="type" placeholder={{selectedRobot.type}} [(ngModel)]="selectedRobot.type" >
 
-      <div class="form-group">
-        <label for="serialNumber">Serial Number:</label>
-        <input type="text" id="serialNumber" name="serialNumber" [(ngModel)]="robot.serialNumber" name="serialNumber" required>>
-      </div>
+        <label for="serialNumber" class="form-label">Serial Number:</label>
+        <input type="text" id="serialNumber" name="serialNumber" placeholder={{selectedRobot.serialNumber}} [(ngModel)]="selectedRobot.serialNumber" >
 
-      <div class="form-group">
-        <label for="description">Description:</label>
-        <input type="text" id="description" name="description" [(ngModel)]="robot.description" rows="4" name="description" required>
-      </div>
+        <label for="description" class="form-label">Description:</label>
+        <input type="text" id="description" name="description" placeholder={{selectedRobot.description}} [(ngModel)]="selectedRobot.description" >
+
       <button type="submit">Update Robot</button>
     </form>
   </div>
-
-
-<h1>Funciona!</h1>

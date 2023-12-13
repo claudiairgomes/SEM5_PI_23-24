@@ -27,8 +27,9 @@ describe('CreatePassagesComponent', () => {
   it('should call createPassage on button click', fakeAsync(() => {
     const mockPassage = {
       id:'a',
-      fromFloorId: 'Test FromFloorId',
-      toFloorId: 'Test ToFloorId',
+      name:'Test Name',
+      fromFloor: 'Test FromFloor',
+      toFloor: 'Test ToFloor',
       description: 'Test Description',
     };
 

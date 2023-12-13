@@ -16,8 +16,9 @@ export default (app:Router) => {
   route.post('',
     celebrate({
       body: Joi.object({
-        buildingId: Joi.string().required(),
-        floorNumber: Joi.number().required(),
+        building: Joi.string().required(),
+        name:Joi.string().required(),
+        number: Joi.number().required(),
         description: Joi.string().required(),
       })
     }),
@@ -27,8 +28,9 @@ export default (app:Router) => {
     celebrate({
       body: Joi.object({
         id: Joi.string().required(),
-        buildingId: Joi.string().required(),
-        floorNumber: Joi.number().required(),
+        building: Joi.string().required(),
+        name:Joi.string().required(),
+        number: Joi.number().required(),
         description: Joi.string().required(),
       }),
     }),
@@ -38,8 +40,9 @@ export default (app:Router) => {
   route.patch('', celebrate({
     body: Joi.object({
       id: Joi.string().required(),
-      buildingId: Joi.string(),
-      floorNumber: Joi.number(),
+      building: Joi.string(),
+      name: Joi.string(),
+      number: Joi.number(),
       description: Joi.string(),
     }),
   }), (req, res, next) => ctrl.updateFloor(req, res, next));

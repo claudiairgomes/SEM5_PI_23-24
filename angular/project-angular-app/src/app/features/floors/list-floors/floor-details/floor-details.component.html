@@ -2,12 +2,14 @@
 
   <h2>{{floor.id | uppercase}} Details</h2>
   <div>
-    <label for="floor-number">Floor Number: </label>
-    <input id="floor-number" [(ngModel)]="floor.floorNumber" placeholder="name" readonly><br>
+    <label for="floor-building">Building </label>
+    <input id="floor-building" [(ngModel)]="floor.building" placeholder="buildingId" readonly>
+    <label for="floor-number">Name: </label>
+    <input id="floor-number" [(ngModel)]="floor.name" placeholder="name" readonly><br>
+    <label for="floor-number">Number: </label>
+    <input id="floor-number" [(ngModel)]="floor.number" placeholder="number" readonly><br>
     <label for="floor-description">Description: </label>
     <input id="floor-description" [(ngModel)]="floor.description" placeholder="description" readonly><br>
-    <label for="floor-buildingId">BuildingID </label>
-    <input id="floor-buildingId" [(ngModel)]="floor.buildingId" placeholder="buildingId" readonly>
   </div>
 
 </div>

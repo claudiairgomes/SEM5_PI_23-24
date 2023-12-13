@@ -5,11 +5,11 @@ import { Robots } from '../../../Interfaces/robots';
 @Component({
   selector: 'app-list-robots',
   templateUrl: './list-robots.component.html',
-  //styleUrls: ['./list-robots.component.css']
+  styleUrls: ['./list-robots.component.css']
 })
 export class ListRobotsComponent {
   selectedRobot?: Robots;
-  robots: Robots[] = [];
+  robotsList: Robots[] = [];
 
   constructor(private robotService: RobotService) { }
 
@@ -19,7 +19,7 @@ export class ListRobotsComponent {
 
   getRobots(): void {
     this.robotService.getRobots()
-      .subscribe(robots => this.robots = robots);
+      .subscribe(robots => this.robotsList = robots);
   }
 
   onSelect(robot: Robots): void {

@@ -43,9 +43,10 @@ describe('FloorService', () => {
   it('should create floor', () => {
     const mockFloor: Floors = {
       id:'',
-      floorNumber:0,
+      name:'',
+      number:0,
       description:'',
-      buildingId:'',
+      building:'',
     } ;
 
     service.createFloor(mockFloor).subscribe(floor => {
@@ -61,9 +62,10 @@ describe('FloorService', () => {
   it('should update floor', () => {
     const mockFloor: Floors = {
       id:'',
-      floorNumber:0,
+      name:'',
+      number:0,
       description:'',
-      buildingId:'',
+      building:'',
     } ;
 
     service.updateFloor(mockFloor).subscribe(floor => {
@@ -79,9 +81,10 @@ describe('FloorService', () => {
   it('should get floor by ID', () => {
     const mockFloor: Floors = {
       id:'',
-      floorNumber:0,
+      name:'',
+      number:0,
       description:'',
-      buildingId:'',
+      building:'',
     };
 
     const floorId = '123';

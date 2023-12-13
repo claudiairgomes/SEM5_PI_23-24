@@ -34,14 +34,14 @@ export class RoomService {
             description: any,
             dimension: any,
             code: any,
-            floorId: any,
+            floor: any,
         } = {
             id: room.id,
             name: room.name,
             description: room.description,
             dimension: room.dimension,
             code: room.code,
-            floorId: room.floorId,
+            floor: room.floor,
         }
         const httpOptions = {
             headers : new HttpHeaders({'Content-Type': 'application/json'})

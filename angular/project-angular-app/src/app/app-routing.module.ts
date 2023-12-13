@@ -21,15 +21,14 @@ import {ListRobotsComponent} from "./features/robots/list-robots/list-robots.com
 import {UpdateRobotsComponent} from "./features/robots/update-robots/update-robots.component";
 import {FloorDetailsComponent} from "./features/floors/list-floors/floor-details/floor-details.component";
 import {ListElevatorsComponent} from "./features/elevators/list-elevators/list-elevators.component";
-import {
-  ElevatorDetailsComponent
-} from "./features/elevators/list-elevators/elevator-details/elevator-details.component";
+import {ElevatorDetailsComponent} from "./features/elevators/list-elevators/elevator-details/elevator-details.component";
 import {PassageDetailsComponent} from "./features/passages/list-passages/passage-details/passage-details.component";
 import {RoomsComponent} from "./features/rooms/rooms.component";
 import {CreateRoomsComponent} from "./features/rooms/create-rooms/create-rooms.component";
 import {UpdateRoomsComponent} from "./features/rooms/update-rooms/update-rooms.component";
 import {ListRoomsComponent} from "./features/rooms/list-rooms/list-rooms.component";
 import {RoomDetailsComponent} from "./features/rooms/list-rooms/room-details/room-details.component";
+import {RobotDetailsComponent} from "./features/robots/list-robots/robot-details/robot-details.component";
 
 
 const routes: Routes = [
@@ -161,6 +160,8 @@ const routes: Routes = [
     component: UpdatePassagesComponent
   },
 
+
+
   {
     path: 'robots',
     component: RobotsComponent
@@ -174,6 +175,10 @@ const routes: Routes = [
   {
     path: 'robots/listRobots',
     component: ListRobotsComponent
+  },
+  {
+    path: 'robots/listRobots/robotsDetails',
+    component: RobotDetailsComponent
   },
   {
     path: 'robots/updateRobots',

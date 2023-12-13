@@ -7,8 +7,7 @@ import IRobotRepo from "../services/IRepos/IRobotRepo";
 import { Robot } from "../domain/robot";
 import { RobotId } from "../domain/robotId";
 import { RobotMap } from "../mappers/RobotMap";
-import {BuildingId} from "../domain/buildingId";
-import {Building} from "../domain/building";
+
 
 
 @Service()
@@ -17,7 +16,6 @@ export default class RobotRepo implements IRobotRepo {
 
   constructor(
     @Inject('robotSchema') private robotSchema : Model<IRobotPersistence & Document>,
-  //  @Inject('logger') private logger
   ) { }
 
   private createBaseQuery (): any {
@@ -49,8 +47,11 @@ export default class RobotRepo implements IRobotRepo {
 
         return RobotMap.toDomain(robotCreated);
       } else {
-        robotDocument.nickname = robot.nickname;
+        robotDocument.name = robot.name;
         robotDocument.codRobot = robot.codRobot;
+        robotDocument.type=robot.type;
+        robotDocument.serialNumber=robot.serialNumber;
+        robotDocument.description=robot.description;
         await robotDocument.save();
 
         return robot;
@@ -73,8 +74,28 @@ export default class RobotRepo implements IRobotRepo {
     else
       return null;
   }
-  findByDomainId(robotId: RobotId | string): Promise<Robot> {
-    return Promise.resolve(undefined);
+  async findByDomainId(robotId: RobotId | string): Promise<Robot> {
+
+    const query = { domainId: robotId};
+    const robotRecord = await this.robotSchema.findOne( query as FilterQuery<IRobotPersistence & Document> );
+
+    if( robotRecord != null) {
+
+      return RobotMap.toDomain(robotRecord);
+    }
+    else
+      return null;
+    console.log("Robot doesn't exist");
+  }
+
+  public async findAll(){
+    try{
+      return await this.robotSchema.find();
+    }catch (e){
+      throw e;
+    }
+
+    //return buildingRecords.map((record) => BuildingMap.toDomain(record));
   }
 
   public async findAll(){
@@ -84,7 +105,7 @@ export default class RobotRepo implements IRobotRepo {
     }catch (e){
       throw e;
     }
-  
+
 
     }
 

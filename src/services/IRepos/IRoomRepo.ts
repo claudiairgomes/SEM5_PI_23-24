@@ -1,5 +1,5 @@
 import {Room} from "../../domain/room";
-import {Repo} from "../../core/infra/Repo";
+import {Repo} from "../../core/infra/Repo"; 
 import {RoomId} from "../../domain/roomId";
 
 export default interface IRoomRepo extends Repo<Room>{

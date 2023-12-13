@@ -4,5 +4,5 @@ export interface IRoomDTO{
   description:string;
   dimension:string;
   code:string;
-  floorId:string;
+  floor:string;
 }

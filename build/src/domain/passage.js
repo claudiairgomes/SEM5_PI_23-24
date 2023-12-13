@@ -12,11 +12,15 @@ class Passage extends AggregateRoot_1.AggregateRoot {
     get passageId() {
         return passageId_1.PassageId.caller(this.id);
     }
-    get fromFloorId() {
-        return this.props.fromFloorId;
+
+    get name() {
+      return this.props.name;
     }
-    get toFloorId() {
-        return this.props.toFloorId;
+    get fromFloor() {
+        return this.props.fromFloor;
+    }
+    get toFloor() {
+        return this.props.toFloor;
     }
     get description() {
         return this.props.description;
@@ -26,8 +30,9 @@ class Passage extends AggregateRoot_1.AggregateRoot {
     }
     static create(props, id) {
         const guardedProps = [
-            { argument: props.fromFloorId, argumentName: 'fromFloorId' },
-            { argument: props.toFloorId, argumentName: 'toFloorId' },
+            { argument: props.name, argumentName: 'name' },
+            { argument: props.fromFloor, argumentName: 'fromFloor' },
+            { argument: props.toFloor, argumentName: 'toFloor' },
             { argument: props.description, argumentName: 'description' },
         ];
         const guardResult = Guard_1.Guard.againstNullOrUndefinedBulk(guardedProps);

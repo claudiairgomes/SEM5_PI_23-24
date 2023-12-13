@@ -51,8 +51,9 @@ let PassageRepo = class PassageRepo {
                 return PassageMap_1.PassageMap.toDomain(passageCreated);
             }
             else {
-                passageDocument.fromFloorId = passage.fromFloorId;
-                passageDocument.toFloorId = passage.toFloorId;
+                passageDocument.name = passage.name;
+                passageDocument.fromFloor = passage.fromFloor;
+                passageDocument.toFloor = passage.toFloor;
                 passageDocument.description = passage.description;
                 await passageDocument.save();
                 return passage;

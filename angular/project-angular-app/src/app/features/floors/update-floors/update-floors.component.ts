@@ -10,8 +10,9 @@ import { FloorService } from 'src/app/Services/floors.service';
 })
 export class UpdateFloorsComponent {
   floor ={
-    buildingId:'',
-    floorNumber:0,
+    name:'',
+    building:'',
+    number:0,
     description:''
 
   }

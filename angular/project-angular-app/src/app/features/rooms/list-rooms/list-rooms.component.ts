@@ -24,8 +24,6 @@ isLinear: any;
       .subscribe(rooms => {this.roomsList = rooms}
 
       );
-
-
   }
 
   onSelect(room: Rooms): void {

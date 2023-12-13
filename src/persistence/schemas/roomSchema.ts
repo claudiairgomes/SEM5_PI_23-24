@@ -5,6 +5,12 @@ const RoomSchema = new mongoose.Schema(
   {
     domainId: { type: String, unique: true },
 
+    floor: {
+      type: String
+      ,required: [true, 'Please enter floor'],
+      //index: true,
+    },
+
     name: {
       type: String
       , required: [true, 'Please enter room name'],
@@ -26,11 +32,6 @@ const RoomSchema = new mongoose.Schema(
     code: {
       type: String
       ,required: [true, 'Please enter room code'],
-      //index: true,
-    },
-    floorId: {
-      type: String
-      ,required: [true, 'Please enter floor id'],
       //index: true,
     },
   },

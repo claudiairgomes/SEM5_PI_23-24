@@ -11,14 +11,19 @@
   <form (ngSubmit)="createFloor()">
     <div class="form-group">
       <label for="building" class="form-label">Building</label>
-      <select class="form-select" id="buildingId" name="buildingId" [(ngModel)]="floor.buildingId">
-        <option *ngFor="let building of buildingsList" [value]="building.id">{{ building.name }}</option>
+      <select class="form-select" id="building" name="building" [(ngModel)]="floor.building">
+        <option *ngFor="let building of buildingsList" [value]="building.name">{{ building.name }}</option>
       </select>
     </div>
 
     <div class="form-group">
-      <label for="name">Floor Number:</label>
-      <input type="text" id="name" name="name" [(ngModel)]="floor.floorNumber" >
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" [(ngModel)]="floor.name" >
+    </div>
+
+    <div class="form-group">
+      <label for="name">Number:</label>
+      <input type="text" id="number" name="number" [(ngModel)]="floor.number" >
     </div>
 
     <div class="form-group">
