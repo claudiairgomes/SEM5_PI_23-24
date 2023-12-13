@@ -10,9 +10,4 @@ export default interface IRobotRepo extends Repo<Robot> {
   findByDomainId (robotId: RobotId | string): Promise<Robot>;
   findById (id: string): Promise<Robot>;
   findAll();
-<<<<<<< Updated upstream
-=======
-  findByDomainId (robotId: RobotId | string): Promise<Robot>;
-
->>>>>>> Stashed changes
 }

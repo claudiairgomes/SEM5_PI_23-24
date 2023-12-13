@@ -88,15 +88,9 @@ export default class RobotRepo implements IRobotRepo {
     console.log("Robot doesn't exist");
   }
 
-  public async findAll(){
-    try{
-      return await this.robotSchema.find();
-    }catch (e){
-      throw e;
-    }
 
     //return buildingRecords.map((record) => BuildingMap.toDomain(record));
-  }
+  
 
   public async findAll(){
     try{
