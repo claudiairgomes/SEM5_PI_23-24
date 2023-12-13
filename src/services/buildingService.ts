@@ -129,7 +129,7 @@ export default class BuildingService implements IBuildingService{
       if(buildingResult.length != 0){
         buildingResult.forEach(async (element) => {
           const buildingDTO = BuildingMap.toDTO(element);
-          if(await this.floorRepo.floorInLimit(buildingDTO.id,min,max)){
+          if(await this.floorRepo.floorsByRange(buildingDTO.id,min,max)){
             buildings.push(buildingDTO);
           }
         })

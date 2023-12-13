@@ -80,6 +80,16 @@ export default class PassageRepo implements IPassageRepo{
     }
   }
 
+  public async findAll(){
+    try{
+
+      return await this.passageSchema.find();
+    }catch (e){
+      throw e;
+    }
+  
+
+    }
 
 
  /* async findById(floorId: FloorId | string): Promise<Floor> {

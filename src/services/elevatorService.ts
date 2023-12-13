@@ -16,6 +16,7 @@ import IBuildingRepo from "./IRepos/IBuildingRepo";
 import {FloorId} from "../domain/floorId";
 import {IBuildingDTO} from "../dto/IBuildingDTO";
 import {BuildingMap} from "../mappers/BuildingMap";
+
 @Service()
 export default class ElevatorService implements IElevatorService{
   constructor(
@@ -126,7 +127,7 @@ export default class ElevatorService implements IElevatorService{
   }
 
 
-  public async getAllElevators() {
+  public async getAllElevators():Promise<Result<IElevatorDTO[]>>  {
     try {
       // Implement the logic to retrieve a list of all buildings from your data source
       // For example, if you have a BuildingRepository, you can call a method like getAllBuildings from there

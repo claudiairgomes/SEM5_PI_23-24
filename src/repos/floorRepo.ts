@@ -110,7 +110,7 @@ export default class FloorRepo implements IFloorRepo{
       //return buildingRecords.map((record) => BuildingMap.toDomain(record));
     }
 
-    public async floorInLimit (buildingId: string, min : number, max : number): Promise<boolean> {
+    public async floorsByRange (buildingId: string, min : number, max : number): Promise<boolean> {
       const query = { buildingId: buildingId };
       const floorRecord = await this.floorSchema.find( query as FilterQuery<IFloorPersistence & Document>);
       

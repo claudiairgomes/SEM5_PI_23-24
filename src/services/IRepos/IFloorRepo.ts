@@ -13,7 +13,7 @@ export default interface IFloorRepo extends Repo<Floor>{
 
   exists(passageId: PassageId | string): Promise<boolean>;
 
-  floorInLimit(buildingId: string, minFloors: number, maxFloors: number): Promise<boolean>;
+  floorsByRange(buildingId: string, minFloors: number, maxFloors: number): Promise<boolean>;
 
   findAll();
 }

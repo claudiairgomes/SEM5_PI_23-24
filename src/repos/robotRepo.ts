@@ -16,7 +16,7 @@ export default class RobotRepo implements IRobotRepo {
   private models: any;
 
   constructor(
-    @Inject('robotSchema') private RobotSchema : Model<IRobotPersistence & Document>,
+    @Inject('robotSchema') private robotSchema : Model<IRobotPersistence & Document>,
   //  @Inject('logger') private logger
   ) { }
 
@@ -31,7 +31,7 @@ export default class RobotRepo implements IRobotRepo {
     const idX = robotId instanceof RobotId ? (<RobotId>robotId).id.toValue() : robotId;
 
     const query = { domainId: idX};
-    const robotDocument = await this.RobotSchema.findOne( query );
+    const robotDocument = await this.robotSchema.findOne( query );
 
     return !!robotDocument === true;
   }
@@ -39,13 +39,13 @@ export default class RobotRepo implements IRobotRepo {
   public async save (robot: Robot): Promise<Robot> {
     const query = { domainId: robot.id.toString() };
 
-    const robotDocument = await this.RobotSchema.findOne( query );
+    const robotDocument = await this.robotSchema.findOne( query );
 
     try {
       if (robotDocument === null ) {
         const rawRobot: any = RobotMap.toPersistence(robot);
 
-        const robotCreated = await this.RobotSchema.create(rawRobot);
+        const robotCreated = await this.robotSchema.create(rawRobot);
 
         return RobotMap.toDomain(robotCreated);
       } else {
@@ -65,7 +65,7 @@ export default class RobotRepo implements IRobotRepo {
     const idX = RobotId instanceof RobotId ? (<RobotId>robotId).id.toValue() : RobotId;
 
     const query = { domainId: idX };
-    const RobotRecord = await this.RobotSchema.findOne( query );
+    const RobotRecord = await this.robotSchema.findOne( query );
 
     if( RobotRecord != null) {
       return RobotMap.toDomain(RobotRecord);
@@ -76,4 +76,16 @@ export default class RobotRepo implements IRobotRepo {
   findByDomainId(robotId: RobotId | string): Promise<Robot> {
     return Promise.resolve(undefined);
   }
+
+  public async findAll(){
+    try{
+
+      return await this.robotSchema.find();
+    }catch (e){
+      throw e;
+    }
+  
+
+    }
+
 }

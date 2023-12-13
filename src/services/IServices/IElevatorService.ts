@@ -8,7 +8,7 @@ export default interface IElevatorService{
 
   updateElevator(elevatorDTO: IElevatorDTO): Promise<Result<IElevatorDTO>>;
 
-  getAllElevators();
+  getAllElevators():Promise<Result<IElevatorDTO[]>>;
 
   getElevatorById(elevatorId:string):Promise<Result<IElevatorDTO>>;
 }

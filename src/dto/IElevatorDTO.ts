@@ -9,4 +9,5 @@ export  interface IElevatorDTO{
   model: string;
   serialNumber: string;
   description: string;
+  
 }
