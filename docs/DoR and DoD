@@ -2,7 +2,7 @@
 A "Definition of Ready" (DoR) é uma prática no desenvolvimento de software que estabelece critérios claros para garantir
 que uma tarefa ou funcionalidade está pronta para ser incluída no processo de desenvolvimento.
 Esta definição inclui requisitos específicos que uma tarefa deve cumprir antes de poder ser considerada adequada para começar a ser implementada.
-Geralmente, a DoR envolve a clareza e os detalhes dos requisitos, a disponibilidade de recursos necessários,
+Geralmente, a DoD envolve a clareza e os detalhes dos requisitos, a disponibilidade de recursos necessários,
 e a compreensão mútua entre a equipa de desenvolvimento e o cliente.
 A aplicação rigorosa da DoR ajuda a diminuir a ambiguidade e a garantir que todos tenham uma compreensão comum do que precisa de ser feito
 antes do início efetivo do trabalho.
@@ -16,9 +16,164 @@ reduzem a necessidade de retrabalho e promovem a transparência nas expectativas
 
 No contexto do Projeto Integrados do Semestre 5, Sprint C:
 
-US604 - Criar uma interface com o utilizador (GUI) que permita seleccionar o edifício e o piso que se pretende ver em cada momento.
+LAPR
 
-  DoR -
+  US20
+    DoR:
+
+    DoD:
+
+  US30
+     DoR:
+
+     DoD:
+
+  US40
+      DoR:
+
+      DoD:
+
+  US50
+      DoR:
+
+      DoD:
+
+  US60
+      DoR:
+
+      DoD:
+
+  US70
+      DoR:
+
+      DoD:
+
+  US80
+      DoR:
+
+      DoD:
+
+  US100
+      DoR:
+
+      DoD:
+
+  US110
+      DoR:
+
+      DoD:
+
+  US120
+      DoR:
+
+      DoD:
+
+  US720
+      DoR:
+
+      DoD:
+
+  US740
+      DoR:Existe algum tipo de informação sobre o percurso do robo.
+
+      DoD:A informação apresentada sobre o percurso respeita todos os critérios de aceitação dos módulos de Planeamento e visualização.
+
+ASIST
+
+  US690
+      DoR:
+
+      DoD:
+
+  US840
+    DoR:É realizado um backup da base de dados num ambiente Cloud através de um script.
+
+    DoD:O script renomeia o backup para o formato exigido nos critérios (<nome_da_db>_yyyymmdd sendo <nome_da_db> o nome da base de dados etc. ).
+
+  US850
+     DoR:A US840 deve estar funcional. Existe um script funcional que faz a gestão consoante os critérios mencionados.
+
+     DoD:O Script cumpre todos os critérios de aceitação.
+
+  US860
+      DoR:
+
+      DoD:
+
+  US870
+      DoR:
+
+      DoD:
+
+ARQSI
+
+  US460
+    DoR:
+
+    DoD:
+
+  US490
+     DoR:
+
+     DoD:
+
+  US500
+      DoR:
+
+      DoD:
+
+  US1300
+      DoR:
+
+      DoD:
+
+  US1310
+      DoR:
+
+      DoD:
+
+  US1320
+      DoR:
+
+      DoD:
+
+ALGAV
+
+  US1410
+    DoR:
+
+    DoD:
+
+  US1430
+     DoR:
+
+     DoD:
+
+  US1440
+      DoR:
+
+      DoD:
+
+SGRAI
+
+  US604
+      DoR:
+
+      DoD:
+
+  US605
+      DoR:
+
+      DoD:
+
+  US606
+      DoR:
+
+      DoD:
+
+  US608
+      DoR:Existe algum tipo de transição de pisos que envolve o elevador,
+          Apenas deverá ser possível escolher os pisos que o elevador em questão serve.
 
 
-  DoD -
+      DoD:É possivel transitar para todos os pisos do edifício através do elevador.
