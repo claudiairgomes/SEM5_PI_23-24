@@ -13,15 +13,19 @@
 import * as THREE from "three";
 import Stats from "three/addons/libs/stats.module.js";
 import Orientation from "./orientation.js";
-import { generalData, buildingA1Data,buildingA2Data, buildingB1Data,buildingB2Data,buildingB3Data, buildingC1Data, buildingC2Data, buildingC3Data, buildingC4Data, buildingD1Data, buildingD2Data, buildingD3Data, playerData, lightsData, fogData, cameraData} from "./default_data.js";
+import { generalData, buildingA1Data,buildingA2Data, buildingB1Data,buildingB2Data,buildingB3Data, buildingC1Data, buildingC2Data, buildingC3Data, buildingC4Data, buildingD1Data, buildingD2Data, buildingD3Data, playerData, lightsData, fogData, cameraData, doorData, elevatorData} from "./default_data.js";
 import { merge } from "./merge.js";
 import Maze from "./maze.js";
 import Player from "./player.js";
+import Door from "./door.js";
+import Elevator_3D from "./elevator_3d.js";
 import Lights from "./lights.js";
 import Fog from "./fog.js";
 import Camera from "./camera.js";
-import Animations from "./animations.js";
 import UserInterface from "./user_interface.js";
+import Animations from "./animations.js";
+import Animations_door from "./animations_door.js";
+import Animations_elevator from "./animations_elevator.js";
 
 /*
  * generalParameters = {
@@ -150,7 +154,7 @@ import UserInterface from "./user_interface.js";
  */
 
 export default class ThumbRaiser {
-    constructor(generalParameters,mazeParameters, buildingParameters, playerParameters, lightsParameters, fogParameters, fixedViewCameraParameters, firstPersonViewCameraParameters, thirdPersonViewCameraParameters, topViewCameraParameters, miniMapCameraParameters) {
+    constructor(generalParameters,mazeParameters, buildingParameters, playerParameters, lightsParameters, fogParameters, fixedViewCameraParameters, firstPersonViewCameraParameters, thirdPersonViewCameraParameters, topViewCameraParameters, miniMapCameraParameters, doorParameters, elevatorParameters) {
         this.generalParameters = merge({}, generalData, generalParameters);
 
         this.buildingA1Parameters = merge({}, buildingA1Data, mazeParameters);
@@ -174,7 +178,9 @@ export default class ThumbRaiser {
         this.thirdPersonViewCameraParameters = merge({}, cameraData, thirdPersonViewCameraParameters);
         this.topViewCameraParameters = merge({}, cameraData, topViewCameraParameters);
         this.miniMapCameraParameters = merge({}, cameraData, miniMapCameraParameters);
-    
+        this.doorParameters = merge({}, doorData, doorParameters);
+        this.elevatorParameters = merge({}, elevatorData, elevatorParameters);
+
         // Create a 2D scene (the viewports frames)
         this.scene2D = new THREE.Scene();
 
@@ -191,11 +197,14 @@ export default class ThumbRaiser {
         // Create a 3D scene (the game itself)
         this.scene3D = new THREE.Scene();
 
-        // Create the maze   
-        this.maze = new Maze(buildingParameters);
+        // Create the maze
+        this.maze = new Maze(buildingParameters,this.doorParameters);
 
         // Create the player
         this.player = new Player(this.playerParameters);
+
+        // Create the elevator
+        this.elevator = new Elevator_3D(this.elevatorParameters);
 
         // Create the lights
         this.lights = new Lights(this.lightsParameters);
@@ -263,12 +272,10 @@ export default class ThumbRaiser {
         this.helpCheckBox.checked = false;
         this.statisticsCheckBox = document.getElementById("statistics");
         this.statisticsCheckBox.checked = false;
-       
+
 
         // Build the help panel
         this.buildHelpPanel();
-        
-        //this.selectBuilding();
 
         // Set the active view camera (fixed view)
         this.setActiveViewCamera(this.fixedViewCamera);
@@ -484,24 +491,6 @@ export default class ThumbRaiser {
             else if (event.code == this.player.keyCodes.forward) {
                 this.player.keyStates.forward = state;
             }
-            if (event.code == this.player.keyCodes.jump) {
-                this.player.keyStates.jump = state;
-            }
-            else if (event.code == this.player.keyCodes.yes) {
-                this.player.keyStates.yes = state;
-            }
-            else if (event.code == this.player.keyCodes.no) {
-                this.player.keyStates.no = state;
-            }
-            else if (event.code == this.player.keyCodes.wave) {
-                this.player.keyStates.wave = state;
-            }
-            else if (event.code == this.player.keyCodes.punch) {
-                this.player.keyStates.punch = state;
-            }
-            else if (event.code == this.player.keyCodes.thumbsUp) {
-                this.player.keyStates.thumbsUp = state;
-            }
         }
     }
 
@@ -649,8 +638,6 @@ export default class ThumbRaiser {
     }
 
     finalSequence() {
-        // Disable the fog
-        this.fog.enabled = false;
         // Reconfigure the third-person view camera
         this.thirdPersonViewCamera.setOrientation(new Orientation(180.0, this.thirdPersonViewCamera.initialOrientation.v));
         this.thirdPersonViewCamera.setDistance(this.thirdPersonViewCamera.initialDistance);
@@ -659,49 +646,95 @@ export default class ThumbRaiser {
         this.setActiveViewCamera(this.thirdPersonViewCamera);
         // Set single-view mode
         this.setViewMode(false);
-        // Set the final action
-        this.animations.fadeToAction("Dance", 0.2);
     }
 
     collision(position) {
         return this.maze.distanceToWestWall(position) < this.player.radius || this.maze.distanceToEastWall(position) < this.player.radius
         || this.maze.distanceToNorthWall(position) < this.player.radius || this.maze.distanceToSouthWall(position) < this.player.radius
-        ||this.maze.distanceToElevatorWest(position) < (this.player.radius*2) ||this.maze.distanceToElevatorEast(position) < (this.player.radius*2)
-        || this.maze.distanceToWestDoor(position) < (this.player.radius*2) || this.maze.distanceToEastDoor(position) < (this.player.radius*2) 
+    }
+
+    collision_door(position) {
+        return this.maze.distanceToWestDoor(position) < (this.player.radius*2) || this.maze.distanceToEastDoor(position) < (this.player.radius*2)
         || this.maze.distanceToNorthDoor(position) < (this.player.radius*2) || this.maze.distanceToSouthDoor(position) < (this.player.radius*2);
     }
 
+    collision_elevator(position) {
+        return this.maze.distanceToWestElevator(position) < (this.player.radius) || this.maze.distanceToEastElevator(position) < (this.player.radius)
+        || this.maze.distanceToNorthElevator(position) < (this.player.radius) || this.maze.distanceToSouthElevator(position) < (this.player.radius);
+    }
 
     update() {
         if (!this.gameRunning) {
 
-            if (this.maze.loaded && this.player.loaded) { // If all resources have been loaded
+            if (this.maze.loaded && this.player.loaded /*&& this.doors.every(door => door.loaded)*/) { // If all resources have been loaded
                 // Add the maze, the player and the lights to the scene
+
+                this.doorsTR = new Array();
+
+                console.log("tr.doors");
+                console.log(this.maze.doors);
+
                 console.log("Currentmaze");
                 console.log(this.maze);
-                  
+
                 this.scene3D.add(this.maze.object);
+
+                let y=0;
+
+                this.doorsTR = this.maze.doors;
+                if(this.maze.doorObjectHorizontal.length>0){
+                    //4
+                    for(let i=0; i< this.maze.doorObjectHorizontal.length; i++){
+                        // Create the door
+                        this.scene3D.add(this.doorsTR[y].object);
+                        this.doorsTR[y].object.position.set(this.maze.doorObjectHorizontal[i].x,this.maze.doorObjectHorizontal[i].y,this.maze.doorObjectHorizontal[i].z);
+                        y++;
+                    }
+                }
+
+                if(this.maze.doorObjectHorizontal.length>0){
+                    //5
+                    for(let i=0; i<this.maze.doorObjectVertical.length; i++){
+                        this.scene3D.add(this.doorsTR[y].object);
+                        this.doorsTR[y].object.position.set(this.maze.doorObjectVertical[i].x,this.maze.doorObjectVertical[i].y,this.maze.doorObjectVertical[i].z);
+                        this.doorsTR[y].object.rotation.y = Math.PI / 2.0;
+                        y++;
+                    }
+                }
+
+                this.scene3D.add(this.elevator.object);
+                this.elevator.object.position.set(this.maze.elevatorDoorLocation.x-0.5,this.maze.elevatorDoorLocation.y,this.maze.elevatorDoorLocation.z+0.5);
+                this.elevator.object.rotation.y = this.maze.elevatorDirection;
+
                 this.scene3D.add(this.player.object);
                 this.scene3D.add(this.lights.object);
 
                 // Create the clock
                 this.clock = new THREE.Clock();
 
-                // Create model animations (states, emotes and expressions)
+                // Create model animations (states)
                 this.animations = new Animations(this.player.object, this.player.animations);
+                this.animations_elevator = new Animations_elevator(this.elevator.object, this.elevator.animations_elevator);
+
+                this.animationsDoors = new Array();
+                for(let i=0; i<this.doorsTR.length; i++){
+                    this.animationsDoors.push(new Animations_door(this.doorsTR[i].object, this.doorsTR[i].animations_door, this.doorsTR[i].location));
+                }
+
 
                 // Set the player's position and direction
                 this.player.position = this.maze.initialPosition.clone();
                 this.player.direction = this.maze.initialDirection;
 
+
                 if (this.userInterface == null) {
                     // Create the user interface
-                    this.userInterface = new UserInterface(this.scene3D, this.renderer, this.lights, this.fog, this.player.object, this.animations, this.maze,this);
+                    this.userInterface = new UserInterface(this.scene3D, this.renderer, this.lights, this.maze,this);
                 }
-                
+
                 // Start the game
                 this.gameRunning = true;
-                  
+
             }
 
         }
@@ -714,12 +747,22 @@ export default class ThumbRaiser {
         // Update the model animations
         const deltaT = this.clock.getDelta();
         this.animations.update(deltaT);
+        this.animations_elevator.update(deltaT);
+
+        for(let i=0; i<this.animationsDoors.length; i++){
+            this.animationsDoors[i].update(deltaT);
+        }
 
         // Update the player
         if (!this.animations.actionInProgress) {
             // Check if the player found the exit
             if (this.maze.foundExit(this.player.position)) {
                 this.finalSequence();
+            }
+            let passage = this.maze.foundPassage(this.player.position);
+            if (passage!=null) {
+
+                this.userInterface.changeFloor(passage[1], passage[0]);
             }
             else {
                 let coveredDistance = this.player.walkingSpeed * deltaT;
@@ -738,43 +781,73 @@ export default class ThumbRaiser {
                 if (this.player.keyStates.backward) {
                     const newPosition = new THREE.Vector3(-coveredDistance * Math.sin(direction), 0.0, -coveredDistance * Math.cos(direction)).add(this.player.position);
                     if (this.collision(newPosition)) {
-                        
+
+                    }
+                    else if (this.collision_door(newPosition)) {
+                        let posPlayer = this.maze.cartesianToCell(newPosition);
+                        for(let i=0;i<this.doorsTR.length;i++){
+                            let posPorta = this.animationsDoors[i].location;
+                            if(posPorta[0] == posPlayer[0] && posPorta[1] == posPlayer[1]){
+                                this.animationsDoors[i].fadeToAction("door|Open", 0.1);
+
+                                break;
+                            }
+                        }
+                        this.player.position = newPosition;
+                    }
+                    else if (this.collision_elevator(newPosition)) {
+                        this.animations_elevator.fadeToAction("02_open", 0.2);
+                        console.log("BUILDING");
+                        console.log(this.maze.building);
+                        console.log("PLAYER POSTION");
+                        const position = this.maze.cartesianToCell(this.player.position);
+                        console.log(position);
+                        this.userInterface.selectFloor(this.maze.building[1], this.maze.building[0], position);
+
                     }
                     else {
-                        this.animations.fadeToAction(this.player.keyStates.run ? "Running" : "Walking", 0.2);
+                        this.animations.fadeToAction("metarig|Walk", 0.2);
                         this.player.position = newPosition;
                     }
                 }
                 else if (this.player.keyStates.forward) {
                     const newPosition = new THREE.Vector3(coveredDistance * Math.sin(direction), 0.0, coveredDistance * Math.cos(direction)).add(this.player.position);
                     if (this.collision(newPosition)) {
-                    
+
+                    }
+                    else if (this.collision_door(newPosition)) {
+                        let posPlayer = this.maze.cartesianToCell(newPosition);
+                        for(let i=0;i<this.doorsTR.length;i++){
+                            let posPorta = this.animationsDoors[i].location;
+                            if(posPorta[0] == posPlayer[0] && posPorta[1] == posPlayer[1]){
+                                this.animationsDoors[i].fadeToAction("door|Open", 0.1);
+
+                                break;
+                            }
+                        }
+                        this.player.position = newPosition;
+
+                    }
+                    else if (this.collision_elevator(newPosition)) {
+                        this.animations_elevator.fadeToAction("02_open", 0.2);
+                        console.log("BUILDING");
+                        console.log(this.maze.building);
+                        console.log("PLAYER POSTION");
+                        const position = this.maze.cartesianToCell(this.player.position);
+                        console.log(position);
+                        this.userInterface.selectFloor(this.maze.building[1], this.maze.building[0], position);
+
                     }
                     else {
-                        this.animations.fadeToAction(this.player.keyStates.run ? "Running" : "Walking", 0.2);
+                        //this.animations.fadeToAction(this.player.keyStates.run ? "RUN" : "WALK", 0.2);
+                        this.animations.fadeToAction("metarig|Walk", 0.2);
                         this.player.position = newPosition;
                     }
                 }
-                else if (this.player.keyStates.jump) {
-                    this.animations.fadeToAction("Jump", 0.2);
-                }
-                else if (this.player.keyStates.yes) {
-                    this.animations.fadeToAction("Yes", 0.2);
-                }
-                else if (this.player.keyStates.no) {
-                    this.animations.fadeToAction("No", 0.2);
-                }
-                else if (this.player.keyStates.wave) {
-                    this.animations.fadeToAction("Wave", 0.2);
-                }
-                else if (this.player.keyStates.punch) {
-                    this.animations.fadeToAction("Punch", 0.2);
-                }
-                else if (this.player.keyStates.thumbsUp) {
-                    this.animations.fadeToAction("ThumbsUp", 0.2);
-                }
+
                 else {
-                    this.animations.fadeToAction("Idle", this.animations.activeName != "Death" ? 0.2 : 0.6);
+                    //this.animations.fadeToAction("IDLE", 0.2);
+                    this.animations.fadeToAction("metarig|Idle(HeavyBreathing)", 0.2);
                 }
                 this.player.object.position.set(this.player.position.x, this.player.position.y, this.player.position.z);
                 this.player.object.rotation.y = direction - this.player.initialDirection;
