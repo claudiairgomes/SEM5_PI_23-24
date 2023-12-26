@@ -20,6 +20,7 @@ export default class Maze {
             this.map = description.map;
             this.size = description.size;
 
+            console.log(description.map);
             // Store the building
             this.building = description.building;
 

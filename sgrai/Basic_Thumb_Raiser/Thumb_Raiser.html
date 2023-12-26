@@ -40,7 +40,7 @@
         #subwindows-panel {
             position: absolute;
             left: -49.0vw;
-            bottom: -81.0vh;
+            bottom: -75.0vh;
             z-index: 1;
             width: 100.0vmin;
             font-family: Arial, sans-serif;
@@ -210,6 +210,7 @@
                     <td></td>
                     <td>Statistics</td>
                 </tr>
+
                 <tr>
                     <th colspan="2" style="text-align: left">Move character</th>
                 </tr>
@@ -297,8 +298,19 @@
                         <input type="checkbox" id="statistics">
                     </td>
                 </tr>
+
+                <tr>
+                    <td>
+                        <label>Automatic Movement:</label>
+                        <input type="checkbox" id="automaticMovement">
+                    </td>
+                </tr>
             </table>
         </div>
+
+    <div id="matrix">
+
+    </div>
     </div>
     <script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
     <script type="importmap">
@@ -310,6 +322,7 @@
         }
     </script>
     <script src="../lodash/lodash.js"></script>
+    
     <script type="module">
         import * as THREE from "three";
         import Orientation from "./orientation.js";

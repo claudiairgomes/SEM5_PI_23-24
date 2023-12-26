@@ -180,6 +180,10 @@ export default class ThumbRaiser {
         this.miniMapCameraParameters = merge({}, cameraData, miniMapCameraParameters);
         this.doorParameters = merge({}, doorData, doorParameters);
         this.elevatorParameters = merge({}, elevatorData, elevatorParameters);
+        
+        //Automatic Movement
+        this.automaticMovement= document.getElementById("automaticMovement");
+        this.automaticMovement.checked= false;
 
         // Create a 2D scene (the viewports frames)
         this.scene2D = new THREE.Scene();
@@ -202,6 +206,8 @@ export default class ThumbRaiser {
 
         // Create the player
         this.player = new Player(this.playerParameters);
+
+        
 
         // Create the elevator
         this.elevator = new Elevator_3D(this.elevatorParameters);
@@ -226,6 +232,59 @@ export default class ThumbRaiser {
         this.statistics.dom.style.visibility = "hidden";
         document.body.appendChild(this.statistics.dom);
 
+        //Create the Automatic Movement Table and make its node invisible
+
+        this.matriz = [
+            [3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 2, 2, 2, 3, 2, 2, 2, 3, 2, 3, 2, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 6],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 2, 2, 2, 2, 4, 2, 2, 2, 2, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 2, 2, 2, 1, 0, 0, 0, 0, 3, 2, 2, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1],
+            [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0]
+        ];
+
+       
+
+        this.container= document.createElement('container');
+
+        this.buttonContainer = document.createElement('matrix');
+
+        
+        for (let i = 0; i < this.matriz.length; i++) {
+            for (let j = 0; j < this.matriz[i].length; j++) {
+                 this.buttonMatrix = document.createElement('button');
+                this.buttonMatrix.textContent = this.matriz[i][j];
+                this.buttonMatrix.style.visibility= "hidden";
+
+                // Adiciona uma função ao clique do botão
+                this.buttonMatrix.addEventListener('click', ()=> {
+                    
+                    console.log('Destino: '+i+', '+j);
+                    this.movePlayerToPosition(i,j);
+                }
+                );
+
+                
+                this.buttonContainer.appendChild(this.buttonMatrix);
+            }
+            this.lineBreak = document.createElement('br');
+            this.buttonContainer.appendChild(this.lineBreak);
+        }
+        //document.body.appendChild(this.buttonContainer);
+
+        
+      
+       // this.buttonMatrixList = this.container.querySelectorAll('buttonMatrix');
+        
+        
+        
+
+
         // Create a renderer and turn on shadows in the renderer
         this.renderer = new THREE.WebGLRenderer({ antialias: true });
         if (this.generalParameters.setDevicePixelRatio) {
@@ -235,12 +294,16 @@ export default class ThumbRaiser {
         this.renderer.shadowMap.enabled = true;
         this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         this.renderer.setSize(window.innerWidth, window.innerHeight);
-        document.body.appendChild(this.renderer.domElement);
+        //document.body.appendChild(this.renderer.domElement);
 
+        this.container.appendChild(this.renderer.domElement);
+        document.body.appendChild(this.container);
         // Set the mouse move action (none)
         this.dragMiniMap = false;
         this.changeCameraDistance = false;
         this.changeCameraOrientation = false;
+
+        this.container.appendChild(this.buttonContainer);
 
         // Set the game state
         this.gameRunning = false;
@@ -273,6 +336,10 @@ export default class ThumbRaiser {
         this.statisticsCheckBox = document.getElementById("statistics");
         this.statisticsCheckBox.checked = false;
 
+        this.automaticMovementCheckBox= document.getElementById("automaticMovement");
+        this.automaticMovementCheckBox.checked= false;
+        //Build Automatic Movement Table
+       // this.buildAutomaticMovementTable();
 
         // Build the help panel
         this.buildHelpPanel();
@@ -325,7 +392,54 @@ export default class ThumbRaiser {
 
         this.activeElement = document.activeElement;
 
+        this.automaticMovement.addEventListener("change", event => this.elementChange(event));
+
     }
+
+   
+    
+    movePlayerToPosition(i, j) {
+        i = i - 5;
+        j = j - 11;
+    
+        const deltaT = this.clock.getDelta();
+
+        const destination = new THREE.Vector3(j, 0, i);
+    
+        // Calculate the direction and distance to the destination
+        const direction = destination.clone().sub(this.player.position);
+        const distance = direction.length();
+
+    
+        // while(distance >= 0.1){
+        // Set the player's direction
+        this.player.direction = Math.atan2(direction.x, direction.z) * (180 / Math.PI);
+    
+        // Move the player towards the destination
+        const speed = 5.0; // Adjust the speed as needed
+        const coveredDistance = Math.min(speed * deltaT, distance);
+        const movement = direction.clone().normalize().multiplyScalar(coveredDistance);
+        this.player.position.add(movement);
+    
+        // Update the player's object position
+        this.player.object.position.copy(this.player.position);
+    
+        // Check if the player has reached the destination
+        if (distance < 0.1) {
+            // Player has reached the destination
+            console.log('Player reached destination');
+        }
+        //}
+        
+    }
+
+    /*  while(this.player.position != newPosition){
+                if (this.player.position.x > newPosition.x ) this.player.position.x=this.player.position.x+0.1;
+                else if (this.player.position.x < newPosition.x) this.player.position.x=this.player.position.x-0.1;
+
+                if(this.player.position.z > newPosition.z )this.player.position.z=this.player.position.z+0.1
+                else if (this.player.position.z < newPosition.z) this.player.position.z=this.player.position.z-0.1;
+            } */
 
     buildHelpPanel() {
         const table = document.getElementById("help-table");
@@ -337,6 +451,8 @@ export default class ThumbRaiser {
             table.rows[i++].cells[0].innerHTML = this.player.keyCodes[key];
         }
         table.rows[i].cells[0].innerHTML = this.maze.credits + "<br>" + this.player.credits;
+        table
+
     }
 
     displayPanel() {
@@ -346,6 +462,7 @@ export default class ThumbRaiser {
         this.vertical.value = this.activeViewCamera.orientation.v.toFixed(0);
         this.distance.value = this.activeViewCamera.distance.toFixed(1);
         this.zoom.value = this.activeViewCamera.zoom.toFixed(1);
+        
     }
 
     // Set active view camera
@@ -360,6 +477,7 @@ export default class ThumbRaiser {
         this.zoom.min = this.activeViewCamera.zoomMin.toFixed(1);
         this.zoom.max = this.activeViewCamera.zoomMax.toFixed(1);
         this.displayPanel();
+        
     }
 
     arrangeViewports(multipleViews) {
@@ -430,6 +548,19 @@ export default class ThumbRaiser {
         this.statistics.dom.style.visibility = visible ? "visible" : "hidden";
     }
 
+    //Automatic Movement
+    setAutomaticMovementTableVisibility(visible){
+
+        const buttons = this.buttonContainer.querySelectorAll('button');
+        
+
+        buttons.forEach(button => {
+            button.style.visibility = visible ? 'visible' : 'hidden';
+        });
+    
+        
+    }
+
     windowResize() {
         this.fixedViewCamera.updateWindowSize(window.innerWidth, window.innerHeight);
         this.firstPersonViewCamera.updateWindowSize(window.innerWidth, window.innerHeight);
@@ -490,6 +621,10 @@ export default class ThumbRaiser {
             }
             else if (event.code == this.player.keyCodes.forward) {
                 this.player.keyStates.forward = state;
+            }
+
+            else if (event.code == this.player.keyCodes.automaticMovement) {
+                this.setAutomaticMovementTableVisibility(ma);
             }
         }
     }
@@ -619,6 +754,11 @@ export default class ThumbRaiser {
             case "statistics":
                 this.setStatisticsVisibility(event.target.checked);
                 break;
+
+            case "automaticMovement":
+                this.setAutomaticMovementTableVisibility(event.target.checked);
+                break;
+    
         }
     }
 
@@ -676,6 +816,11 @@ export default class ThumbRaiser {
 
                 console.log("Currentmaze");
                 console.log(this.maze);
+
+                console.log("Map")
+                console.log(this.maze.map);
+
+                this.matriz= this.maze.map;
 
                 this.scene3D.add(this.maze.object);
 
@@ -812,6 +957,7 @@ export default class ThumbRaiser {
                 }
                 else if (this.player.keyStates.forward) {
                     const newPosition = new THREE.Vector3(coveredDistance * Math.sin(direction), 0.0, coveredDistance * Math.cos(direction)).add(this.player.position);
+                    console.log(newPosition);
                     if (this.collision(newPosition)) {
 
                     }
