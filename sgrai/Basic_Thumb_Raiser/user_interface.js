@@ -62,25 +62,41 @@ export default class UserInteraction {
         this.gui = new GUI({ hideable: false });
         const buildingFolder = this.gui.addFolder('Buildings');
 
+        const automaticMovement = this.gui.addFolder('Automatic Movement');
+
+
         //Create the building A folder
-        const buildingA=buildingFolder.addFolder("Building A")
+        const buildingA=buildingFolder.addFolder("Building A");
+        const buildingAA=automaticMovement.addFolder("Building A");
+
 
         // Add a button to change building parameters
         buildingA.add({ 'Floor 1': () => changeBuildingParameters(this.buildingA1Parameters) }, 'Floor 1');
         buildingA.add({ 'Floor 2': () => changeBuildingParameters(this.buildingA2Parameters) }, 'Floor 2');
 
+        // Add a button to do an automatic movement
+        buildingAA.add({ 'Floor 1': () => automaticMovementFunction(buildingA1Data) }, 'Floor 1');
+        buildingAA.add({ 'Floor 2': () => automaticMovementFunction(this.buildingA2Parameters) }, 'Floor 2');
+
 
          //Create the building B folder
          const buildingB=buildingFolder.addFolder("Building B")
+         const buildingBB=automaticMovement.addFolder("Building B")
 
          // Add a button to change building parameters
         buildingB.add({ 'Floor 1': () => changeBuildingParameters(this.buildingB1Parameters) }, 'Floor 1');
         buildingB.add({ 'Floor 2': () => changeBuildingParameters(this.buildingB2Parameters) }, 'Floor 2');
         buildingB.add({ 'Floor 3': () => changeBuildingParameters(this.buildingB3Parameters) }, 'Floor 3');
+         
+        // Add a button to do an automatic movement
+         buildingBB.add({ 'Floor 1': () => automaticMovementFunction(this.buildingB1Parameters) }, 'Floor 1');
+         buildingBB.add({ 'Floor 2': () => automaticMovementFunction(this.buildingB2Parameters) }, 'Floor 2');
+         buildingBB.add({ 'Floor 3': () => automaticMovementFunction(this.buildingB3Parameters) }, 'Floor 3');
 
 
         //Create the building C folder
-        const buildingC=buildingFolder.addFolder("Building C")
+        const buildingC=buildingFolder.addFolder("Building C");
+        const buildingCC=automaticMovement.addFolder("Building C")
 
         // Add a button to change building parameters
         buildingC.add({ 'Floor 1': () => changeBuildingParameters(this.buildingC1Parameters) }, 'Floor 1');
@@ -88,14 +104,26 @@ export default class UserInteraction {
         buildingC.add({ 'Floor 3': () => changeBuildingParameters(this.buildingC3Parameters) }, 'Floor 3');
         buildingC.add({ 'Floor 4': () => changeBuildingParameters(this.buildingC4Parameters) }, 'Floor 4');
 
+        // Add a button to do an automatic movement
+        buildingCC.add({ 'Floor 1': () => automaticMovementFunction(this.buildingC1Parameters) }, 'Floor 1');
+        buildingCC.add({ 'Floor 2': () => automaticMovementFunction(this.buildingC2Parameters) }, 'Floor 2');
+        buildingCC.add({ 'Floor 3': () => automaticMovementFunction(this.buildingC3Parameters) }, 'Floor 3');
+        buildingCC.add({ 'Floor 4': () => automaticMovementFunction(this.buildingC4Parameters) }, 'Floor 4');
+
 
         //Create the building D folder
         const buildingD=buildingFolder.addFolder("Building D")
+        const buildingDD=automaticMovement.addFolder("Building D")
 
         // Add a button to change building parameters
         buildingD.add({ 'Floor 1': () => changeBuildingParameters(this.buildingD1Parameters) }, 'Floor 1');
         buildingD.add({ 'Floor 2': () => changeBuildingParameters(this.buildingD2Parameters) }, 'Floor 2');
         buildingD.add({ 'Floor 3': () => changeBuildingParameters(this.buildingD3Parameters) }, 'Floor 3');
+
+        // Add a button to change building parameters
+        buildingDD.add({ 'Floor 1': () => changeBuildingParameters(this.buildingD1Parameters) }, 'Floor 1');
+        buildingDD.add({ 'Floor 2': () => changeBuildingParameters(this.buildingD2Parameters) }, 'Floor 2');
+        buildingDD.add({ 'Floor 3': () => changeBuildingParameters(this.buildingD3Parameters) }, 'Floor 3');
 
 
         function changeBuildingParameters(parameters){
@@ -105,6 +133,37 @@ export default class UserInteraction {
                 // Cria um novo edifício com base nos parâmetros fornecidos
                 createMaze(parameters);
             }
+        }
+
+        function automaticMovementFunction(parameters){
+           
+     /*   let container= document.createElement('container');
+
+        let buttonContainer = document.createElement('matrix');
+
+        let matriz = parameters.
+
+        
+        for (let i = 0; i < matriz.length; i++) {
+            for (let j = 0; j < matriz[i].length; j++) {
+                 let buttonMatrix = document.createElement('button');
+                buttonMatrix.textContent = this.matriz[i][j];
+                buttonMatrix.style.visibility= "hidden";
+
+                // Adiciona uma função ao clique do botão
+                buttonMatrix.addEventListener('click', ()=> {
+                    
+                    console.log('Destino: '+i+', '+j);
+                    this.movePlayerToPosition(i,j);
+                }
+                );
+
+                
+               buttonContainer.appendChild(this.buttonMatrix);
+            }
+            let lineBreak = document.createElement('br');
+            buttonContainer.appendChild(this.lineBreak);
+        }*/
         }
 
         function createMaze(parameters) {
@@ -129,6 +188,37 @@ export default class UserInteraction {
             thumbRaser.maze= finalMaze;
         }
 
+
+       /* function load(parameters){
+            for (const [key, value] of Object.entries(parameters)) {
+                this[key] = value;
+            }
+           
+    
+            // The cache must be enabled; additional information available at https://threejs.org/docs/api/en/loaders/FileLoader.html
+            THREE.Cache.enabled = true;
+    
+            // Create a resource file loader
+            const loader = new THREE.FileLoader();
+    
+            // Set the response type: the resource file will be parsed with JSON.parse()
+            loader.setResponseType("json");
+    
+            // Load a maze description resource file
+            loader.load(
+                //Resource URL
+                this.url,
+    
+                // onLoad callback
+                description => this.onLoad(description),
+    
+                // onProgress callback
+                xhr => this.onProgress(this.url, xhr),
+    
+                // onError callback
+                error => this.onError(this.url, error)
+            );
+        }*/
 
 
         // Create the lights folder

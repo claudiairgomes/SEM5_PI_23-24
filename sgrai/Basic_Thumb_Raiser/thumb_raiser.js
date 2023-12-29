@@ -275,7 +275,7 @@ export default class ThumbRaiser {
             this.lineBreak = document.createElement('br');
             this.buttonContainer.appendChild(this.lineBreak);
         }
-        //document.body.appendChild(this.buttonContainer);
+        document.body.appendChild(this.buttonContainer);
 
         
       
@@ -409,27 +409,34 @@ export default class ThumbRaiser {
         // Calculate the direction and distance to the destination
         const direction = destination.clone().sub(this.player.position);
         const distance = direction.length();
+        
+        this.animations = new Animations(this.player.object, this.player.animations);
 
     
-        // while(distance >= 0.1){
+            
         // Set the player's direction
-        this.player.direction = Math.atan2(direction.x, direction.z) * (180 / Math.PI);
-    
         // Move the player towards the destination
         const speed = 5.0; // Adjust the speed as needed
         const coveredDistance = Math.min(speed * deltaT, distance);
         const movement = direction.clone().normalize().multiplyScalar(coveredDistance);
         this.player.position.add(movement);
-    
+
+       // const deltaT = this.clock.getDelta();
+        this.animations.update(deltaT);
+
         // Update the player's object position
+        this.animations.fadeToAction("metarig|Walk", 0.2);
         this.player.object.position.copy(this.player.position);
-    
+
         // Check if the player has reached the destination
         if (distance < 0.1) {
             // Player has reached the destination
             console.log('Player reached destination');
+        } else {
+            console.log(distance);
+            
         }
-        //}
+       
         
     }
 
