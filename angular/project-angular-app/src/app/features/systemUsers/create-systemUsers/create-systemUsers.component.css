@@ -1,0 +1,81 @@
+.form {
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+  position: fixed;
+  top: 50%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+  background-color: #4caf50; /* Match the color of the example */
+  border-radius: 5px; /* Adjusted for a cleaner look */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 5px;
+  color: white;
+  font-family: 'Playpen Sans', cursive;
+}
+
+.form-control {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+.form-control:disabled {
+  background-color: #45a049; /* Match the hover color of the example */
+}
+
+.code_form {
+  width: 100%; /* Adjusted for full width */
+}
+
+.name_form {
+  width: 100%; /* Adjusted for full width */
+}
+
+.form-title {
+  text-align: center;
+  color: white;
+  font-family: 'Playpen Sans', cursive;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  background: none;
+  border: none;
+  color: white;
+}
+
+.close-button:hover {
+  background-color: #45a049; /* Match the hover color of the example */
+  border-radius: 5px; /* Adjusted for a cleaner look */
+  color: #090430;
+}
+
+.btn-primary {
+  background-color: #4caf50;
+  width: 100%; /* Adjusted for full width */
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.btn-primary:hover {
+  background-color: #45a049;
+}
+
+.sectionTitle {
+  color: #dfdee7;
+  font-size: 15px;
+  font-family: 'Playpen Sans', cursive;
+}
