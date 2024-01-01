@@ -12,6 +12,7 @@ interface RobotProps {
   type: string;
   serialNumber: string;
   description: string;
+  isActive: boolean;
 
 }
 
@@ -43,6 +44,13 @@ export class Robot extends AggregateRoot<RobotProps> {
   get description (): string {
     return this.props.description;
   }
+  get isActive (): boolean {
+    return this.props.isActive;
+  }
+
+  set isActive(value: boolean) {
+    this.props.isActive = value;
+  }
 
   private constructor (props: RobotProps, id?: UniqueEntityID) {
     super(props, id);
@@ -55,7 +63,9 @@ export class Robot extends AggregateRoot<RobotProps> {
       { argument: props.name, argumentName: 'name' },
       { argument: props.type, argumentName: 'type' },
       { argument: props.serialNumber, argumentName: 'serialNumber' },
-      { argument: props.description, argumentName: 'description' }
+      { argument: props.description, argumentName: 'description' },
+      { argument: props.isActive, argumentName: 'isActive' }
+
     ];
 
     const guardResult = Guard.againstNullOrUndefinedBulk(guardedProps);

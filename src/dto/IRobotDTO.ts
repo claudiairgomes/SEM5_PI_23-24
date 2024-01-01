@@ -7,4 +7,5 @@ export interface IRobotDTO {
   type: string;
   serialNumber: string;
   description: string;
+  isActive: boolean;
 }

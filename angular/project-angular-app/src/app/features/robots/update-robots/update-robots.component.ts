@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import { Robots } from 'src/app/Interfaces/robots';
 import { RobotService } from 'src/app/Services/robots.service';
 import {Buildings} from "../../../Interfaces/buildings";
+import {isBoolean} from "lodash";
 
 
 @Component({
@@ -18,7 +19,8 @@ export class UpdateRobotsComponent implements OnInit{
     name:'',
     type:'',
     serialNumber:'',
-    description:''
+    description:'',
+    isActive:isBoolean(),
 
   }
 

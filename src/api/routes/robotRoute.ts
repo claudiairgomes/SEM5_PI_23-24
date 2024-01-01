@@ -5,6 +5,7 @@ import { Container } from 'typedi';
 import IRobotController from '../../controllers/IControllers/IRobotController';
 
 import config from "../../../config";
+import jwt from "jsonwebtoken";
 
 const route = Router();
 
@@ -22,7 +23,8 @@ export default (app: Router) => {
         name: Joi.string().required(),
         type: Joi.string().required(),
         serialNumber: Joi.string().required(),
-        description: Joi.string().required()
+        description: Joi.string().required(),
+        isActive: Joi.boolean().required(),
       }),
     }),
     (req, res, next) => ctrl.createRobot(req, res, next));
@@ -36,6 +38,7 @@ export default (app: Router) => {
         type: Joi.string().required(),
         serialNumber: Joi.string().required(),
         description: Joi.string().required(),
+        isActive: Joi.boolean().required(),
       }),
     }),
     (req, res, next) => ctrl.updateRobot(req, res, next) );
@@ -49,9 +52,21 @@ export default (app: Router) => {
         type: Joi.string(),
         serialNumber: Joi.string(),
         description: Joi.string(),
+        isActive:Joi.boolean(),
       }),
     }),
     (req, res, next) => ctrl.updateRobot(req, res, next) );
+
+
+  route.patch(
+    '/deactivate',
+    celebrate({
+      body: Joi.object({
+        id: Joi.string().required(),
+      }),
+    }),
+    (req, res, next) => ctrl.deactivateRobot(req, res, next),
+  );
 
   route.get(
     '/findAll',

@@ -3,6 +3,7 @@ import { Robot } from "../../domain/robot";
 import {RobotId} from "../../domain/robotId";
 import {BuildingId} from "../../domain/buildingId";
 import {Building} from "../../domain/building";
+import {IRobotDTO} from "../../dto/IRobotDTO";
 
 
 export default interface IRobotRepo extends Repo<Robot> {
@@ -10,4 +11,8 @@ export default interface IRobotRepo extends Repo<Robot> {
   findByDomainId (robotId: RobotId | string): Promise<Robot>;
   findById (id: string): Promise<Robot>;
   findAll();
+  findByNickname(robotNickname: IRobotDTO): Promise<Robot>;
+
+  findByTaskType(taskType: string): Promise<Robot[]>;
+  findByNicknameOrTaskType(robotNickname: IRobotDTO, taskType: string): Promise<Robot[]>;
 }

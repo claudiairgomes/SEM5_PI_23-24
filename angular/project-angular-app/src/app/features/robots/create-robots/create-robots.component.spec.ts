@@ -32,6 +32,7 @@ describe('CreateRobotsComponent', () => {
       type: 'Test type',
       serialNumber:'Test serial number',
       description: 'Test Description',
+      isActive:true,
     };
 
     robotServiceSpy.createRobot.and.returnValue(of(mockRobot));

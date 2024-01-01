@@ -37,6 +37,12 @@ const RobotSchema = new mongoose.Schema(
       required: [true, 'Please write description'],
       index: true,
     },
+
+    isActive: {
+      type: Boolean,
+      required: [true, 'Please write if robot is active (true/false)'],
+      index: true,
+    },
   },
   { timestamps: true },
 );

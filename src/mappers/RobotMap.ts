@@ -20,6 +20,7 @@ export class RobotMap extends Mapper<Robot> {
       type: robot.type,
       serialNumber:robot.serialNumber,
       description:robot.description,
+      isActive:robot.isActive,
     } as IRobotDTO;
   }
 
@@ -31,6 +32,7 @@ export class RobotMap extends Mapper<Robot> {
       type: raw.type,
       serialNumber: raw.serialNumber,
       description: raw.description,
+      isActive:raw.isActive,
     }, new UniqueEntityID(raw.domainId))
 
     robotOrError.isFailure ? console.log(robotOrError.error) : '';
@@ -46,6 +48,7 @@ export class RobotMap extends Mapper<Robot> {
       type: robot.type,
       serialNumber: robot.serialNumber,
       description: robot.description,
+      isActive:robot.isActive,
     }
     return a;
   }

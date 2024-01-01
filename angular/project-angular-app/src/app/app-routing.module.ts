@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BuildingsComponent } from './features/buildings/buildings.component';
 import { CreateBuildingsComponent } from './features/buildings/create-buildings/create-buildings.component';
-import { UpdateBuildingsComponent } from './features/buildings/update-buildings/update-buildings.component';
 import { ListBuildingsComponent } from './features/buildings/list-buildings/list-buildings.component';
 import { CreateElevatorsComponent } from './features/elevators/create-elevators/create-elevators.component';
 import { ElevatorsComponent } from './features/elevators/elevators.component';
@@ -29,9 +28,22 @@ import {UpdateRoomsComponent} from "./features/rooms/update-rooms/update-rooms.c
 import {ListRoomsComponent} from "./features/rooms/list-rooms/list-rooms.component";
 import {RoomDetailsComponent} from "./features/rooms/list-rooms/room-details/room-details.component";
 import {RobotDetailsComponent} from "./features/robots/list-robots/robot-details/robot-details.component";
+import {DeactivateRobotComponent} from "./features/robots/deactivate-robots/deactivate-robot.component";
+import {UpdateBuildingsComponent} from "./features/buildings/update-buildings/update-buildings.component";
+import {RobotTypesComponent} from "./features/robotTypes/robotTypes.component";
+import {CreateRobotTypesComponent} from "./features/robotTypes/create-robotTypes/create-robotTypes.component";
+import {TermsAndConditionsComponent} from "./features/terms-and-conditions/terms-and-conditions.component";
+import {CreateRegisterComponent} from "./features/register/create-register/create-register.component";
 
 
 const routes: Routes = [
+
+  { path: 'RGPD', component: TermsAndConditionsComponent },
+
+
+  { path: 'register', component: CreateRegisterComponent },
+
+
   {
     path: '',
     pathMatch: 'full',
@@ -183,6 +195,20 @@ const routes: Routes = [
   {
     path: 'robots/updateRobots',
     component: UpdateRobotsComponent
+  },
+  {
+    path: 'robots/deactivateRobots',
+    component: DeactivateRobotComponent
+  },
+
+  {
+    path: 'robotTypes',
+    component: RobotTypesComponent
+  },
+
+  {
+    path: 'robotTypes/createRobotTypes',
+    component: CreateRobotTypesComponent
   },
 
 

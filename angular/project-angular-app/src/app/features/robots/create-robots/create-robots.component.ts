@@ -13,7 +13,8 @@ export class CreateRobotsComponent {
     name:'',
     type:'',
     serialNumber:'',
-    description:''
+    description:'',
+    isActive:true,
   }
 
   constructor(private robotService:RobotService) { }

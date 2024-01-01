@@ -27,6 +27,10 @@
         <label for="description" class="form-label">Description:</label>
         <input type="text" id="description" name="description" placeholder={{selectedRobot.description}} [(ngModel)]="selectedRobot.description" >
 
+      <label for="isActive" class="form-label">Is Active:</label>
+      <input type="text" id="isActive" name="isActive" placeholder={{selectedRobot.isActive}} [(ngModel)]="selectedRobot.isActive" >
+
+
       <button type="submit">Update Robot</button>
     </form>
   </div>

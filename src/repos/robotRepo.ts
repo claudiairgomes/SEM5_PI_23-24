@@ -52,6 +52,7 @@ export default class RobotRepo implements IRobotRepo {
         robotDocument.type=robot.type;
         robotDocument.serialNumber=robot.serialNumber;
         robotDocument.description=robot.description;
+        robotDocument.isActive=robot.isActive;
         await robotDocument.save();
 
         return robot;
@@ -90,7 +91,7 @@ export default class RobotRepo implements IRobotRepo {
 
 
     //return buildingRecords.map((record) => BuildingMap.toDomain(record));
-  
+
 
   public async findAll(){
     try{
