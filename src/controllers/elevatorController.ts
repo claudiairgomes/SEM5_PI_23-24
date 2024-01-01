@@ -82,4 +82,20 @@ export default class ElevatorController implements IElevatorController{
     }
   }
 
+  public async getElevatorByBuilding(req: Request, res: Response, next: NextFunction) {
+    try {
+      let buildingId = req.params.buildingId;
+      const elevatorOrError = await this.elevatorServiceInstance.getElevatorByBuilding(buildingId);
+
+      if (elevatorOrError.isFailure) {
+        return res.status(404).send(elevatorOrError.errorValue());
+      }
+
+      const elevator = elevatorOrError.getValue();
+      return res.json(elevator).status(200);
+    } catch (e) {
+      return next(e);
+    }
+  }
+
 }

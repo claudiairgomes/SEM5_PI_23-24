@@ -44,4 +44,13 @@ export class FloorService {
     }
     return this.http.patch<Floors>(`http://localhost:4000/api/floors`, body, httpOptions);
     }
+
+  getFloorsFromBuilding(buildingId: string): Observable<Floors[]> {
+    const httpOptions = { withCredentials: true };
+
+    return this.http.get<Floors[]>('http://localhost:4000/api/floors/'+ buildingId, httpOptions)
+      .pipe(
+        //catchError(this.handleError('addBuilding', building))
+      );
+  }
 }

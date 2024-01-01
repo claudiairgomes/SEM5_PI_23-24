@@ -7,6 +7,7 @@ import IRoleService from '../services/IServices/IRoleService';
 import IRoleDTO from '../dto/IRoleDTO';
 
 import { Result } from "../core/logic/Result";
+import {IBuildingDTO} from "../dto/IBuildingDTO";
 
 @Service()
 export default class RoleController implements IRoleController /* TODO: extends ../core/infra/BaseController */ {
@@ -17,7 +18,7 @@ export default class RoleController implements IRoleController /* TODO: extends 
   public async createRole(req: Request, res: Response, next: NextFunction) {
     try {
       const roleOrError = await this.roleServiceInstance.createRole(req.body as IRoleDTO) as Result<IRoleDTO>;
-        
+
       if (roleOrError.isFailure) {
         return res.status(402).send();
       }
@@ -45,4 +46,38 @@ export default class RoleController implements IRoleController /* TODO: extends 
       return next(e);
     }
   };
+
+  public async getRoles(req: Request, res: Response, next: NextFunction) {
+    try {
+      const roles = await this.roleServiceInstance.getAllRoles();
+
+      if (!roles || roles.length === 0) {
+        // Return an appropriate response if there are no floors
+        return res.status(404).json({ message: 'No roles found' });
+      }
+
+      return res.status(200).json(roles);
+    } catch (error) {
+      // Handle any errors that may occur during the process
+      console.error('Error while fetching roles:', error);
+      return res.status(500).json({ message: 'Internal server error' });
+    }
+  }
+
+  async getRoleById(req: Request, res: Response, next: NextFunction) {
+    try{
+      const roleOrError = await this.roleServiceInstance.getRole(req.body) as Result<IRoleDTO>;
+
+      if (roleOrError.isFailure) {
+        return res.status(404).send();
+      }
+
+      const buildingDTO = roleOrError.getValue();
+      return res.status(201).json( buildingDTO );
+    }
+    catch (e) {
+      return next(e);
+    }
+  }
+
 }

@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateBuildingsComponent } from './features/buildings/create-buildings/create-buildings.component';
 import { BuildingsComponent } from './features/buildings/buildings.component';
-import { UpdateBuildingsComponent } from './features/buildings/update-buildings/update-buildings.component';
 import { ListBuildingsComponent } from './features/buildings/list-buildings/list-buildings.component';
 import { HttpClientModule } from '@angular/common/http'; // Importe o HttpClientModule aqui
 import { ElevatorsComponent } from './features/elevators/elevators.component';
@@ -36,6 +35,14 @@ import {RoomDetailsComponent} from "./features/rooms/list-rooms/room-details/roo
 import {ListRoomsComponent} from "./features/rooms/list-rooms/list-rooms.component";
 import {UpdateRoomsComponent} from "./features/rooms/update-rooms/update-rooms.component";
 import {RobotDetailsComponent} from "./features/robots/list-robots/robot-details/robot-details.component";
+import {DeactivateRobotComponent} from "./features/robots/deactivate-robots/deactivate-robot.component";
+import {UpdateBuildingsComponent} from "./features/buildings/update-buildings/update-buildings.component";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {RobotTypesComponent} from "./features/robotTypes/robotTypes.component";
+import {CreateRobotTypesComponent} from "./features/robotTypes/create-robotTypes/create-robotTypes.component";
+import {CreateRegisterComponent} from "./features/register/create-register/create-register.component";
+import {RegisterComponent} from "./features/register/register.component";
+import {TermsAndConditionsComponent} from "./features/terms-and-conditions/terms-and-conditions.component";
 
 
 
@@ -44,6 +51,11 @@ import {RobotDetailsComponent} from "./features/robots/list-robots/robot-details
 @NgModule({
   declarations: [
     AppComponent,
+
+    TermsAndConditionsComponent,
+
+    RegisterComponent,
+    CreateRegisterComponent,
 
     BuildingsComponent,
     CreateBuildingsComponent,
@@ -78,15 +90,20 @@ import {RobotDetailsComponent} from "./features/robots/list-robots/robot-details
     CreateRobotsComponent,
     ListRobotsComponent,
     RobotDetailsComponent,
-    UpdateRobotsComponent
+    UpdateRobotsComponent,
+    DeactivateRobotComponent,
+
+    RobotTypesComponent,
+    CreateRobotTypesComponent
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    FormsModule
-    ,HttpClientModule
+    MatSnackBarModule,
+    HttpClientModule,
+    FormsModule,
     ],
   providers: [],
   bootstrap: [AppComponent]

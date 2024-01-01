@@ -1,15 +1,21 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Buildings } from "../Interfaces/buildings";
-import { Observable } from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 
 @Injectable({
     providedIn: "root"
 })
 export class BuildingService {
-    constructor(private http:HttpClient) { }
 
-    createBuilding(building: Buildings): Observable<Buildings> {
+  private building = new BehaviorSubject<Buildings>({} as Buildings);
+
+  constructor(private http:HttpClient) { }
+
+  private isVisible = new BehaviorSubject<boolean>(false);
+
+
+  createBuilding(building: Buildings): Observable<Buildings> {
         const httpOptions = {
             headers : new HttpHeaders({'Content-Type': 'application/json'})
     }
@@ -18,9 +24,9 @@ export class BuildingService {
 
     getBuildings(): Observable<Buildings[]> {
         console.log("Service");
-        
+
         return this.http.get<Buildings[]>('http://localhost:4000/api/buildings/findAll');
-        
+
     }
 
     getBuildingById(id: string): Observable<Buildings> {
@@ -44,6 +50,20 @@ export class BuildingService {
         const httpOptions = {
             headers : new HttpHeaders({'Content-Type': 'application/json'})
     }
-    return this.http.patch<Buildings>(`http://localhost:4000/api/buildings`, body, httpOptions);
+    return this.http.put<Buildings>(`http://localhost:4000/api/buildings/update`, body, httpOptions);
     }
+
+  openForm(building: Buildings) {
+    this.building.next(building);
+    this.isVisible.next(true);
+  }
+
+  closeForm() {
+    this.isVisible.next(false);
+  }
+
+  getFormVisibility() {
+    return this.isVisible.asObservable();
+  }
+
 }

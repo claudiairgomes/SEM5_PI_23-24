@@ -65,4 +65,15 @@ export default class RoleRepo implements IRoleRepo {
     else
       return null;
   }
+
+  public async findAll(){
+    try{
+      //const buildingRecords = await this.buildingSchema.find();
+      return await this.roleSchema.find();
+    }catch (e){
+      throw e;
+    }
+
+    //return buildingRecords.map((record) => BuildingMap.toDomain(record));
+  }
 }
