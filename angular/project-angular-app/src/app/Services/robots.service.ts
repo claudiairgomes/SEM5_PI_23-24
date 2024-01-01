@@ -17,7 +17,7 @@ export class RobotService {
     }
 
     getRobots(): Observable<Robots[]> {
-        return this.http.get<Robots[]>('http://localhost:4000/api/robots');
+        return this.http.get<Robots[]>('http://localhost:4000/api/robots/findAll');
     }
 
     getRobotsById(id: string): Observable<Robots> {
@@ -31,14 +31,16 @@ export class RobotService {
             name: any,
             type: any,
             serialNumber: any,
-            description: any
+            description: any,
+            isActive: any,
         } = {
             id: robot.id,
             codRobot: robot.codRobot,
             name: robot.name,
             type: robot.type,
             serialNumber:robot.serialNumber,
-            description:robot.description
+            description:robot.description,
+            isActive:robot.isActive,
 
         }
         const httpOptions = {
@@ -46,4 +48,11 @@ export class RobotService {
     }
     return this.http.patch<Robots>(`http://localhost:4000/api/robots`, body, httpOptions);
     }
+
+  deactivateRobot(robot: Robots): Observable<Robots> {
+    return this.http.patch<Robots>('http://localhost:4000/api/robots/deactivate', robot)
+      .pipe(
+        //catchError(this.handleError('addRobot', robot))
+      );
+  }
 }

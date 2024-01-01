@@ -41,7 +41,23 @@ export default async ({ expressApp }) => {
   const robotSchema={
     name: 'robotSchema',
     schema: '../persistence/schemas/robotSchema',
-  }
+  };
+
+  const robotTypeSchema = {
+    name: 'robotTypeSchema',
+    schema: '../persistence/schemas/robotTypeSchema',
+  };
+
+  const taskTypeSchema = {
+    name: 'taskTypeSchema',
+    schema: '../persistence/schemas/taskTypeSchema',
+  };
+
+  const systemUserMapperzSchema = {
+    name: 'systemUserSchema',
+    schema: '../persistence/schemas/systemUserSchema',
+  };
+
 
   const passageSchema={
     name: 'passageSchema',
@@ -88,6 +104,21 @@ export default async ({ expressApp }) => {
     path: config.controllers.room.path
   }
 
+  const robotTypeController = {
+    name: config.controllers.robotType.name,
+    path: config.controllers.robotType.path,
+  };
+
+  const taskTypeController = {
+    name: config.controllers.taskType.name,
+    path: config.controllers.taskType.path,
+  };
+
+  const systemUserController = {
+    name: config.controllers.systemUser.name,
+    path: config.controllers.systemUser.path,
+  };
+
 
   const roleRepo = {
     name: config.repos.role.name,
@@ -103,6 +134,8 @@ export default async ({ expressApp }) => {
     name: config.repos.building.name,
     path: config.repos.building.path
   }
+
+
 
   const floorRepo = {
     name: config.repos.floor.name,
@@ -129,11 +162,28 @@ export default async ({ expressApp }) => {
     path: config.repos.room.path
   }
 
+  const robotTypeRepo = {
+    name: config.repos.robotType.name,
+    path: config.repos.robotType.path,
+  };
+
+  const taskTypeRepo = {
+    name: config.repos.taskType.name,
+    path: config.repos.taskType.path,
+  };
+
+  const systemUserRepo = {
+    name: config.repos.systemUser.name,
+    path: config.repos.systemUser.path,
+  };
+
 
   const roleService = {
     name: config.services.role.name,
     path: config.services.role.path
   }
+
+
 
   const buildingService = {
     name: config.services.building.name,
@@ -165,6 +215,21 @@ export default async ({ expressApp }) => {
     path: config.services.room.path
   }
 
+  const robotTypeService = {
+    name: config.services.robotType.name,
+    path: config.services.robotType.path,
+  };
+
+  const taskTypeService = {
+    name: config.services.taskType.name,
+    path: config.services.taskType.path,
+  };
+
+  const systemUserService = {
+    name: config.services.systemUser.name,
+    path: config.services.systemUser.path,
+  };
+
 
   await dependencyInjectorLoader({
     mongoConnection,
@@ -176,7 +241,10 @@ export default async ({ expressApp }) => {
       floorSchema,
       robotSchema,
       passageSchema,
-      roomSchema
+      roomSchema,
+      robotTypeSchema,
+      taskTypeSchema,
+      systemUserMapperzSchema,
     ],
     controllers: [
       roleController,
@@ -185,7 +253,10 @@ export default async ({ expressApp }) => {
       floorController,
       robotController,
       passageController,
-      roomController
+      roomController,
+      robotTypeController,
+      taskTypeController,
+      systemUserController,
     ],
     repos: [
       roleRepo,
@@ -195,7 +266,10 @@ export default async ({ expressApp }) => {
       floorRepo,
       robotRepo,
       passageRepo,
-      roomRepo
+      roomRepo,
+      robotTypeRepo,
+      taskTypeRepo,
+      systemUserRepo,
     ],
     services: [
       roleService,
@@ -204,7 +278,10 @@ export default async ({ expressApp }) => {
       floorService,
       robotService,
       passageService,
-      roomService
+      roomService,
+      taskTypeService,
+      robotTypeService,
+      systemUserService,
     ]
   });
   Logger.info('✌️ Schemas, Controllers, Repositories, Services, etc. loaded');

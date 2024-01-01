@@ -5,5 +5,6 @@ export interface Robots{
   type: string;
   serialNumber:string;
   description:string;
+  isActive: boolean;
 
 }
