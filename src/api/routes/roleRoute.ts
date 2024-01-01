@@ -5,6 +5,7 @@ import { Container } from 'typedi';
 import IRoleController from '../../controllers/IControllers/IRoleController';
 
 import config from "../../../config";
+import authRole from "../middlewares/authRole";
 
 const route = Router();
 
@@ -29,4 +30,20 @@ export default (app: Router) => {
       }),
     }),
     (req, res, next) => ctrl.updateRole(req, res, next) );
+
+  route.get(
+    '/findAll',
+    (req, res, next) => ctrl.getRoles(req, res, next)
+  );
+
+  route.get('/findById',
+    authRole(config.permissions.role.get),
+    celebrate({
+      body: Joi.object({
+        id: Joi.string().required(),
+
+      }),
+    }),
+    (req, res, next) => ctrl.getRoleById(req, res, next) );
+
 };

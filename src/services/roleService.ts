@@ -6,6 +6,7 @@ import IRoleRepo from '../services/IRepos/IRoleRepo';
 import IRoleService from './IServices/IRoleService';
 import { Result } from "../core/logic/Result";
 import { RoleMap } from "../mappers/RoleMap";
+import {IFloorDTO} from "../dto/IFloorDTO";
 
 @Service()
 export default class RoleService implements IRoleService {
@@ -66,6 +67,22 @@ export default class RoleService implements IRoleService {
         }
     } catch (e) {
       throw e;
+    }
+  }
+
+
+  public async findAll() {
+    try {
+      // Implement the logic to retrieve a list of all floors from your data source
+
+      const roleList = await this.roleRepo.findAll();
+
+      // Return the list of building DTOs
+      return Result.ok<IRoleDTO[]>(roleList);
+    } catch (error) {
+      // Handle any errors, log them, and return a Result indicating failure
+      console.error('Error while fetching roles:', error);
+      return Result.fail('Failed to fetch roles');
     }
   }
 

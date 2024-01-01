@@ -4,6 +4,10 @@ import {celebrate, Joi} from "celebrate";
 import { Container } from 'typedi';
 import IBuildingController from "../../controllers/IControllers/IBuildingController";
 
+import isAuth from '../middlewares/isAuth';
+import attachCurrentUser from '../middlewares/attachCurrentUser';
+import authRole from '../middlewares/authRole';
+
 import config from "../../../config";
 
 const route = Router();
@@ -11,9 +15,12 @@ const route = Router();
 export default (app:Router) => {
   app.use('/buildings',route)
 
+  route.use(isAuth);
+  route.use(attachCurrentUser);
   const ctrl = Container.get(config.controllers.building.name) as IBuildingController;
 
   route.post('',
+    authRole(config.permissions.building.post),
     celebrate({
       body: Joi.object({
         name: Joi.string().required(),
@@ -25,7 +32,8 @@ export default (app:Router) => {
     }),
     (req, res, next) => ctrl.createBuilding(req, res, next) );
 
-  route.put('',
+  route.put('/update',
+    authRole(config.permissions.building.put),
     celebrate({
       body: Joi.object({
         id: Joi.string().required(),
@@ -52,11 +60,13 @@ export default (app:Router) => {
 
   route.get(
     '/findAll',
+    authRole(config.permissions.building.get),
     (req, res, next) => ctrl.getBuildings(req, res, next)
   );
 
   route.get('',
-  celebrate({
+    authRole(config.permissions.building.get),
+    celebrate({
     body: Joi.object({
       id: Joi.string().required(),
 
@@ -65,7 +75,8 @@ export default (app:Router) => {
   (req, res, next) => ctrl.getBuildingById(req, res, next) );
 
   route.get('range',
-  celebrate({
+    authRole(config.permissions.building.get),
+    celebrate({
     body: Joi.object({
       min: Joi.number().required(),
       max: Joi.number().required()

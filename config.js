@@ -10,6 +10,14 @@ if (!envFound) {
   throw new Error("⚠️  Couldn't find .env file  ⚠️");
 }
 
+const roles = {
+  ADMIN : "Admin",
+  USER: "User",
+  CAMPUS_MANAGER: "Campus",
+  FLEET_MANAGER: "Fleet",
+  TASK_MANAGER: "Task"
+};
+
 export default {
   /**
    * Your favorite port : optional change to 4000 by JRT
@@ -74,7 +82,19 @@ export default {
     room: {
       name: "RoomController",
       path:"../controllers/roomController"
-    }
+    },
+    robotType: {
+      name: 'RobotTypeController',
+      path: '../controllers/robotTypeController',
+    },
+    taskType: {
+      name: 'TaskTypeController',
+      path: '../controllers/taskTypeController',
+    },
+    systemUser: {
+      name: 'SystemUserController',
+      path: '../controllers/systemUserController',
+    },
 
   },
 
@@ -106,6 +126,21 @@ export default {
     elevator: {
       name: "ElevatorRepo",
       path: "../repos/elevatorRepo"
+    },
+
+    robotType: {
+      name: 'RobotTypeRepo',
+      path: '../repos/robotTypeRepo',
+    },
+
+    taskType: {
+      name: 'TaskTypeRepo',
+      path: '../repos/taskTypeRepo',
+    },
+
+    systemUser: {
+      name: 'SystemUserRepo',
+      path: '../repos/systemUserRepo',
     },
 
     passage: {
@@ -154,6 +189,73 @@ export default {
     room: {
       name: "RoomService",
       path: "../services/roomService"
-    }
+    },
+    robotType: {
+      name: 'RobotTypeService',
+      path: '../services/robotTypeService',
+    },
+    taskType: {
+      name: 'TaskTypeService',
+      path: '../services/taskTypeService',
+    },
+    systemUser: {
+      name: 'systemUserService',
+      path: '../services/systemUserService',
+    },
   },
-};
+  permissions: {
+    building: {
+      post: [roles.ADMIN, roles.CAMPUS_MANAGER],
+      get: [roles.ADMIN, roles.CAMPUS_MANAGER, roles.TASK_MANAGER, roles.USER],
+      put: [roles.ADMIN, roles.CAMPUS_MANAGER]
+    },
+
+    floor: {
+      post: [roles.ADMIN, roles.CAMPUS_MANAGER],
+      get: [roles.ADMIN, roles.CAMPUS_MANAGER, roles.TASK_MANAGER, roles.USER],
+      put: [roles.ADMIN, roles.CAMPUS_MANAGER]
+    },
+
+    passage: {
+      post: [roles.ADMIN, roles.CAMPUS_MANAGER],
+      get: [roles.ADMIN, roles.CAMPUS_MANAGER, roles.USER, roles.TASK_MANAGER],
+      put: [roles.ADMIN, roles.CAMPUS_MANAGER]
+    },
+
+    room: {
+      post: [roles.ADMIN, roles.CAMPUS_MANAGER],
+      get: [roles.ADMIN, roles.CAMPUS_MANAGER, roles.USER, roles.TASK_MANAGER],
+      put: [roles.ADMIN, roles.CAMPUS_MANAGER]
+    },
+
+    elevator: {
+      post: [roles.ADMIN, roles.CAMPUS_MANAGER],
+      get: [roles.ADMIN, roles.CAMPUS_MANAGER, roles.USER, roles.TASK_MANAGER],
+      put: [roles.ADMIN, roles.CAMPUS_MANAGER]
+    },
+
+    robot: {
+      post: [roles.ADMIN, roles.FLEET_MANAGER],
+      get: [roles.ADMIN, roles.FLEET_MANAGER],
+      put: [roles.ADMIN, roles.FLEET_MANAGER]
+    },
+
+    robotType: {
+      post: [roles.ADMIN, roles.FLEET_MANAGER],
+      get: [roles.ADMIN, roles.FLEET_MANAGER, roles.TASK_MANAGER],
+      put: [roles.ADMIN, roles.FLEET_MANAGER]
+    },
+
+    role: {
+      post: [roles.ADMIN, roles.CAMPUS_MANAGER],
+      get: [roles.ADMIN, roles.CAMPUS_MANAGER, roles.TASK_MANAGER, roles.USER],
+      put: [roles.ADMIN, roles.CAMPUS_MANAGER]
+    },
+
+    floorMapperz: {
+      post: [roles.ADMIN, roles.CAMPUS_MANAGER],
+      get: [roles.ADMIN, roles.CAMPUS_MANAGER, roles.TASK_MANAGER],
+      put: [roles.ADMIN, roles.CAMPUS_MANAGER]
+    },
+  },
+  };
