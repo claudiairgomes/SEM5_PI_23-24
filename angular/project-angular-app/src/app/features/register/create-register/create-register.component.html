@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="create-register.component.css">
+</head>
+<body>
+<div class="container">
+  <h1> Sign In</h1>
+<form (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input id="email" type="email" name="email" [(ngModel)]="email" required>
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input id="password" type="password" name="password" [(ngModel)]="password" required>
+  </div>
+  <div class="form-group">
+    <label for="phoneNumber">Phone Number</label>
+    <input id="phoneNumber" type="tel" name="phoneNumber" [(ngModel)]="phoneNumber">
+  </div>
+  <div class="form-group">
+    <label for="contribuinte">Contribuinte</label>
+    <input id="contribuinte" type="text" name="contribuinte" [(ngModel)]="contribuinte">
+  </div>
+  <div class="mb-3 form-check">
+    <input type="checkbox" class="form-check-input" id="acceptTerms" name="acceptTerms" [(ngModel)]="acceptTerms" (change)="onAcceptTermsChange()" required>
+    <label class="form-check-label" for="acceptTerms">
+      I accept the <a routerLink="/RGPD">terms and conditions</a>.
+    </label>
+  </div>
+  <button type="submit"  [disabled]="!acceptTerms">Request Registration</button>
+</form>
+</div>
+</body>
+</html>
