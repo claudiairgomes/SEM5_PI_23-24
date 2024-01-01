@@ -1,0 +1,13 @@
+body {
+    background-size: cover;
+}
+
+.app-admin {
+    width: 100%;
+    font-family: 'Playpen Sans', cursive;
+    font-size: 15px;
+    text-align: center;
+    color: #fff;
+    padding: 10px;
+    background-color: rgb(188, 183, 177, 0.3);
+}
