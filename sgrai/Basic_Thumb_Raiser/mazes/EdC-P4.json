@@ -2,8 +2,9 @@
     "building": ["C", 4],
     "groundTextureUrl": "./textures/ground4.jpg",
     "wallTextureUrl": "./textures/wall4.jpg",
-    "size": { "width": 12, "height": 20 },
+    "size": { "width": 12, "height": 22 },
     "map": [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [3, 2, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 1],
         [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
         [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
@@ -24,15 +25,18 @@
         [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
         [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
         [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0]
-        ],
+        [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    ],
 
-        "initialPosition": [8,0],
+        "initialPosition": [10,5],
         "initialDirection": 0.0,
         "exitLocation": [-0.5, 6],
 
-        "elevatorDoorLocation": [12, 1],
+        "elevatorDoorLocation": [13, 1],
+        "elevator": [14, 1],
         "elevatorDirection": 190.08,
 
-        "accessToBuilding": [["B",3,[8,-1],[9,-1]]]
+        "accessToBuilding": [["B",3,[9,-1],[10,-1],[9,21]]]
+
 }

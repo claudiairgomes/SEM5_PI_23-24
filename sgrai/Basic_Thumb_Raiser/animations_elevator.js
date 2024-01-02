@@ -17,16 +17,16 @@ export default class Animations_elevator {
         }
 
         //this.activeName = "02_open";
-        //this.actions[this.activeName].play();
+        this.actions["02_open"].fadeOut(0.5);;
     }
 
     fadeToAction(name, duration) {
         if (this.activeName !== name && !this.actionInProgress) {
-            const previousName = this.activeName;
+            //const previousName = this.activeName;
             this.activeName = name;
 
             // Desvanecer e reproduzir a nova ação
-            this.actions[previousName].fadeOut(duration);
+           // this.actions[previousName].fadeOut(duration);
             this.actions[this.activeName]
                 .reset()
                 .setEffectiveTimeScale(1)
@@ -38,6 +38,7 @@ export default class Animations_elevator {
             this.actionInProgress = true;
         }
     }
+
 
     actionFinished() {
         if (this.actionInProgress) {
@@ -51,4 +52,11 @@ export default class Animations_elevator {
             this.mixer.update(deltaT);
         }
     }
+
+    dispose() {
+        // Este método limpa os recursos associados à animação
+        this.mixer.stopAllAction();  // Interrompe todas as animações
+        this.mixer.uncacheRoot(this.mixer.getRoot());  // Remove do cache a raiz da animação
+    }
 }
+

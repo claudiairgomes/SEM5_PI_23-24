@@ -12,7 +12,7 @@ import Door from "./door.js";
  */
 
 export default class Maze {
-    constructor(parameters, doorParameters) {
+    constructor(parameters, doorParameters, initial_position) {
 
         this.onLoad = function (description) {
 
@@ -25,10 +25,19 @@ export default class Maze {
             this.building = description.building;
 
             // Store the player's initial position and direction
-            this.initialPosition = this.cellToCartesian(description.initialPosition);
+            console.log('Pos__Initial = ', initial_position);
+            if(initial_position==0){
+                this.initialPosition = this.cellToCartesian(description.initialPosition);
+            }else{
+                this.initialPosition = this.cellToCartesian(initial_position);
+            }
+            
+            console.log('PosInitial = ', this.initialPosition);
+
             this.initialDirection = description.initialDirection;
             this.elevatorDoorLocation = this.cellToCartesian(description.elevatorDoorLocation);
             this.elevatorDirection = description.elevatorDirection;
+            this.elevator = this.cellToCartesian(description.elevator);
 
             // Store the maze's exit location
             this.exitLocation = this.cellToCartesian(description.exitLocation);
@@ -83,7 +92,11 @@ export default class Maze {
                         wallObject.position.set(i - description.size.width / 2.0, 0.5, j - description.size.height / 2.0 + 0.5);
                         this.object.add(wallObject);
                     }
+                }
+            }
 
+            for (let i = 0; i <= description.size.width; i++) { // In order to represent the eastmost walls, the map width is one column greater than the actual maze width
+                for (let j = 0; j <= description.size.height; j++) { // In order to represent the southmost walls, the map height is one row greater than the actual maze height
                     if (description.map[j][i] == 4) {
                         const position = [j - 0.5, i];
                         this.doorObjectHorizontal.push(this.cellToCartesian(position));
@@ -92,18 +105,22 @@ export default class Maze {
                         this.doors.push(this.doorObject);
 
                     }
+                }
+            }
 
+            for (let i = 0; i <= description.size.width; i++) { // In order to represent the eastmost walls, the map width is one column greater than the actual maze width
+                for (let j = 0; j <= description.size.height; j++) { // In order to represent the southmost walls, the map height is one row greater than the actual maze height
                     if (description.map[j][i] == 5) {
                         const position = [j, i - 0.5 ];
                         this.doorObjectVertical.push(this.cellToCartesian(position));
                         // Create the door
                         this.doorObject = new Door(doorParameters,[j,i]);
                         this.doors.push(this.doorObject);
-
                     }
                 }
             }
 
+            
             this.object.scale.set(this.scale.x, this.scale.y, this.scale.z);
             this.loaded = true;
         }
@@ -158,6 +175,9 @@ export default class Maze {
 
     distanceToWestWall(position) {
         const indices = this.cartesianToCell(position);
+        console.log("west");
+        console.log(position);
+        console.log(indices);
         if (this.map[indices[0]][indices[1]] == 1 || this.map[indices[0]][indices[1]] == 3) {
             return position.x - this.cellToCartesian(indices).x + this.scale.x / 2.0;
         }
@@ -166,6 +186,9 @@ export default class Maze {
 
     distanceToEastWall(position) {
         const indices = this.cartesianToCell(position);
+        console.log("east");
+        console.log(position);
+        console.log(indices);
         indices[1]++;
         if (this.map[indices[0]][indices[1]] == 1 || this.map[indices[0]][indices[1]] == 3) {
             return this.cellToCartesian(indices).x - this.scale.x / 2.0 - position.x;
@@ -175,6 +198,9 @@ export default class Maze {
 
     distanceToNorthWall(position) {
         const indices = this.cartesianToCell(position);
+        console.log("north");
+        console.log(position);
+        console.log(indices);
         if (this.map[indices[0]][indices[1]] == 2 || this.map[indices[0]][indices[1]] == 3) {
             return position.z - this.cellToCartesian(indices).z + this.scale.z / 2.0;
         }
@@ -183,6 +209,9 @@ export default class Maze {
 
     distanceToSouthWall(position) {
         const indices = this.cartesianToCell(position);
+        console.log("south");
+        console.log(position);
+        console.log(indices);
         indices[0]++;
         if (this.map[indices[0]][indices[1]] == 2 || this.map[indices[0]][indices[1]] == 3) {
             return this.cellToCartesian(indices).z - this.scale.z / 2.0 - position.z;
@@ -269,15 +298,14 @@ export default class Maze {
     foundPassage(position) {
         if(this.accessToBuilding.length>0){
             //console.log("lenght -> ",this.accessToBuilding.length);
+            //console.log("vou ver se é uma passagem");
             for(let i=0; i<this.accessToBuilding.length; i++){
                 let corredor = this.accessToBuilding[i];
-                /*console.log("player -> ",this.cartesianToCell(position));
-                console.log("access 1 -> ",corredor[2]);
-                console.log("access 2 -> ",corredor[3]);*/
+                
                 if (Math.abs(position.x - this.cellToCartesian(corredor[2]).x) < 0.5 * this.scale.x && Math.abs(position.z - this.cellToCartesian(corredor[2]).z) < 0.5 * this.scale.z
                 || Math.abs(position.x - this.cellToCartesian(corredor[3]).x) < 0.5 * this.scale.x && Math.abs(position.z - this.cellToCartesian(corredor[3]).z) < 0.5 * this.scale.z){
-
-                    return [corredor[0], corredor[1]];
+                    
+                    return [corredor[0], corredor[1], corredor[4]];
 
                 }
 

@@ -157,18 +157,18 @@ export default class ThumbRaiser {
     constructor(generalParameters,mazeParameters, buildingParameters, playerParameters, lightsParameters, fogParameters, fixedViewCameraParameters, firstPersonViewCameraParameters, thirdPersonViewCameraParameters, topViewCameraParameters, miniMapCameraParameters, doorParameters, elevatorParameters) {
         this.generalParameters = merge({}, generalData, generalParameters);
 
-        this.buildingA1Parameters = merge({}, buildingA1Data, mazeParameters);
-        this.buildingA2Parameters = merge({}, buildingA2Data, mazeParameters);
-        this.buildingB1Parameters =merge({},buildingB1Data,mazeParameters);
-        this.buildingB2Parameters =merge({},buildingB2Data,mazeParameters);
-        this.buildingB3Parameters =merge({},buildingB3Data,mazeParameters);
-        this.buildingC1Parameters =merge({},buildingC1Data,mazeParameters);
-        this.buildingC2Parameters =merge({},buildingC2Data,mazeParameters);
-        this.buildingC3Parameters =merge({},buildingC3Data,mazeParameters);
-        this.buildingC4Parameters =merge({},buildingC4Data,mazeParameters);
-        this.buildingD1Parameters =merge({},buildingD1Data,mazeParameters);
-        this.buildingD2Parameters =merge({},buildingD2Data,mazeParameters);
-        this.buildingD3Parameters =merge({},buildingD3Data,mazeParameters);
+        this.buildingA1Parameters = merge({},buildingA1Data,mazeParameters);
+        this.buildingA2Parameters = merge({},buildingA2Data,mazeParameters);
+        this.buildingB1Parameters = merge({},buildingB1Data,mazeParameters);
+        this.buildingB2Parameters = merge({},buildingB2Data,mazeParameters);
+        this.buildingB3Parameters = merge({},buildingB3Data,mazeParameters);
+        this.buildingC1Parameters = merge({},buildingC1Data,mazeParameters);
+        this.buildingC2Parameters = merge({},buildingC2Data,mazeParameters);
+        this.buildingC3Parameters = merge({},buildingC3Data,mazeParameters);
+        this.buildingC4Parameters = merge({},buildingC4Data,mazeParameters);
+        this.buildingD1Parameters = merge({},buildingD1Data,mazeParameters);
+        this.buildingD2Parameters = merge({},buildingD2Data,mazeParameters);
+        this.buildingD3Parameters = merge({},buildingD3Data,mazeParameters);
 
         this.playerParameters = merge({}, playerData, playerParameters);
         this.lightsParameters = merge({}, lightsData, lightsParameters);
@@ -181,9 +181,19 @@ export default class ThumbRaiser {
         this.doorParameters = merge({}, doorData, doorParameters);
         this.elevatorParameters = merge({}, elevatorData, elevatorParameters);
         
-        //Automatic Movement
-        this.automaticMovement= document.getElementById("automaticMovement");
-        this.automaticMovement.checked= false;
+       //Automatic Movement
+       this.automaticMovementTable= document.getElementById("automaticMovement");
+       this.automaticMovementTable.checked= false;
+
+       this.automaticMovement=false;
+       this.destination;
+       this.path;
+
+       this.automaticMovementCheckBox= document.getElementById("automaticMovement");
+       this.automaticMovementCheckBox.checked= false;
+
+       //Create the Automatic Movement Table and make its node invisible
+       this.buttonContainer = document.createElement('matrix');
 
         // Create a 2D scene (the viewports frames)
         this.scene2D = new THREE.Scene();
@@ -202,7 +212,7 @@ export default class ThumbRaiser {
         this.scene3D = new THREE.Scene();
 
         // Create the maze
-        this.maze = new Maze(buildingParameters,this.doorParameters);
+        this.maze = new Maze(buildingParameters,this.doorParameters,0);
 
         // Create the player
         this.player = new Player(this.playerParameters);
@@ -231,59 +241,8 @@ export default class ThumbRaiser {
         this.statistics = new Stats();
         this.statistics.dom.style.visibility = "hidden";
         document.body.appendChild(this.statistics.dom);
-
-        //Create the Automatic Movement Table and make its node invisible
-
-        this.matriz = [
-            [3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 2, 2, 2, 3, 2, 2, 2, 3, 2, 3, 2, 1],
-            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 6],
-            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 2, 2, 2, 2, 4, 2, 2, 2, 2, 0, 0, 1],
-            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
-            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
-            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 2, 2, 2, 1, 0, 0, 0, 0, 3, 2, 2, 1],
-            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1],
-            [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0]
-        ];
-
-       
-
-        this.container= document.createElement('container');
-
-        this.buttonContainer = document.createElement('matrix');
-
-        
-        for (let i = 0; i < this.matriz.length; i++) {
-            for (let j = 0; j < this.matriz[i].length; j++) {
-                 this.buttonMatrix = document.createElement('button');
-                this.buttonMatrix.textContent = this.matriz[i][j];
-                this.buttonMatrix.style.visibility= "hidden";
-
-                // Adiciona uma função ao clique do botão
-                this.buttonMatrix.addEventListener('click', ()=> {
-                    
-                    console.log('Destino: '+i+', '+j);
-                    this.movePlayerToPosition(i,j);
-                }
-                );
-
-                
-                this.buttonContainer.appendChild(this.buttonMatrix);
-            }
-            this.lineBreak = document.createElement('br');
-            this.buttonContainer.appendChild(this.lineBreak);
-        }
-        //document.body.appendChild(this.buttonContainer);
-
-        
-      
-       // this.buttonMatrixList = this.container.querySelectorAll('buttonMatrix');
         
         
-        
-
 
         // Create a renderer and turn on shadows in the renderer
         this.renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -294,16 +253,13 @@ export default class ThumbRaiser {
         this.renderer.shadowMap.enabled = true;
         this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         this.renderer.setSize(window.innerWidth, window.innerHeight);
-        //document.body.appendChild(this.renderer.domElement);
+        document.body.appendChild(this.renderer.domElement);
 
-        this.container.appendChild(this.renderer.domElement);
-        document.body.appendChild(this.container);
+        
         // Set the mouse move action (none)
         this.dragMiniMap = false;
         this.changeCameraDistance = false;
         this.changeCameraOrientation = false;
-
-        this.container.appendChild(this.buttonContainer);
 
         // Set the game state
         this.gameRunning = false;
@@ -336,10 +292,6 @@ export default class ThumbRaiser {
         this.statisticsCheckBox = document.getElementById("statistics");
         this.statisticsCheckBox.checked = false;
 
-        this.automaticMovementCheckBox= document.getElementById("automaticMovement");
-        this.automaticMovementCheckBox.checked= false;
-        //Build Automatic Movement Table
-       // this.buildAutomaticMovementTable();
 
         // Build the help panel
         this.buildHelpPanel();
@@ -392,11 +344,20 @@ export default class ThumbRaiser {
 
         this.activeElement = document.activeElement;
 
-        this.automaticMovement.addEventListener("change", event => this.elementChange(event));
+        this.automaticMovementCheckBox.addEventListener("change", event => this.elementChange(event));
 
     }
 
-   
+    setDestination(i,j,map){
+        i = i - 5;
+        j = j - 11;
+
+        const start = [0,0];//[this.player.position.z, this.player.position.x];
+        const end = [j,i];
+
+        this.destination = new THREE.Vector3(j, 0, i);
+        //this.path = this.findShortestPath(start,end,map)
+   }
     
     movePlayerToPosition(i, j) {
         i = i - 5;
@@ -433,13 +394,7 @@ export default class ThumbRaiser {
         
     }
 
-    /*  while(this.player.position != newPosition){
-                if (this.player.position.x > newPosition.x ) this.player.position.x=this.player.position.x+0.1;
-                else if (this.player.position.x < newPosition.x) this.player.position.x=this.player.position.x-0.1;
 
-                if(this.player.position.z > newPosition.z )this.player.position.z=this.player.position.z+0.1
-                else if (this.player.position.z < newPosition.z) this.player.position.z=this.player.position.z-0.1;
-            } */
 
     buildHelpPanel() {
         const table = document.getElementById("help-table");
@@ -789,8 +744,8 @@ export default class ThumbRaiser {
     }
 
     collision(position) {
-        return this.maze.distanceToWestWall(position) < this.player.radius || this.maze.distanceToEastWall(position) < this.player.radius
-        || this.maze.distanceToNorthWall(position) < this.player.radius || this.maze.distanceToSouthWall(position) < this.player.radius
+        return this.maze.distanceToEastWall(position) < this.player.radius || this.maze.distanceToWestWall(position) < this.player.radius ||
+        this.maze.distanceToSouthWall(position) < this.player.radius || this.maze.distanceToNorthWall(position) < this.player.radius 
     }
 
     collision_door(position) {
@@ -806,7 +761,7 @@ export default class ThumbRaiser {
     update() {
         if (!this.gameRunning) {
 
-            if (this.maze.loaded && this.player.loaded /*&& this.doors.every(door => door.loaded)*/) { // If all resources have been loaded
+            if (this.maze.loaded && this.player.loaded) { // If all resources have been loaded
                 // Add the maze, the player and the lights to the scene
 
                 this.doorsTR = new Array();
@@ -822,11 +777,52 @@ export default class ThumbRaiser {
 
                 this.matriz= this.maze.map;
 
+                this.buttonContainer.innerHTML = '';
+                this.automaticMovementCheckBox.checked=false;
+
+                
+                for (let i = 0; i < this.matriz.length; i++) {
+                    for (let j = 0; j < this.matriz[i].length; j++) {
+                         this.buttonMatrix = document.createElement('button');
+                        this.buttonMatrix.textContent = this.matriz[i][j];
+                        this.buttonMatrix.style.visibility= "visible";
+        
+                        // Adiciona uma função ao clique do botão
+                        this.buttonMatrix.addEventListener('click', ()=> {
+                            
+                            console.log('Destino: '+i+', '+j);
+                            //this.movePlayerToPosition(i,j);
+                            this.setDestination(i,j,this.matriz);
+                            this.automaticMovement=true;
+                        }
+                        );
+        
+                        
+                        this.buttonContainer.appendChild(this.buttonMatrix);
+                    }
+                    this.lineBreak = document.createElement('br');
+                    this.buttonContainer.appendChild(this.lineBreak);
+                }
+
+                document.body.appendChild(this.buttonContainer);
+
+
                 this.scene3D.add(this.maze.object);
 
                 let y=0;
 
                 this.doorsTR = this.maze.doors;
+
+                if(this.maze.doorObjectVertical.length>0){
+                    //5
+                    for(let i=0; i<this.maze.doorObjectVertical.length; i++){
+                        this.scene3D.add(this.doorsTR[y].object);
+                        this.doorsTR[y].object.position.set(this.maze.doorObjectVertical[i].x,this.maze.doorObjectVertical[i].y,this.maze.doorObjectVertical[i].z);
+                        this.doorsTR[y].object.rotation.y = Math.PI / 2.0;
+                        y++;
+                    }
+                }
+
                 if(this.maze.doorObjectHorizontal.length>0){
                     //4
                     for(let i=0; i< this.maze.doorObjectHorizontal.length; i++){
@@ -837,15 +833,7 @@ export default class ThumbRaiser {
                     }
                 }
 
-                if(this.maze.doorObjectHorizontal.length>0){
-                    //5
-                    for(let i=0; i<this.maze.doorObjectVertical.length; i++){
-                        this.scene3D.add(this.doorsTR[y].object);
-                        this.doorsTR[y].object.position.set(this.maze.doorObjectVertical[i].x,this.maze.doorObjectVertical[i].y,this.maze.doorObjectVertical[i].z);
-                        this.doorsTR[y].object.rotation.y = Math.PI / 2.0;
-                        y++;
-                    }
-                }
+                
 
                 this.scene3D.add(this.elevator.object);
                 this.elevator.object.position.set(this.maze.elevatorDoorLocation.x-0.5,this.maze.elevatorDoorLocation.y,this.maze.elevatorDoorLocation.z+0.5);
@@ -868,7 +856,7 @@ export default class ThumbRaiser {
 
 
                 // Set the player's position and direction
-                this.player.position = this.maze.initialPosition.clone();
+                this.player.position = this.maze.initialPosition;
                 this.player.direction = this.maze.initialDirection;
 
 
@@ -893,6 +881,7 @@ export default class ThumbRaiser {
         const deltaT = this.clock.getDelta();
         this.animations.update(deltaT);
         this.animations_elevator.update(deltaT);
+        
 
         for(let i=0; i<this.animationsDoors.length; i++){
             this.animationsDoors[i].update(deltaT);
@@ -906,8 +895,8 @@ export default class ThumbRaiser {
             }
             let passage = this.maze.foundPassage(this.player.position);
             if (passage!=null) {
-
-                this.userInterface.changeFloor(passage[1], passage[0]);
+                
+                this.userInterface.selectPassageWay(passage[1], passage[0], passage[2]);
             }
             else {
                 let coveredDistance = this.player.walkingSpeed * deltaT;
@@ -926,30 +915,47 @@ export default class ThumbRaiser {
                 if (this.player.keyStates.backward) {
                     const newPosition = new THREE.Vector3(-coveredDistance * Math.sin(direction), 0.0, -coveredDistance * Math.cos(direction)).add(this.player.position);
                     if (this.collision(newPosition)) {
-
+                        
                     }
                     else if (this.collision_door(newPosition)) {
                         let posPlayer = this.maze.cartesianToCell(newPosition);
                         for(let i=0;i<this.doorsTR.length;i++){
-                            let posPorta = this.animationsDoors[i].location;
+                            let posPorta = this.doorsTR[i].location;
                             if(posPorta[0] == posPlayer[0] && posPorta[1] == posPlayer[1]){
-                                this.animationsDoors[i].fadeToAction("door|Open", 0.1);
-
-                                break;
+                                for(let j=0;j<this.animationsDoors.length;j++){
+                                    if(posPorta == this.animationsDoors[j].location){
+                                        this.animationsDoors[j].fadeToAction("door|Open", 0.1);
+                                        // Aguarda 5 segundos (5000 milissegundos) antes de executar a próxima linha
+                                        setTimeout(() => {
+                                            this.animationsDoors[j].fadeToAction("door|Close", 0.1);
+                                        }, 5000);
+                                        break;
+                                    }
+                                }
                             }
                         }
                         this.player.position = newPosition;
                     }
                     else if (this.collision_elevator(newPosition)) {
+                        const position = this.maze.cartesianToCell(this.player.position);
                         this.animations_elevator.fadeToAction("02_open", 0.2);
+                        setTimeout(() => {
+                            this.player.position = this.maze.elevator;
+                            this.animations_elevator.dispose();
+                        }, 2000);
                         console.log("BUILDING");
                         console.log(this.maze.building);
                         console.log("PLAYER POSTION");
-                        const position = this.maze.cartesianToCell(this.player.position);
                         console.log(position);
-                        this.userInterface.selectFloor(this.maze.building[1], this.maze.building[0], position);
+                        setTimeout(() => {
+                            this.userInterface.selectFloor(this.maze.building[1], this.maze.building[0], position);
+                        }, 4000);
+                        
 
                     }
+
+
+
                     else {
                         this.animations.fadeToAction("metarig|Walk", 0.2);
                         this.player.position = newPosition;
@@ -957,9 +963,102 @@ export default class ThumbRaiser {
                 }
                 else if (this.player.keyStates.forward) {
                     const newPosition = new THREE.Vector3(coveredDistance * Math.sin(direction), 0.0, coveredDistance * Math.cos(direction)).add(this.player.position);
-                    console.log(newPosition);
+                    
                     if (this.collision(newPosition)) {
+                        
+                    }
+                    else if (this.collision_door(newPosition)) {
+                        let posPlayer = this.maze.cartesianToCell(newPosition);
+                        for(let i=0;i<this.doorsTR.length;i++){
+                            let posPorta = this.doorsTR[i].location;
+                            if(posPorta[0] == posPlayer[0] && posPorta[1] == posPlayer[1]){
+                                for(let j=0;j<this.animationsDoors.length;j++){
+                                    if(posPorta == this.animationsDoors[j].location){
+                                        this.animationsDoors[j].fadeToAction("door|Open", 0.1);
+                                        // Aguarda 5 segundos (5000 milissegundos) antes de executar a próxima linha
+                                        setTimeout(() => {
+                                            this.animationsDoors[j].fadeToAction("door|Close", 0.1);
+                                        }, 5000);
+                                        break;
+                                    }
+                                }
+                                break;
+                            }
+                        }
+                        this.player.position = newPosition;
 
+                    }
+                    else if (this.collision_elevator(newPosition)) {
+                        const position = this.maze.cartesianToCell(this.player.position);
+                        this.animations_elevator.fadeToAction("02_open", 0.2);
+                        setTimeout(() => {
+                            this.player.position = this.maze.elevator;
+                            this.animations_elevator.dispose();
+                        }, 2000);
+                        console.log("BUILDING");
+                        console.log(this.maze.building);
+                        console.log("PLAYER POSTION");
+                        console.log(position);
+                        setTimeout(() => {
+                            this.userInterface.selectFloor(this.maze.building[1], this.maze.building[0], position);
+                        }, 4000);
+                        
+
+                    }
+                    else {
+                        this.animations.fadeToAction("metarig|Walk", 0.2);
+                        this.player.position = newPosition;
+                    }
+                }
+
+
+                else if(this.automaticMovement==true){
+                    let i=0, nextPosition;
+                   // const row = this.path[i][0];
+                    //const col = this.path[i][1];
+                    //nextPosition= new THREE.Vector3(this.path[i][0],0,this.path[i][1]);
+
+                    console.log(this.automaticMovement);
+                    const direction = this.destination.clone().sub(this.player.position);
+                    let distance = direction.length();
+            
+                    // Create model animations (states)
+                    this.animations = new Animations(this.player.object, this.player.animations);
+                
+                    
+                    this.animations.fadeToAction("metarig|Walk", 0.1);
+
+                    // Calculate the direction and distance to the destination
+                        
+                    // Set the player's direction
+                    console.log(distance);
+                    this.player.direction = Math.atan2(direction.x, direction.z) * (180 / Math.PI);
+                
+                    // Move the player towards the destination
+                    const movement = direction.clone().normalize().multiplyScalar(coveredDistance);
+                    let newPosition=this.player.position.add(movement);
+                    
+                    
+                
+                    // Update the player's object position
+                    this.player.object.position.copy(this.player.position);
+            
+                
+                    // Check if the player has reached the destination
+                            if (distance < 0.1) {
+                        
+                        // Player has reached the destination
+                        console.log('Player reached destination');
+
+                        this.automaticMovement=false;
+                    }
+            
+                    
+                    //}
+
+
+                    if (this.collision(newPosition)) {
+                        direction+=directionIncrement;
                     }
                     else if (this.collision_door(newPosition)) {
                         let posPlayer = this.maze.cartesianToCell(newPosition);
@@ -989,10 +1088,11 @@ export default class ThumbRaiser {
                         this.animations.fadeToAction("metarig|Walk", 0.2);
                         this.player.position = newPosition;
                     }
+
                 }
 
+
                 else {
-                    //this.animations.fadeToAction("IDLE", 0.2);
                     this.animations.fadeToAction("metarig|Idle(HeavyBreathing)", 0.2);
                 }
                 this.player.object.position.set(this.player.position.x, this.player.position.y, this.player.position.z);

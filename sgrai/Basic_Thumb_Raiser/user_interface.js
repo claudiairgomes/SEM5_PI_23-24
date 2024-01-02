@@ -35,6 +35,8 @@ export default class UserInteraction {
         this.floorParametersC.push(this.buildingC3Parameters);
         this.floorParametersC.push(this.buildingC4Parameters);
 
+        this.floorParametersC.push(this.buildingC333Parameters);
+
         this.floorParametersD = new Array();
         this.floorParametersD.push(this.buildingD1Parameters);
         this.floorParametersD.push(this.buildingD2Parameters);
@@ -62,41 +64,25 @@ export default class UserInteraction {
         this.gui = new GUI({ hideable: false });
         const buildingFolder = this.gui.addFolder('Buildings');
 
-        const automaticMovement = this.gui.addFolder('Automatic Movement');
-
-
         //Create the building A folder
-        const buildingA=buildingFolder.addFolder("Building A");
-        const buildingAA=automaticMovement.addFolder("Building A");
-
+        const buildingA=buildingFolder.addFolder("Building A")
 
         // Add a button to change building parameters
         buildingA.add({ 'Floor 1': () => changeBuildingParameters(this.buildingA1Parameters) }, 'Floor 1');
         buildingA.add({ 'Floor 2': () => changeBuildingParameters(this.buildingA2Parameters) }, 'Floor 2');
 
-        // Add a button to do an automatic movement
-        buildingAA.add({ 'Floor 1': () => automaticMovementFunction(buildingA1Data) }, 'Floor 1');
-        buildingAA.add({ 'Floor 2': () => automaticMovementFunction(this.buildingA2Parameters) }, 'Floor 2');
-
 
          //Create the building B folder
          const buildingB=buildingFolder.addFolder("Building B")
-         const buildingBB=automaticMovement.addFolder("Building B")
 
          // Add a button to change building parameters
         buildingB.add({ 'Floor 1': () => changeBuildingParameters(this.buildingB1Parameters) }, 'Floor 1');
         buildingB.add({ 'Floor 2': () => changeBuildingParameters(this.buildingB2Parameters) }, 'Floor 2');
         buildingB.add({ 'Floor 3': () => changeBuildingParameters(this.buildingB3Parameters) }, 'Floor 3');
-         
-        // Add a button to do an automatic movement
-         buildingBB.add({ 'Floor 1': () => automaticMovementFunction(this.buildingB1Parameters) }, 'Floor 1');
-         buildingBB.add({ 'Floor 2': () => automaticMovementFunction(this.buildingB2Parameters) }, 'Floor 2');
-         buildingBB.add({ 'Floor 3': () => automaticMovementFunction(this.buildingB3Parameters) }, 'Floor 3');
 
 
         //Create the building C folder
-        const buildingC=buildingFolder.addFolder("Building C");
-        const buildingCC=automaticMovement.addFolder("Building C")
+        const buildingC=buildingFolder.addFolder("Building C")
 
         // Add a button to change building parameters
         buildingC.add({ 'Floor 1': () => changeBuildingParameters(this.buildingC1Parameters) }, 'Floor 1');
@@ -104,26 +90,14 @@ export default class UserInteraction {
         buildingC.add({ 'Floor 3': () => changeBuildingParameters(this.buildingC3Parameters) }, 'Floor 3');
         buildingC.add({ 'Floor 4': () => changeBuildingParameters(this.buildingC4Parameters) }, 'Floor 4');
 
-        // Add a button to do an automatic movement
-        buildingCC.add({ 'Floor 1': () => automaticMovementFunction(this.buildingC1Parameters) }, 'Floor 1');
-        buildingCC.add({ 'Floor 2': () => automaticMovementFunction(this.buildingC2Parameters) }, 'Floor 2');
-        buildingCC.add({ 'Floor 3': () => automaticMovementFunction(this.buildingC3Parameters) }, 'Floor 3');
-        buildingCC.add({ 'Floor 4': () => automaticMovementFunction(this.buildingC4Parameters) }, 'Floor 4');
-
 
         //Create the building D folder
         const buildingD=buildingFolder.addFolder("Building D")
-        const buildingDD=automaticMovement.addFolder("Building D")
 
         // Add a button to change building parameters
         buildingD.add({ 'Floor 1': () => changeBuildingParameters(this.buildingD1Parameters) }, 'Floor 1');
         buildingD.add({ 'Floor 2': () => changeBuildingParameters(this.buildingD2Parameters) }, 'Floor 2');
         buildingD.add({ 'Floor 3': () => changeBuildingParameters(this.buildingD3Parameters) }, 'Floor 3');
-
-        // Add a button to change building parameters
-        buildingDD.add({ 'Floor 1': () => changeBuildingParameters(this.buildingD1Parameters) }, 'Floor 1');
-        buildingDD.add({ 'Floor 2': () => changeBuildingParameters(this.buildingD2Parameters) }, 'Floor 2');
-        buildingDD.add({ 'Floor 3': () => changeBuildingParameters(this.buildingD3Parameters) }, 'Floor 3');
 
 
         function changeBuildingParameters(parameters){
@@ -133,37 +107,6 @@ export default class UserInteraction {
                 // Cria um novo edifício com base nos parâmetros fornecidos
                 createMaze(parameters);
             }
-        }
-
-        function automaticMovementFunction(parameters){
-           
-     /*   let container= document.createElement('container');
-
-        let buttonContainer = document.createElement('matrix');
-
-        let matriz = parameters.
-
-        
-        for (let i = 0; i < matriz.length; i++) {
-            for (let j = 0; j < matriz[i].length; j++) {
-                 let buttonMatrix = document.createElement('button');
-                buttonMatrix.textContent = this.matriz[i][j];
-                buttonMatrix.style.visibility= "hidden";
-
-                // Adiciona uma função ao clique do botão
-                buttonMatrix.addEventListener('click', ()=> {
-                    
-                    console.log('Destino: '+i+', '+j);
-                    this.movePlayerToPosition(i,j);
-                }
-                );
-
-                
-               buttonContainer.appendChild(this.buttonMatrix);
-            }
-            let lineBreak = document.createElement('br');
-            buttonContainer.appendChild(this.lineBreak);
-        }*/
         }
 
         function createMaze(parameters) {
@@ -183,42 +126,11 @@ export default class UserInteraction {
             }
 
             // Cria um novo edifício
-            finalMaze = new Maze(parameters,thumbRaser.doorParameters);
+            finalMaze = new Maze(parameters,thumbRaser.doorParameters,0);
             finalMaze.scale= thumbRaser.maze.scale
             thumbRaser.maze= finalMaze;
         }
 
-
-       /* function load(parameters){
-            for (const [key, value] of Object.entries(parameters)) {
-                this[key] = value;
-            }
-           
-    
-            // The cache must be enabled; additional information available at https://threejs.org/docs/api/en/loaders/FileLoader.html
-            THREE.Cache.enabled = true;
-    
-            // Create a resource file loader
-            const loader = new THREE.FileLoader();
-    
-            // Set the response type: the resource file will be parsed with JSON.parse()
-            loader.setResponseType("json");
-    
-            // Load a maze description resource file
-            loader.load(
-                //Resource URL
-                this.url,
-    
-                // onLoad callback
-                description => this.onLoad(description),
-    
-                // onProgress callback
-                xhr => this.onProgress(this.url, xhr),
-    
-                // onError callback
-                error => this.onError(this.url, error)
-            );
-        }*/
 
 
         // Create the lights folder
@@ -256,23 +168,87 @@ export default class UserInteraction {
         // Create the shadows folder
         const shadowsFolder = this.gui.addFolder("Shadows");
         shadowsFolder.add(renderer.shadowMap, "enabled").onChange(enabled => shadowsCallback(enabled));
-
-
-
     }
 
 
     selectFloor(numFloors, currentBuilding, playerPosition) {
-        // Remover todos os elementos com a classe 'floorSelectionRect'
+        // Remove todos os elementos com a classe 'floorSelectionRect'
         const existingRects = document.querySelectorAll('.floorSelectionRect');
         existingRects.forEach(rect => rect.parentNode.removeChild(rect));
 
-        // Remover a sobreposição
+        // Remove a sobreposição
         const existingOverlay = document.querySelector('.overlay');
         if (existingOverlay) {
             existingOverlay.parentNode.removeChild(existingOverlay);
         }
 
+        // Cria um elemento de sobreposição para cobrir a página
+        const overlay = document.createElement('div');
+        overlay.classList.add('overlay'); // Adicionar a classe 'overlay'
+        overlay.style.position = 'fixed';
+        overlay.style.top = '0';
+        overlay.style.left = '0';
+        overlay.style.width = '100%';
+        overlay.style.height = '100%';
+        overlay.style.background = 'rgba(0, 0, 0, 0.0)'; // Cor de fundo com transparência para um efeito de sobreposição
+        overlay.style.backdropFilter = 'blur(10px)'; 
+        document.body.appendChild(overlay);
+
+        // Calcula a altura do retângulo com base no número de botões
+        const rectHeight = 20 + numFloors * 60;
+
+        // Cria um retângulo para a seleção do piso
+        const floorSelectionRect = document.createElement('div');
+        floorSelectionRect.classList.add('floorSelectionRect'); // Adiciona a classe 'floorSelectionRect'
+        floorSelectionRect.style.width = '300px'; // Largura
+        floorSelectionRect.style.height = `${rectHeight}px`; // Altura proporcional aos botões
+        floorSelectionRect.style.backgroundColor = '#808080'; // Cor cinza
+        floorSelectionRect.style.position = 'absolute';
+        floorSelectionRect.style.top = '50%'; // Centra verticalmente
+        floorSelectionRect.style.left = '50%'; // Centra horizontalmente
+        floorSelectionRect.style.transform = 'translate(-50%, -50%)'; // Centra corretamente
+        floorSelectionRect.style.cursor = 'pointer';
+        floorSelectionRect.style.display = 'flex'; // Organiza os botões
+        floorSelectionRect.style.flexDirection = 'column'; // Dispõem os botões verticalmente
+        floorSelectionRect.style.alignItems = 'center'; // Centra os botões horizontalmente
+        floorSelectionRect.style.textAlign = 'center'; // Centra o texto
+
+        // Adicionar um parágrafo para a frase informativa
+        const floorSelectionText = document.createElement('p');
+        floorSelectionText.innerText = 'Escolha o piso que quer aceder';
+        floorSelectionText.style.fontSize = '20px'; // Tamanho da fonte
+        floorSelectionText.style.marginBottom = '10px'; // Margem
+        floorSelectionRect.appendChild(floorSelectionText);
+
+        for (let i = 1; i <= numFloors; i++) {
+            const floorButton = document.createElement('button');
+            floorButton.innerText = 'Piso ' + i;
+            floorButton.addEventListener('click', () => {
+                console.log("BOTÃO ELEVADOR")
+                this.changeFloor(i, currentBuilding, playerPosition);
+                document.body.removeChild(floorSelectionRect); // Remove o retângulo de seleção ao clicar num botão de piso
+                document.body.removeChild(overlay); // Remove a sobreposição ao clicar num botão de piso
+            });
+            floorButton.style.fontSize = '16px'; // Tamanho da fonte
+            floorButton.style.padding = '10px 80px'; // Preenchimento
+            floorSelectionRect.appendChild(floorButton);
+        }
+
+        // Adiciona o retângulo à página
+        document.body.appendChild(floorSelectionRect);
+    }
+
+    selectPassageWay(floorNumber, building, playerPosition) {
+        // Remover todos os retângulos existentes
+        const existingRects = document.querySelectorAll('.floorSelectionRect');
+        existingRects.forEach(rect => rect.parentNode.removeChild(rect));
+    
+        // Remover a sobreposição
+        const existingOverlay = document.querySelector('.overlay');
+        if (existingOverlay) {
+            existingOverlay.parentNode.removeChild(existingOverlay);
+        }
+    
         // Criar um elemento de sobreposição para cobrir a página
         const overlay = document.createElement('div');
         overlay.classList.add('overlay'); // Adicionar a classe 'overlay'
@@ -282,60 +258,59 @@ export default class UserInteraction {
         overlay.style.width = '100%';
         overlay.style.height = '100%';
         overlay.style.background = 'rgba(0, 0, 0, 0.0)'; // Cor de fundo com transparência para um efeito de sobreposição
-        overlay.style.backdropFilter = 'blur(10px)'; // Ajuste o valor conforme necessário
+        overlay.style.backdropFilter = 'blur(10px)'; 
         document.body.appendChild(overlay);
-
-        // Calcular a altura do retângulo com base no número de botões
-        const rectHeight = 20 + numFloors * 60; // Ajuste conforme necessário
-
-        // Criar um retângulo para a seleção do piso
+    
+        // Cria um retângulo 
         const floorSelectionRect = document.createElement('div');
-        floorSelectionRect.classList.add('floorSelectionRect'); // Adicionar a classe 'floorSelectionRect'
-        floorSelectionRect.style.width = '300px'; // Ajuste a largura conforme necessário
-        floorSelectionRect.style.height = `${rectHeight}px`; // Altura proporcional aos botões
+        floorSelectionRect.classList.add('floorSelectionRect'); // Adiciona a classe 'floorSelectionRect'
+        floorSelectionRect.style.width = '400px'; // Largura
+        floorSelectionRect.style.height = '100px'; // Altura
         floorSelectionRect.style.backgroundColor = '#808080'; // Cor cinza
         floorSelectionRect.style.position = 'absolute';
-        floorSelectionRect.style.top = '50%'; // Centralizar verticalmente
-        floorSelectionRect.style.left = '50%'; // Centralizar horizontalmente
-        floorSelectionRect.style.transform = 'translate(-50%, -50%)'; // Ajustar para centralizar corretamente
+        floorSelectionRect.style.top = '50%'; // Centra verticalmente
+        floorSelectionRect.style.left = '50%'; // Centra horizontalmente
+        floorSelectionRect.style.transform = 'translate(-50%, -50%)'; // Centra corretamente
         floorSelectionRect.style.cursor = 'pointer';
-        floorSelectionRect.style.display = 'flex'; // Usar flexbox para organizar os botões
-        floorSelectionRect.style.flexDirection = 'column'; // Empilhar os botões verticalmente
-        floorSelectionRect.style.alignItems = 'center'; // Centralizar os botões horizontalmente
-        floorSelectionRect.style.textAlign = 'center'; // Centralizar o texto
-
-        // Adicionar um parágrafo para a frase informativa
+        floorSelectionRect.style.display = 'flex'; // Organiza os elementos
+        floorSelectionRect.style.flexDirection = 'column'; // Dispõe os elementos verticalmente
+        floorSelectionRect.style.alignItems = 'center'; // Centra os elementos horizontalmente
+        floorSelectionRect.style.textAlign = 'center'; // Centra o texto
+    
+        // Adiciona um parágrafo para a frase informativa
         const floorSelectionText = document.createElement('p');
-        floorSelectionText.innerText = 'Escolha o piso que quer aceder';
-        floorSelectionText.style.fontSize = '20px'; // Ajuste o tamanho da fonte conforme necessário
-        floorSelectionText.style.marginBottom = '10px'; // Ajuste a margem conforme necessário
+        floorSelectionText.innerText = 'Corredor de passagem para o piso ' + floorNumber + ' do edifício ' + building;
+        floorSelectionText.style.fontSize = '20px'; // Tamanho da fonte
+        floorSelectionText.style.marginBottom = '10px'; // Margem
         floorSelectionRect.appendChild(floorSelectionText);
+    
+        // Adiciona o botão "Ok"
+        const okButton = document.createElement('button');
+        okButton.innerText = 'Ok';
+        okButton.style.fontSize = '16px'; // Tamanho da fonte
+        okButton.style.padding = '10px 80px'; // Preenchimento
+        okButton.style.backgroundColor = '#ffffff'; // Cor branca
+        okButton.style.cursor = 'pointer';
 
-        for (let i = 1; i <= numFloors; i++) {
-            const floorButton = document.createElement('button');
-            floorButton.innerText = 'Piso ' + i;
-            floorButton.addEventListener('click', () => {
-                this.changeFloor(i, currentBuilding, playerPosition);
-                document.body.removeChild(floorSelectionRect); // Remover o retângulo de seleção ao clicar em um botão de piso
-                document.body.removeChild(overlay); // Remover a sobreposição ao clicar em um botão de piso
-            });
-            floorButton.style.fontSize = '16px'; // Ajuste o tamanho da fonte conforme necessário
-            floorButton.style.padding = '10px 80px'; // Ajuste o preenchimento conforme necessário
-            floorSelectionRect.appendChild(floorButton);
-        }
+        // Adiciona um ouvinte de evento de clique diretamente ao botão
+        okButton.addEventListener('click', () => {
+            this.changeFloor(floorNumber, building, playerPosition);
+            document.body.removeChild(floorSelectionRect); // Remove o retângulo ao clicar no botão
+            document.body.removeChild(overlay); // Remove a sobreposição ao clicar no botão
+        });
 
-        // Adicionar o retângulo à página
+        floorSelectionRect.appendChild(okButton);
+    
+        // Adiciona o retângulo à página
         document.body.appendChild(floorSelectionRect);
     }
 
-
-    // Função para alterar o piso do edifício selecionado
-    changeFloor(floorNumber, currentBuilding/*, overlay*/, playerPosition) {
+     
+    // Função para alterar o piso 
+    changeFloor(floorNumber, currentBuilding, playerPosition) {
 
         console.log("CHANGE FLOORS - CURRENT BUILDING");
         console.log(currentBuilding);
-
-        //document.body.removeChild(overlay); // Remover a sobreposição ao clicar em um botão de piso
 
         switch (currentBuilding) {
             case 'A':
@@ -363,13 +338,13 @@ export default class UserInteraction {
                 break;
         }
 
-        alert('Piso ' + floorNumber + ' selecionado do edifício ' + currentBuilding);
-
+        //alert('Piso ' + floorNumber + ' selecionado do edifício ' + currentBuilding);
     }
 
     handleFloors(selectFloor, floorParameters, playerPosition){
         console.log("HANDLE FLOORS - SELECT FLOOR");
         console.log(selectFloor);
+
         switch (selectFloor) {
             case 1:
                 console.log("FLOOR 1");
@@ -407,7 +382,7 @@ export default class UserInteraction {
     }
 
     createMaze(parameters, playerPosition) {
-        // Remova o labirinto atual da cena se houver um
+        // Remove o labirinto atual da cena se houver um
         if (this.finalMaze) {
             for(let i=0; i< this.thumbRaser.maze.doors.length; i++){
                 this.scene.remove(this.thumbRaser.maze.doors[i].object);
@@ -420,12 +395,7 @@ export default class UserInteraction {
         }
 
         // Cria um novo edifício
-        this.finalMaze = new Maze(parameters, this.thumbRaser.doorParameters);
-
-        this.finalMaze.initialPosition = playerPosition;
-        console.log("PLAYER POSTION - NEW FLOOR");
-
-        console.log(this.finalMaze.initialPosition);
+        this.finalMaze = new Maze(parameters, this.thumbRaser.doorParameters, playerPosition);
         this.finalMaze.scale = this.thumbRaser.maze.scale;
         this.thumbRaser.maze = this.finalMaze;
 
@@ -440,7 +410,5 @@ export default class UserInteraction {
         }
     }
 
-
-
-
 }
+
