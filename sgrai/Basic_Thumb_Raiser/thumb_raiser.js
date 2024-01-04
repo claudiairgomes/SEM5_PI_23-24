@@ -23,6 +23,7 @@ import Lights from "./lights.js";
 import Fog from "./fog.js";
 import Camera from "./camera.js";
 import UserInterface from "./user_interface.js";
+import AutomaticMovementInteraction from "./automaticMovement_interface.js";
 import Animations from "./animations.js";
 import Animations_door from "./animations_door.js";
 import Animations_elevator from "./animations_elevator.js";
@@ -191,6 +192,7 @@ export default class ThumbRaiser {
        this.automaticMovement=false;
        this.destination;
        this.path;
+       this.i=0,
 
 
 
@@ -348,27 +350,31 @@ export default class ThumbRaiser {
     }
 
     setDestination(i,j,map){
-        i = i - 5;
+        i = i - 6;
         j = j - 11;
 
-        const start = [0,0];//[this.player.position.z, this.player.position.x];
+  
+        const start = [Math.round(this.player.position.z), Math.round(this.player.position.x)];
         const end = [j,i];
 
         this.destination = new THREE.Vector3(j, 0, i);
-        //this.path = this.findShortestPath(start,end,map)
+       // this.path = this.findShortestPath(start,end,map);
+        //console.log("Path")
+        //console.log(this.path);
+
    }
     
-   findShortestPath(start,end,map) {
-
-    this.map = map;
-    this.rows = map.length;
-    this.cols = map[0].length;
-
-    const isValid = (row, col) => row >= 0 && row < this.rows && col >= 0 && col < this.cols;
-
-    const visited = Array.from({ length: this.rows }, () => Array(this.cols).fill(false));
+   findShortestPath(start, end, map) {
+    const isValidMove = (row, col) => {
+        if (row >= 0 && row < map.length && col >= 0 && col < map[0].length) {
+            const value = map[row][col];
+            return [0, 4, 5, 6].includes(value);
+        }
+        return false;
+    };
 
     const queue = [{ row: start[0], col: start[1], path: [] }];
+    const visited = Array.from({ length: map.length }, () => Array(map[0].length).fill(false));
     visited[start[0]][start[1]] = true;
 
     const directions = [[-1, 0], [1, 0], [0, -1], [0, 1]];
@@ -380,11 +386,7 @@ export default class ThumbRaiser {
             const newRow = current.row + dir[0];
             const newCol = current.col + dir[1];
 
-            if (
-                isValid(newRow, newCol) &&
-                !visited[newRow][newCol] &&
-                this.isValidMove(this.map[newRow][newCol])
-            ) {
+            if (isValidMove(newRow, newCol) && !visited[newRow][newCol]) {
                 const newPath = [...current.path, [newRow, newCol]];
 
                 if (newRow === end[0] && newCol === end[1]) {
@@ -397,11 +399,8 @@ export default class ThumbRaiser {
         }
     }
 
-    return [];
-}
-
-isValidMove(value) {
-    return [0, 4, 5].includes(value);
+   // alert("Path not found")
+    return []; // Se nenhum caminho for encontrado
 }
 
 
@@ -809,7 +808,7 @@ isValidMove(value) {
                         // Adiciona uma função ao clique do botão
                         this.buttonMatrix.addEventListener('click', ()=> {
                             
-                            console.log('Destino: '+i+', '+j);
+                           // console.log('Destino: '+i+', '+j);
                             //this.movePlayerToPosition(i,j);
                             this.setDestination(i,j,this.matriz);
                             this.automaticMovement=true;
@@ -885,6 +884,8 @@ isValidMove(value) {
                 if (this.userInterface == null) {
                     // Create the user interface
                     this.userInterface = new UserInterface(this.scene3D, this.renderer, this.lights, this.maze,this);
+                    this.automaticMovementInterface = new AutomaticMovementInteraction(this.scene3D, this.maze,this,this.buttonMatrix,this.buttonContainer,this.automaticMovementCheckBox);
+                    
                 }
 
                 // Start the game
@@ -1033,15 +1034,15 @@ isValidMove(value) {
                     }
                 }
 
+                /*                   
 
-                else if(this.automaticMovement==true){
-                    let i=0, nextPosition;
-                    //const row = this.path[i][0];
-                    //const col = this.path[i][1];
-                    //nextPosition= new THREE.Vector3(this.path[i][0],0,this.path[i][1]);
-
-                    console.log(this.automaticMovement);
-                    const direction = this.destination.clone().sub(this.player.position);
+                    let  nextPosition;
+                    let row = this.path[this.i][0];
+                    let col = this.path[this.i][1];
+                    nextPosition= new THREE.Vector3(row,0,col);
+                    this.i++;
+                    //console.log(this.automaticMovement);
+                    const direction = nextPosition.clone().sub(this.player.position);
                     let distance = direction.length();
             
                     // Create model animations (states)
@@ -1053,7 +1054,7 @@ isValidMove(value) {
                     // Calculate the direction and distance to the destination
                         
                     // Set the player's direction
-                    console.log(distance);
+                    //console.log(distance);
                     this.player.direction = Math.atan2(direction.x, direction.z) * (180 / Math.PI);
                 
                     // Move the player towards the destination
@@ -1073,6 +1074,7 @@ isValidMove(value) {
                         console.log('Player reached destination');
 
                         this.automaticMovement=false;
+                        this.i=0;
                     }
             
                     
@@ -1111,6 +1113,96 @@ isValidMove(value) {
                         this.player.position = newPosition;
                     }
 
+
+*/
+
+                else if(this.automaticMovement==true){
+                    let targetPosition = this.destination;//new THREE.Vector3(this.path[this.i][0] , 0.0, this.path[this.i][1] );
+                 
+                   
+                    // Calcula a direção e a distância até a próxima posição
+                    const direction = targetPosition.clone().sub(this.player.position).normalize();
+                    const coveredDistance = 0.1; // ou qualquer valor que faça sentido para a sua cena
+
+                    // Calcula a nova posição progressiva
+                    const newPosition = new THREE.Vector3(
+                        coveredDistance * direction.x + this.player.position.x,
+                        0.0,
+                        coveredDistance * direction.z + this.player.position.z
+                    );
+
+                    // Atualiza a posição do jogador
+                    this.player.position.copy(newPosition);
+
+                    // Atualiza a rotação do jogador
+                    this.player.direction = Math.atan2(direction.x, direction.z) * (180 / Math.PI);
+
+                    // Verifica se o jogador atingiu a próxima posição
+                    if (newPosition.distanceTo(targetPosition) > coveredDistance) {
+                        
+                    } else {
+                        // Se sim, atualiza a posição do jogador para a posição exata
+                        this.player.position.copy(targetPosition);
+
+                        // Continue para a próxima posição no caminho
+                        this.i++;
+
+                        // Se houver mais posições no caminho, chame recursivamente a função
+                        if (newPosition.distanceTo(targetPosition)< 0.1) {
+                           // Player has reached the destination
+                        console.log('Player reached destination');
+
+                        this.automaticMovement=false;
+                   
+                        }
+                    }
+
+                    if (this.collision(newPosition)) {
+                        //while(this.collision(newPosition)){this.player.direction -= directionIncrement;}
+                        
+                    }
+                    else if (this.collision_door(newPosition)) {
+                        let posPlayer = this.maze.cartesianToCell(newPosition);
+                        for(let i=0;i<this.doorsTR.length;i++){
+                            let posPorta = this.doorsTR[i].location;
+                            if(posPorta[0] == posPlayer[0] && posPorta[1] == posPlayer[1]){
+                                for(let j=0;j<this.animationsDoors.length;j++){
+                                    if(posPorta == this.animationsDoors[j].location){
+                                        this.animationsDoors[j].fadeToAction("door|Open", 0.1);
+                                        // Aguarda 5 segundos (5000 milissegundos) antes de executar a próxima linha
+                                        setTimeout(() => {
+                                            this.animationsDoors[j].fadeToAction("door|Close", 0.1);
+                                        }, 5000);
+                                        break;
+                                    }
+                                }
+                                break;
+                            }
+                        }
+                        this.player.position = newPosition;
+
+                    }
+                    else if (this.collision_elevator(newPosition)) {
+                        const position = this.maze.cartesianToCell(this.player.position);
+                        this.animations_elevator.fadeToAction("02_open", 0.2);
+                        setTimeout(() => {
+                            this.player.position = this.maze.elevator;
+                            this.animations_elevator.dispose();
+                        }, 2000);
+                        console.log("BUILDING");
+                        console.log(this.maze.building);
+                        console.log("PLAYER POSTION");
+                        console.log(position);
+                        setTimeout(() => {
+                            this.userInterface.selectFloor(this.maze.building[1], this.maze.building[0], position);
+                        }, 4000);
+                        
+
+                    }else{
+                        this.animations.fadeToAction("metarig|Walk", 0.2);
+                        this.player.position = newPosition;
+                }
+                        
                 }
 
 
