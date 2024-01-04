@@ -182,18 +182,17 @@ export default class ThumbRaiser {
         this.elevatorParameters = merge({}, elevatorData, elevatorParameters);
         
        //Automatic Movement
-       this.automaticMovementTable= document.getElementById("automaticMovement");
-       this.automaticMovementTable.checked= false;
+       this.automaticMovementCheckBox= document.getElementById("automaticMovement");
+       this.automaticMovementCheckBox.checked= false;
+
+              //Create the Automatic Movement Table and make its node invisible
+              this.buttonContainer = document.createElement('matrix');
 
        this.automaticMovement=false;
        this.destination;
        this.path;
 
-       this.automaticMovementCheckBox= document.getElementById("automaticMovement");
-       this.automaticMovementCheckBox.checked= false;
 
-       //Create the Automatic Movement Table and make its node invisible
-       this.buttonContainer = document.createElement('matrix');
 
         // Create a 2D scene (the viewports frames)
         this.scene2D = new THREE.Scene();
@@ -359,40 +358,51 @@ export default class ThumbRaiser {
         //this.path = this.findShortestPath(start,end,map)
    }
     
-    movePlayerToPosition(i, j) {
-        i = i - 5;
-        j = j - 11;
-    
-        const deltaT = this.clock.getDelta();
+   findShortestPath(start,end,map) {
 
-        const destination = new THREE.Vector3(j, 0, i);
-    
-        // Calculate the direction and distance to the destination
-        const direction = destination.clone().sub(this.player.position);
-        const distance = direction.length();
+    this.map = map;
+    this.rows = map.length;
+    this.cols = map[0].length;
 
-    
-        // while(distance >= 0.1){
-        // Set the player's direction
-        this.player.direction = Math.atan2(direction.x, direction.z) * (180 / Math.PI);
-    
-        // Move the player towards the destination
-        const speed = 5.0; // Adjust the speed as needed
-        const coveredDistance = Math.min(speed * deltaT, distance);
-        const movement = direction.clone().normalize().multiplyScalar(coveredDistance);
-        this.player.position.add(movement);
-    
-        // Update the player's object position
-        this.player.object.position.copy(this.player.position);
-    
-        // Check if the player has reached the destination
-        if (distance < 0.1) {
-            // Player has reached the destination
-            console.log('Player reached destination');
+    const isValid = (row, col) => row >= 0 && row < this.rows && col >= 0 && col < this.cols;
+
+    const visited = Array.from({ length: this.rows }, () => Array(this.cols).fill(false));
+
+    const queue = [{ row: start[0], col: start[1], path: [] }];
+    visited[start[0]][start[1]] = true;
+
+    const directions = [[-1, 0], [1, 0], [0, -1], [0, 1]];
+
+    while (queue.length > 0) {
+        const current = queue.shift();
+
+        for (const dir of directions) {
+            const newRow = current.row + dir[0];
+            const newCol = current.col + dir[1];
+
+            if (
+                isValid(newRow, newCol) &&
+                !visited[newRow][newCol] &&
+                this.isValidMove(this.map[newRow][newCol])
+            ) {
+                const newPath = [...current.path, [newRow, newCol]];
+
+                if (newRow === end[0] && newCol === end[1]) {
+                    return newPath;
+                }
+
+                queue.push({ row: newRow, col: newCol, path: newPath });
+                visited[newRow][newCol] = true;
+            }
         }
-        //}
-        
     }
+
+    return [];
+}
+
+isValidMove(value) {
+    return [0, 4, 5].includes(value);
+}
 
 
 
@@ -780,12 +790,21 @@ export default class ThumbRaiser {
                 this.buttonContainer.innerHTML = '';
                 this.automaticMovementCheckBox.checked=false;
 
+                // Assuming you have a string for your caption
+                const captionText = this.maze.building;
+
+                // Get the caption container element
+                const captionContainer = document.getElementById('matrix-caption');
+
+                // Set the caption text
+                captionContainer.textContent = captionText;
+
                 
                 for (let i = 0; i < this.matriz.length; i++) {
                     for (let j = 0; j < this.matriz[i].length; j++) {
                          this.buttonMatrix = document.createElement('button');
                         this.buttonMatrix.textContent = this.matriz[i][j];
-                        this.buttonMatrix.style.visibility= "visible";
+                        this.buttonMatrix.style.visibility= "hidden";
         
                         // Adiciona uma função ao clique do botão
                         this.buttonMatrix.addEventListener('click', ()=> {
@@ -804,7 +823,10 @@ export default class ThumbRaiser {
                     this.buttonContainer.appendChild(this.lineBreak);
                 }
 
-                document.body.appendChild(this.buttonContainer);
+                const matrixElement = document.getElementById('matriz');
+                if (matrixElement) {
+                    matrixElement.appendChild(this.buttonContainer);
+                }
 
 
                 this.scene3D.add(this.maze.object);
@@ -1014,7 +1036,7 @@ export default class ThumbRaiser {
 
                 else if(this.automaticMovement==true){
                     let i=0, nextPosition;
-                   // const row = this.path[i][0];
+                    //const row = this.path[i][0];
                     //const col = this.path[i][1];
                     //nextPosition= new THREE.Vector3(this.path[i][0],0,this.path[i][1]);
 
